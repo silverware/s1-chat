@@ -6,12 +6,11 @@ A website written in noir.
 
 ```bash
 lein deps
-lein run
+lein ring server
 ```
 
 ## License
 
-Copyright (C) 2011 FIXME
+Copyright (C) 2013 Silverware 
 
-Distributed under the Eclipse Public License, the same as Clojure.
 
