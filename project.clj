@@ -16,7 +16,7 @@
                            [jayq "0.1.0-SNAPSHOT"]
                            [fetch "0.1.0-SNAPSHOT"]
                            [handlebars-clj "0.9.0"]
-                           [dieter/dieter "0.3.0"]
+                           ;[dieter/dieter "0.3.0"]
                            [com.cemerick/friend "0.1.3"]
                            ;[friend-oauth2 "0.0.2"]
                            ]

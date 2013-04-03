@@ -1,7 +1,6 @@
 (ns s1-chat.handler
   (:use compojure.core
         s1-chat.views.chat
-        [dieter.core]
         s1-chat.views.common
         s1-chat.views.login
         s1-chat.views.templates.chat
