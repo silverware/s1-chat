@@ -5,6 +5,7 @@
                            [aleph "0.3.0-beta7"]
                            [clj-coffee-script "1.1.0"]
                            [clj-json "0.5.3"]
+                           [ring/ring-jetty-adapter "1.1.0"]
                            [compojure "1.1.5"]
                            [crate "0.1.0-SNAPSHOT"]
                            [ring/ring-devel "1.1.0"]
