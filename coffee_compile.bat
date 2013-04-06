@@ -1,1 +1,0 @@
-coffee --watch -o resources\public\js src-cs

@@ -9,8 +9,5 @@ lein deps
 lein ring server
 ```
 
-## License
-
-Copyright (C) 2013 Silverware 
 
 
