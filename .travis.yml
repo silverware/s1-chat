@@ -1,5 +1,17 @@
+---
 language: clojure
 lein: lein2
 jdk:
-  - openjdk7
-  - openjdk6
+- openjdk7
+- openjdk6
+env:
+  global:
+  - secure: ! 'Ke2J6J/ATDHGBM4umZLumzcvj+g2aQj5ODH8lq92NyeuAzEdHteA7H+ZykXb
+
+      FVE6Jp1yja/WFncDJysWXrjChFDV7JYJ1KCHl+LS8b2yh99YdVNZMO10JilX
+
+      X68hIC3yb/gFcGfNsxzfn2HLDnDNjrEw62GJe2tA88VkttBlfU0='
+
+after_script:
+  - gem install heroku-headless
+  - ruby travis-after-script
