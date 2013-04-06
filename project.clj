@@ -21,6 +21,7 @@
                            ;[friend-oauth2 "0.0.2"]
                            ]
 
+            :main s1-chat.handler/-main 
             :eval-in-leiningen true
             :plugins [[lein-cljsbuild "0.2.7"]
                       [lein-tarsier "0.9.1"]

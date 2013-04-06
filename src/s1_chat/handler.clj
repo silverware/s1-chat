@@ -5,6 +5,8 @@
         s1-chat.views.login
         s1-chat.views.templates.chat
         s1-chat.views.chan
+        s1-chat.server
+        [ring.adapter.jetty :only [run-jetty]]
         noir.util.middleware)
 
   (:require [compojure.handler :as handler]
@@ -93,3 +95,7 @@
        :credential-fn (partial creds/bcrypt-credential-fn users)
        :workflows [(workflows/interactive-form)]})
     (handler/site)))
+
+(defn -main []
+  (initialize-app)
+  (run-jetty app {:port 1337}))
