@@ -7,18 +7,11 @@
 
 (def connected-users (ref {}))
 
-(defn generate-session-id [] (dosync (alter session-id-ref inc)))
-
-(defn get-user [username] (@connected-users username))
-
-(defn valid-session-id [username provided-id]
-  (dosync (= (:session-id (@connected-users username)) provided-id)))
-
 (defn send-part [chan user]
   (enqueue (:channel chan) {:id 0 :type "part" :username (:name user) :chan-name (:name chan)}))
 
 (defn on-user-disconnect [user] 
-  (println "user " (:name user) " disconnected")
+  (println "User " (:name user) " disconnected.")
   (dosync
     (alter connected-users dissoc (:name user))
     (dorun
@@ -27,6 +20,17 @@
               (alter (:users %) disj user)
               (send-part % user))
             (keys @(:chans user))))))
+
+
+; authentication
+
+
+(defn generate-session-id [] (dosync (alter session-id-ref inc)))
+
+(defn get-user [username] (@connected-users username))
+
+(defn valid-session-id? [username provided-id]
+  (dosync (= (:session-id (@connected-users username)) provided-id)))
 
 (defn auth
   [ch username password]

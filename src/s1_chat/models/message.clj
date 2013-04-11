@@ -56,11 +56,10 @@
 		    (alter (:users chan) disj user)
 		    (alter (:chans user) dissoc chan)))
 
-
 (defn dispatch-message 
   [ch {id :id {:keys [username session-id]} :ticket :as msg}]
   (let [user (get-user username)]
-    (if (valid-session-id username session-id)
+    (if (valid-session-id? username session-id)
       (case (:type msg)
         "join" (let [dest-chan (get-chan (:chan-name msg))]
                  (add-user-to-chan user dest-chan)

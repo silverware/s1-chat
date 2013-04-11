@@ -1,8 +1,6 @@
 (ns s1-chat.models.chat
   (:use lamina.core aleph.formats s1-chat.models.user))
 
-;(declare remove-ticket)
-
 (def chans (ref {}))
 (def anon-chan-count(ref 0))
 
