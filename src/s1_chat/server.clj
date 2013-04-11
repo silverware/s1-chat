@@ -5,7 +5,6 @@
   (:use [aleph.http] 
         [lamina.core]
         [s1-chat.models.chat]
-        [s1-chat.models.user]
         [s1-chat.validation]))
 
 (defn decode-json-channel [ch] 
