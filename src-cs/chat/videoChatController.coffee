@@ -1,3 +1,8 @@
+if typeof webkitRTCPeerConnection != "undefined"
+    RTCPeerConnection = webkitRTCPeerConnection
+else if typeof mozRTCPeerConnection != "undefined"
+    RTCPeerConnection = mozRTCPeerConnection
+
 define ->
   VideoChatController = 
     

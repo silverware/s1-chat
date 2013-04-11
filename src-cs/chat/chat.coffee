@@ -1,5 +1,3 @@
-if typeof webkitRTCPeerConnection != "undefined"
-  RTCPeerConnection = webkitRTCPeerConnection
 
 define [
   "./chan"
