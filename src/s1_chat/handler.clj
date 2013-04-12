@@ -98,4 +98,4 @@
 
 (defn -main []
   (initialize-app)
-  (run-jetty app {:port 1337}))
+  (run-jetty app {:port 5151}))
