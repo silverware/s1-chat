@@ -45,7 +45,6 @@
                (include-js "/lib/jquery.gracefulWebSocket.js")
                (include-js "/lib/jquery.connect.js")
                (include-js "/js/require-config.js")
-               (include-js "/js/cljs.js")
                (include-js "/bootstrap/js/bootstrap-tab.js")
                (include-js "/bootstrap/js/bootstrap-tooltip.js")
                (include-js "/bootstrap/js/bootstrap-popover.js")

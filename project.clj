@@ -32,15 +32,5 @@
             :ring {:handler s1-chat.handler/app
                    :init s1-chat.server/initialize-app}
             ;            :prep-tasks [["coffeescript" "resources/public/js" "src-cs"] "javac" "compile"]
-            :cljsbuild {
-                        :builds [{
-                                  ; The path to the top-level ClojureScript source directory:
-                                  :source-path "src-cljs"
-                                  ; The standard ClojureScript compiler options:
-                                  ; (See the ClojureScript compiler documentation for details.)
-                                  :compiler {
-                                             ;:output-dir "resources/public/js/"
-                                             :output-to "resources/public/js/cljs.js"
-                                             :optimizations :whitespace
-                                             :pretty-print true}}]})
+)
 
