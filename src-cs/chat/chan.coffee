@@ -1,4 +1,6 @@
-define ->
+define [
+  "./message"
+], (Message) ->
 
   Em.Object.extend
 
@@ -14,7 +16,7 @@ define ->
       console.debug "chan #{@name} got ", message
       switch message.type
         when "msg"
-          @messages.pushObject Message.create(message.username, message.text)
+          @messages.pushObject Message.create message.username, message.text
         when "part"
           @usernames.removeObject message.username
         when "join"

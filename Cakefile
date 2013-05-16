@@ -1,13 +1,45 @@
-{spawn, exec} = require 'child_process'
+{exec} = require 'child_process'
+fs = require 'fs'
 
+readDir = (src) ->
+  files = fs.readdirSync(src)
+  allFiles = []
+  for file in files
+    if file.match(/\.less$/)
+      allFiles.push src + "/" + file
+    else
+      allFiles = allFiles.concat readDir(src + "/" + file)
+  allFiles
 
-task 'csbuild', 'start watching coffeescript files', ->
-  cof = spawn "coffee", ["--watch", "-o", "resources/public/js", "src-cs"]
-  cof.stdout.pipe process.stdout
-  cof.stderr.pipe process.stderr
+watch = (folder, onChange) ->
+    console.log "Watching for changes in #{folder}"
+    allFiles = readDir folder
+    for file in allFiles then do (file) ->
+        fs.watch file, (curr, prev) ->
+            if +curr.mtime isnt +prev.mtime
+                onChange()
 
+task 'build-cs', 'start watching coffeescript files', ->
+  child = exec 'coffee --watch -o resources/public/js src-cs', (err, stdout, stderr) ->
+    throw err if err
+  child.stdout.pipe process.stdout
 
-task 'dev', 'start server in dev mode', ->
-  s = spawn "lein ring server"
-  s.stdout.pipe process.stdout
-  s.stderr.pipe process.stderr
+task 'build-less', 'start watching coffeescript files', ->
+  lessFiles = readDir("src-less")
+  for file in lessFiles then do (file) ->
+    file = file.split("src-less/")[1]
+    child = exec 'lessc src-less/' + file + ' resources/public/css/' + file.split(".")[0] + '.css', (err, stdout, stderr) ->
+      throw err if err
+    child.stdout.pipe process.stdout
+    child.stderr.pipe process.stderr
+
+task 'startserver', 'start server in dev mode', ->
+  child = exec 'lein ring server', (err, stdout, stderr) ->
+    throw err if err
+  child.stdout.pipe process.stdout
+
+task 'dev', 'start server and compile assets', ->
+  invoke 'startserver'
+  invoke 'build-cs'
+  invoke 'build-less'
+  watch "src-less", -> invoke 'build-less'

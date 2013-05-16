@@ -1,19 +1,11 @@
-
 define [
   "./chan"
+  "./message"
   "./views/chatView"
   "./names"
   "./queryStream"
   "./videoChatController"
-], (Chan, ChatView, names, QueryStream, VideoChat) ->
-
-
-  window.Message = 
-    create: (name, text) ->
-      message = 
-        name: name
-        text: text
-        date: new Date()
+], (Chan, Message, ChatView, names, QueryStream, VideoChat) ->
 
   Em.Application.extend
 
