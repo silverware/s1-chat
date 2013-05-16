@@ -5,18 +5,17 @@
 
 (defn hbs-chat-template []
   (html 
-    [:div.tabbable
-     [:ul.nav.nav-tabs
+     [:nav.nav-0
+      
+      [:div "Channels"]
       "{{#each chan in chat.chans}}"
-      [:li [:a {:data-toggle "tab" :href "#tab{{unbound chan.id}}"} "{{chan.name}}" [:i.icon-remove]]]
-      " {{/each}} "
+        [:div "{{chan.name}}" [:i.icon-remove]]
+      "{{/each}}"
+      
+      [:div {:style "bottom: 20px; position: absolute"} "{{chat.username}}"]
       ]
-     ]
-    [:div.tab-content
-     "{{#each chan in chat.chans}}"
-        [:div.tab-pane {:id "tab{{unbound chan.id}}"} "{{view ChanView chanBinding=\"chan\"}}"]
-      "{{/each}} "
-    ]
+
+    [:div#content]
     [:div#queryStreams
       "{{#each stream in chat.queryStreams}}{{view QueryStreamView streamBinding=\"stream\"}}{{/each}}"]
 ))
@@ -33,25 +32,24 @@
 
 (defn hbs-chan-template []
   (html
-    [:div.container-fluid
-     [:div.row-fluid
-      [:div.span10
        [:div.messages
         "{{#each msg in chan.messages}}{{msg.name}}: {{msg.text}} <br /> {{/each}}"
         ]
-       ]
-      [:div.span2
-       "{{#each user in chan.usernames}}{{view UserItemView userBinding=\"user\"}}{{/each}}"]
-      ]
-     ]
     
-    [:div.container-fluid.messageFormContainer
-     [:div.row-fluid
     [:form#messageForm
      [:input#message.span10 {:type "text" :placeholder "Message"}]
     ]
-    ]
-     ]
 ))
+
+(defn hbs-chan-users-template []
+  (html
+    [:h5 "{{chan.name}}"]
+      "Leave Channel"
+
+      [:h5 "Participants:"]
+
+      "{{#each user in chan.usernames}}{{view UserItemView userBinding=\"user\"}}{{/each}}"
+))
+
 
 

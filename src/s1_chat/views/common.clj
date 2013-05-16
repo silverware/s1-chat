@@ -53,28 +53,8 @@
                (include-css "/bootstrap/css/bootstrap.css")
                (include-css "/css/font-awesome.min.css")
 ;               (include-css "/bootstrap/css/bootstrap-responsive.css")
-               [:style "body { padding-top: 60px; }"]
               ]
               [:body
-               [:div.navbar.navbar-inverse.navbar-fixed-top
-                [:div.navbar-inner
-                 [:div.container
-                  [:a.btn.btn-navbar {:data-toggle "collapse" :data-target ".nav-collapse"} 
-                   [:span.icon-bar]
-                   [:span.icon-bar]
-                   [:span.icon-bar]]
-                  [:a.brand "S1"]
-;                  [:div.nav-collapse.collapse
-;                   [:ul.nav
-;                    [:li [:a "Home"]]
-;                    [:li [:a "Login"]]
-;                    ]]
-                  ]]]
-               [:div#control-center
-                   [:form#joinChat
-                    [:input#channelName {:type "text" :placeholder "Join Chat"}]
-                    ]
-                   ]
-               [:div
-                content]]
+               [:nav ]
+               [:div content]]
               ))

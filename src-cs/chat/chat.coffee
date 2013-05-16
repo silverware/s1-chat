@@ -13,6 +13,7 @@ define [
     websocket: null
     chans: []
     initialChan: "Test"
+    username: ""
 
     # Private Chats
     queryStreams: []
@@ -35,7 +36,7 @@ define [
       randomName = names[Math.floor(Math.random() * names.length)]
 
       @authenticate randomName, "pass"
-      $("#login").html "authenticated as #{randomName}"
+      @set "username", randomName
 
       setTimeout((=> @join(@initialChan)), 1100) if @initialChan
         
@@ -80,7 +81,9 @@ define [
           @ticket["session-id"] = response["session-id"]
         when "joinsuccess"
           obj = @sentObjects[response.id]
-          @chans.pushObject Chan.create(id: @maxId, name: obj["chan-name"], usernames: response.usernames)
+          chan = Chan.create(id: @maxId, name: obj["chan-name"], usernames: response.usernames)
+          @chans.pushObject chan
+          @view.openChan chan
         when "query"
           @createQueryStream response.username, response.text, true
         when "video"

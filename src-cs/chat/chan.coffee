@@ -33,3 +33,6 @@ define [
         type: "part"
         "chan-name": @name
       chat.chans.removeObject @
+
+    open: ->
+      console.debug "huhu"
