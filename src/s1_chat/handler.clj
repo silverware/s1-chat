@@ -78,6 +78,7 @@
    (GET "/query_stream_template.hbs" [] (hbs-query-stream-template))
    (GET "/chan_template.hbs" [] (hbs-chan-template))
    (GET "/chan_users_template.hbs" [] (hbs-chan-users-template))
+   (GET "/home_template.hbs" [] (hbs-home-template))
 
   ;; (GET "/facebookcallback" [] (do
   ;;                                   (println "huhu")

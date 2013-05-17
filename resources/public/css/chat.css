@@ -70,6 +70,10 @@ nav {
   border-right: 2px solid #888;
   transition: width 1s;
 }
+nav h5 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
 nav ul {
   list-style-type: none;
   margin: 0 0 10px 10px;
@@ -80,7 +84,8 @@ nav li {
   margin-right: 10px;
   transition: all 0.5s;
 }
-nav li:hover {
+nav li:hover,
+nav li.active {
   background-color: #348987;
   color: #ffffff;
 }
@@ -96,6 +101,12 @@ nav li:hover {
   position: absolute;
   width: 198px;
   left: 200px;
+}
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
+Home
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+section.anonym {
+  height: 33%;
 }
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Chan

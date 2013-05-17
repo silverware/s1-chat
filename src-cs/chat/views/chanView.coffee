@@ -7,10 +7,6 @@ define [
     classNames: ['chan']
 
     didInsertElement: ->
-      $("a[href$='tab#{@chan.id}'] i").click =>
-        @chan.part()
-      $("a[href$='tab#{@chan.id}']").tab("show")
-
       @$("#messageForm").submit (event) =>
         event.preventDefault()
 

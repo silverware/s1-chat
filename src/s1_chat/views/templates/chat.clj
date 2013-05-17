@@ -6,8 +6,10 @@
 (defn hbs-chat-template []
   (html 
      [:nav.nav-0
-      
-      [:div "Channels"]
+      [:ul
+	      [:li.homeLink [:i.icon-home] "home"]
+      ]
+      [:h5 "channels"]
       [:ul
 	      "{{#each chan in chat.chans}}"
 	        "<li {{action \"open\" target=\"chan\"}}> {{chan.name}} </li>"
@@ -47,7 +49,11 @@
 (defn hbs-chan-users-template []
   (html
     [:h5 "{{chan.name}}"]
-      "Leave Channel"
+    
+      [:ul
+	        "<li {{action \"partChan\"}}> <i class=\"icon-reply\"></i>Leave Channel</li>"
+      ]
+      
 
       [:h5 "Participants:"]
       [:ul
@@ -56,4 +62,13 @@
 ))
 
 
+(defn hbs-home-template []
+  (html
+    [:section.anonym 
+    "home sweet home"
+    ]
+    [:section.public
+    "Public huhu"
+    ]
+))
 

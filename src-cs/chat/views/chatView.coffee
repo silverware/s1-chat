@@ -3,7 +3,8 @@ define [
   "./chanView"
   "./queryStreamView"
   "./chanUsersView"
-], (template, ChanView, QueryStreamView, ChanUsersView) ->
+  "./homeView"
+], (template, ChanView, QueryStreamView, ChanUsersView, HomeView) ->
 
   Ember.View.extend
     chat: null
@@ -19,10 +20,17 @@ define [
       @navigation = []
 
     didInsertElement: ->
+      $(".homeLink").click =>
+        @openHome()
       $("#joinChat").submit (event) =>
         event.preventDefault()
         @chat.join $("#channelName").val()
         $("#channelName").val ""
+
+
+    openHome: ->
+      @removeNavItems()
+      @updateContent HomeView.create()
 
     openChan: (chan) ->
       @removeNavItems()
@@ -31,9 +39,8 @@ define [
       usersView = ChanUsersView.create chan: chan
       
       @appendNavItem usersView
-
-      $("#content").empty()
-      contentView.appendTo "#content"
+      @updateContent contentView
+      
       
 
     removeNavItems: ->
@@ -41,16 +48,23 @@ define [
         @navigation[i].destroy()
         $(".nav-#{i + 1}").remove()
       @navigation.clear()
-      @arrangeContent()
 
     appendNavItem: (view) ->
       lastIndex = @navigation.length
       $("<nav class='nav-#{lastIndex + 1}'>").insertAfter ".nav-#{lastIndex}"
       view.appendTo ".nav-#{lastIndex + 1}"
       @navigation.pushObject view
+      
+
+    updateContent: (view) ->
+      $("#content").empty()
+      view.appendTo "#content"
       @arrangeContent()
 
     arrangeContent: ->
       marginLeft = ((@navigation.length + 1) * 200)
-      console.debug marginLeft
       $("#content").css "left", "#{marginLeft}px"
+
+      $(".nav-0 li").click ({target}) ->
+        $(".nav-0 li").removeClass "active"
+        $(target).addClass "active"

@@ -12,4 +12,6 @@ define [
     didInsertElement: ->
       # todo
       
-
+    partChan: ->
+      @chan.part()
+      chat.view.openHome()
