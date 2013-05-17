@@ -35,4 +35,4 @@ define [
       chat.chans.removeObject @
 
     open: ->
-      console.debug "huhu"
+      chat.view.openChan @

@@ -8,17 +8,6 @@ body {
 
   height: 100%;
 }
-.nav-tabs a i {
-  margin-left: 10px;
-  cursor: pointer;
-}
-#control-center {
-  display: none;
-  background-color: black;
-  position: absolute;
-  width: 100%;
-  top: 41px;
-}
 #login {
   position: absolute;
   right: 20px;
@@ -79,6 +68,21 @@ nav {
   /* IE6-9 */
 
   border-right: 2px solid #888;
+  transition: width 1s;
+}
+nav ul {
+  list-style-type: none;
+  margin: 0 0 10px 10px;
+}
+nav li {
+  cursor: pointer;
+  line-height: 30px;
+  margin-right: 10px;
+  transition: all 0.5s;
+}
+nav li:hover {
+  background-color: #348987;
+  color: #ffffff;
 }
 .nav-0 {
   background-color: yellow;
@@ -96,21 +100,19 @@ nav {
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Chan
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-/*
+#content {
+  transition: left 1s;
+}
 .chan {
-	position: relative;
-	    height:auto !important;
-    height:100%;
-    min-height:100%;
+  position: relative;
+  height: auto !important;
+  height: 100%;
+  min-height: 100%;
 }
-
 .chan .messages {
-	overflow-y: auto;
+  overflow-y: auto;
 }
-
-.chan .messageFormContainer {
-	position: absolute;
-	bottom: 0;
+.chan #messageForm {
+  position: absolute;
+  bottom: 0;
 }
-
-*/

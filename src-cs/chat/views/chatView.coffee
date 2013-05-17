@@ -12,8 +12,7 @@ define [
     ChanUsersView: ChanUsersView
     template: Ember.Handlebars.compile template
     classNames: ['chat']
-    navigations: []
-    $content: $("#content")
+    navigation: []
 
     init: ->
       @_super()
@@ -26,17 +25,23 @@ define [
         $("#channelName").val ""
 
     openChan: (chan) ->
-      for i in [0...@navigation.length]
-        @navigation[i].destroy()
-        $(".nav-#{i + 1}").remove()
+      @removeNavItems()
 
       contentView = ChanView.create chan: chan
       usersView = ChanUsersView.create chan: chan
       
       @appendNavItem usersView
+
+      $("#content").empty()
       contentView.appendTo "#content"
       
 
+    removeNavItems: ->
+      for i in [0...@navigation.length]
+        @navigation[i].destroy()
+        $(".nav-#{i + 1}").remove()
+      @navigation.clear()
+      @arrangeContent()
 
     appendNavItem: (view) ->
       lastIndex = @navigation.length

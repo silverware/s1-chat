@@ -8,12 +8,15 @@
      [:nav.nav-0
       
       [:div "Channels"]
-      "{{#each chan in chat.chans}}"
-        [:div "{{chan.name}}" [:i.icon-remove]]
-      "{{/each}}"
+      [:ul
+	      "{{#each chan in chat.chans}}"
+	        "<li {{action \"open\" target=\"chan\"}}> {{chan.name}} </li>"
+	      "{{/each}}"
+      ]
       
       [:div {:style "bottom: 20px; position: absolute"} "{{chat.username}}"]
       ]
+      
 
     [:div#content]
     [:div#queryStreams
@@ -47,8 +50,9 @@
       "Leave Channel"
 
       [:h5 "Participants:"]
-
-      "{{#each user in chan.usernames}}{{view UserItemView userBinding=\"user\"}}{{/each}}"
+      [:ul
+       "{{#each user in chan.usernames}}<li>{{view UserItemView userBinding=\"user\"}}</li>{{/each}}"
+     ]
 ))
 
 
