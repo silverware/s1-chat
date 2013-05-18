@@ -15,7 +15,7 @@ define [
           commandArgs = message[1..message.length].split " "
           command = commandArgs[0]
           args = commandArgs[1..commandArgs.length]
-          chat[command].apply chat, args
+          Chat[command].apply Chat, args
         else
           @chan.sendMessage message
 

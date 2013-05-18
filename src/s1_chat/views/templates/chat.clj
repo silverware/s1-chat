@@ -48,14 +48,13 @@
 
 (defn hbs-chan-users-template []
   (html
-    [:h5 "{{view.chan.name}}"]
     
       [:ul
 	        "<li {{action \"partChan\" target=\"view\"}}> <i class=\"icon-reply\"></i>Leave Channel</li>"
       ]
       
 
-      [:h5 "Participants:"]
+      [:h5 "participants"]
       [:ul
        "{{#each user in view.chan.usernames}}<li>{{view view.UserItemView userBinding=\"user\"}}</li>{{/each}}"
      ]
