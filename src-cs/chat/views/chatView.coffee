@@ -35,11 +35,11 @@ define [
     openChan: (chan) ->
       @removeNavItems()
 
-      contentView = ChanView.create chan: chan
+      #contentView = ChanView.create chan: chan
       usersView = ChanUsersView.create chan: chan
       
       @appendNavItem usersView
-      @updateContent contentView
+      #@updateContent contentView
       
       
 

@@ -40,8 +40,8 @@
               [:head
                (include-js "/lib/require.js")
                (include-js "/lib/jquery-1.8.3.min.js")
-               (include-js "/lib/handlebars-1.0.rc.2.js")
-               (include-js "/lib/ember-1.0.pre.min.js")
+               (include-js "/lib/handlebars-1.0.rc.3.js")
+               (include-js "/lib/ember-1.0.0-rc.3.js")
                (include-js "/lib/jquery.gracefulWebSocket.js")
                (include-js "/lib/jquery.connect.js")
                (include-js "/js/require-config.js")
