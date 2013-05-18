@@ -12,7 +12,7 @@
       [:h5 "channels"]
       [:ul
 	      "{{#each chan in Chat.chans}}"
-	        "<li {{action \"open\" target=\"chan\"}}> {{chan.name}} </li>"
+	        "<li {{action \"open\" target=\"chan\"}}><img src=\"img/dummy.png\" /> {{chan.name}} </li>"
 	      "{{/each}}"
       ]
       

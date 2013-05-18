@@ -1,7 +1,7 @@
 define ->
   Ember.View.extend
     user: null
-    template: Ember.Handlebars.compile """{{user}}"""
+    template: Ember.Handlebars.compile """<img src="img/dummy.png" />&nbsp;&nbsp;{{user}}"""
     classNames: ['username']
 
     didInsertElement: ->
