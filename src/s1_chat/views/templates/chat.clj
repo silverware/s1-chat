@@ -64,10 +64,11 @@
 (defn hbs-home-template []
   (html
     [:section.anonym 
-    "home sweet home"
+	   
+	    [:button.btn.btn-large.btn-primary {:type "button"} [:i.icon-tasks] "create anonym channel" ]
     ]
     [:section.public
-    "Public huhu"
+     "home sweet home"
     ]
 ))
 
