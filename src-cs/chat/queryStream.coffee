@@ -9,7 +9,7 @@ define ->
       @messages = []
 
     query: (message) ->
-      chat.query @username, message
+      Chat.query @username, message
 
     close: ->
-      chat.queryStreams.removeObject @
+      Chat.queryStreams.removeObject @

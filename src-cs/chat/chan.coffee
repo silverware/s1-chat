@@ -24,16 +24,16 @@ define [
           @usernames.pushObject message.username
 
     sendMessage: (text) ->
-      chat.send
+      Chat.send
         type: "msg"
         "chan-name": @name
         text: text
 
     part: ->
-      chat.send
+      Chat.send
         type: "part"
         "chan-name": @name
-      chat.chans.removeObject @
+      Chat.chans.removeObject @
 
     open: ->
-      chat.view.openChan @
+      Chat.view.openChan @

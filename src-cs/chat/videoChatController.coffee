@@ -24,7 +24,7 @@ define ->
       pc_config = "iceServers": ["url": "stun:stun.l.google.com:19302"]
       @peerConnection = new RTCPeerConnection(pc_config)
       @peerConnection.onicecandidate = (evt) =>
-        chat.send
+        Chat.send
           type: "video"
           receiver: receiver
           payload:
@@ -44,7 +44,7 @@ define ->
           console.debug("I am caller.")
           @peerConnection.createOffer (desc) =>
               @peerConnection.setLocalDescription desc
-              chat.send
+              Chat.send
                   type: "video"
                   receiver: receiver
                   payload:
@@ -53,7 +53,7 @@ define ->
           console.debug("I am callee.")
           @peerConnection.createAnswer (desc) =>
             @peerConnection.setLocalDescription desc
-            chat.send
+            Chat.send
                 type: "video"
                 receiver: receiver
                 payload:

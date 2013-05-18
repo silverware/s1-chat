@@ -34,13 +34,14 @@ private Streams
   max-height: 200px;
   overflow: auto;
 }
-#content {
+.content {
   position: absolute;
   bottom: 0;
   top: 0;
   right: 0;
   left: 200px;
   background-color: orange;
+  transition: left 1s;
 }
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Sidebar
@@ -111,15 +112,6 @@ section.anonym {
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Chan
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-#content {
-  transition: left 1s;
-}
-.chan {
-  position: relative;
-  height: auto !important;
-  height: 100%;
-  min-height: 100%;
-}
 .chan .messages {
   overflow-y: auto;
 }

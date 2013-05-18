@@ -9,7 +9,6 @@ define [
 
   Em.Application.extend
 
-    containerId: ""
     websocket: null
     chans: []
     initialChan: "Test"
@@ -31,7 +30,7 @@ define [
       @set "chans", []
       @websocket = $.gracefulWebSocket "ws://#{window.location.hostname}:8008/"
       @view = ChatView.create chat: @
-      @view.appendTo "##{@containerId}"
+      @view.appendTo "body"
       @websocket.onmessage = @onResponse.bind @
       randomName = names[Math.floor(Math.random() * names.length)]
 
@@ -97,3 +96,4 @@ define [
       if (@queryStreams.every (x) -> user isnt x.username)
         @queryStreams.pushObject QueryStream.create(username: user)
       stream.messages.pushObject Message.create(author, text) for stream in @queryStreams when stream.username is user
+

@@ -11,25 +11,25 @@
       ]
       [:h5 "channels"]
       [:ul
-	      "{{#each chan in chat.chans}}"
+	      "{{#each chan in Chat.chans}}"
 	        "<li {{action \"open\" target=\"chan\"}}> {{chan.name}} </li>"
 	      "{{/each}}"
       ]
       
-      [:div {:style "bottom: 20px; position: absolute"} "{{chat.username}}"]
+      [:div {:style "bottom: 20px; position: absolute"} "{{Chat.username}}"]
       ]
       
 
     [:div#content]
     [:div#queryStreams
-      "{{#each stream in chat.queryStreams}}{{view QueryStreamView streamBinding=\"stream\"}}{{/each}}"]
+      "{{#each stream in Chat.queryStreams}}{{view view.QueryStreamView streamBinding=\"stream\"}}{{/each}}"]
 ))
 
 (defn hbs-query-stream-template []
   (html
-    [:div.header "{{stream.username}}" [:i.icon-remove.close]]
+    [:div.header "{{view.stream.username}}" [:i.icon-remove.close]]
     [:div.messages
-    "{{#each msg in stream.messages}}{{msg.name}}: {{msg.text}}<br />{{/each}}"]
+    "{{#each msg in view.stream.messages}}{{msg.name}}: {{msg.text}}<br />{{/each}}"]
     [:form.queryForm
      [:input.query {:type "text" :placeholder "Message"}]
     ]
@@ -48,16 +48,16 @@
 
 (defn hbs-chan-users-template []
   (html
-    [:h5 "{{chan.name}}"]
+    [:h5 "{{view.chan.name}}"]
     
       [:ul
-	        "<li {{action \"partChan\"}}> <i class=\"icon-reply\"></i>Leave Channel</li>"
+	        "<li {{action \"partChan\" target=\"view\"}}> <i class=\"icon-reply\"></i>Leave Channel</li>"
       ]
       
 
       [:h5 "Participants:"]
       [:ul
-       "{{#each user in chan.usernames}}<li>{{view UserItemView userBinding=\"user\"}}</li>{{/each}}"
+       "{{#each user in view.chan.usernames}}<li>{{view view.UserItemView userBinding=\"user\"}}</li>{{/each}}"
      ]
 ))
 

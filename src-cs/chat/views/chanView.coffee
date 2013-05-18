@@ -4,7 +4,7 @@ define [
   Ember.View.extend
     chan: null
     template: Ember.Handlebars.compile template
-    classNames: ['chan']
+    classNames: ['content chan']
 
     didInsertElement: ->
       @$("#messageForm").submit (event) =>
@@ -21,4 +21,5 @@ define [
 
         @$("#message").val ""
     
+      Chat.view.arrangeContent()
 

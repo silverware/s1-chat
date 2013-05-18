@@ -7,13 +7,13 @@ define [
 ], (template, ChanView, QueryStreamView, ChanUsersView, HomeView) ->
 
   Ember.View.extend
-    chat: null
     ChanView: ChanView
     QueryStreamView: QueryStreamView
     ChanUsersView: ChanUsersView
     template: Ember.Handlebars.compile template
     classNames: ['chat']
     navigation: []
+    contentView: null
 
     init: ->
       @_super()
@@ -24,22 +24,22 @@ define [
         @openHome()
       $("#joinChat").submit (event) =>
         event.preventDefault()
-        @chat.join $("#channelName").val()
+        Chat.join $("#channelName").val()
         $("#channelName").val ""
 
 
     openHome: ->
       @removeNavItems()
-      @updateContent HomeView.create()
+      @setContentView HomeView.create()
 
     openChan: (chan) ->
       @removeNavItems()
 
-      #contentView = ChanView.create chan: chan
+      contentView = ChanView.create chan: chan
       usersView = ChanUsersView.create chan: chan
       
       @appendNavItem usersView
-      #@updateContent contentView
+      @setContentView contentView
       
       
 
@@ -51,19 +51,19 @@ define [
 
     appendNavItem: (view) ->
       lastIndex = @navigation.length
-      $("<nav class='nav-#{lastIndex + 1}'>").insertAfter ".nav-#{lastIndex}"
+      $("body").append "<nav class='nav-#{lastIndex + 1}'>"
       view.appendTo ".nav-#{lastIndex + 1}"
       @navigation.pushObject view
       
 
-    updateContent: (view) ->
-      $("#content").empty()
-      view.appendTo "#content"
-      @arrangeContent()
+    setContentView: (view) ->
+      @contentView?.destroy()
+      view.appendTo "body"
+      @contentView = view
 
     arrangeContent: ->
       marginLeft = ((@navigation.length + 1) * 200)
-      $("#content").css "left", "#{marginLeft}px"
+      $(".content").css "left", "#{marginLeft}px"
 
       $(".nav-0 li").click ({target}) ->
         $(".nav-0 li").removeClass "active"

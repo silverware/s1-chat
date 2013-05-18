@@ -3,7 +3,7 @@ define [
 ], (template) ->
   Ember.View.extend
     template: Ember.Handlebars.compile template
-    classNames: ['home']
+    classNames: ['content home']
 
     didInsertElement: ->
       # todo

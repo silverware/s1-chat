@@ -5,9 +5,8 @@
 (defn chat []
   (common/layout
     (include-css "/css/chat.css")
-    [:script "require(['chat/chat'], function(Chat) {window.chat = Chat.create({containerId: 'channel'});});"]
-    [:div#login] 
-    [:div#channel]
+    [:script "require(['chat/chat'], function(ChatApp) {window.Chat = ChatApp.create()});"]
+
 ))
 
 
