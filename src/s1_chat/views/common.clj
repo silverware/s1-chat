@@ -55,6 +55,5 @@
 ;               (include-css "/bootstrap/css/bootstrap-responsive.css")
               ]
               [:body
-               [:nav ]
                [:div content]]
               ))

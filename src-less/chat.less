@@ -7,7 +7,7 @@ Colors
 
 @blue: #009CDC;
 @white: #fff;
-@text: #666;
+@text: #888;
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Common
@@ -20,8 +20,11 @@ body {
 	padding: 0;*/
 	height: 100%;
 	font-family: 'Roboto', sans-serif;
-	background: none repeat scroll 0 0 #FBFBFB;
+	background: none repeat scroll 0 0 #000;
 	color: @text;
+	background-image: url("../img/grain.png");
+  	background-position: center top;
+  	background-repeat: repeat;
 }
 
 button {
@@ -79,13 +82,16 @@ nav {
 	//background: -ms-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* IE10+ */
 	//background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* W3C */
 	
-	padding: 5px 0 5px 5px;
+	padding: 20px 0 5px 5px;
 	transition: width 1s;
 	top: 0;
 	bottom: 0;
-
+	background-color: rgba(255,255,255,0.1);
+	box-shadow: 13px -2px 32px rgba(0,0,0,0.6);
 	h5 {
 		margin-left: 10px;
+		margin-bottom: 20px;
+		color: #ddd;
 	}
 
 	ul {
@@ -96,6 +102,7 @@ nav {
 		cursor: pointer;
 		line-height: 30px;
 		transition: all 0.5s;
+		margin-bottom: 5px;
 		i {
 			margin-right: 5px;
 		}
@@ -111,7 +118,7 @@ nav {
     //background-color: yellow;
     position: absolute;
     width: 194px;
-    border-right: 1px dotted @blue;
+    border-right: 1px dotted #000;
 }
 
 .nav-1 {
@@ -142,7 +149,7 @@ Chan
 	top: 0;
 	right: 0;
 	left: 200px;
-	background-color: rgba(223, 223, 223, 0.3);
+	background-color: rgba(223, 223, 223, 0.16);
 	transition: all 0.5s;
 	padding: 20px;
 }

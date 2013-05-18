@@ -16,7 +16,13 @@
 	      "{{/each}}"
       ]
       
-      [:div {:style "bottom: 20px; position: absolute"} "{{Chat.username}}"]
+      [:div {:style "bottom: 20px; position: absolute; width: 194px"} 
+       [:h5 "{{Chat.username}}"]
+       [:ul
+        [:li.editProfile [:i.icon-edit] "edit profile"]
+	      [:li.editProfile [:i.icon-edit] "log out"]
+       ]
+       ]
       ]
       
 
@@ -65,7 +71,7 @@
   (html
     [:section.anonym 
 	   
-	    [:button.btn.btn-large.btn-primary {:type "button"} [:i.icon-tasks] "create anonym channel" ]
+	    [:button.btn.btn-large.btn-primary {:type "button"} [:i.icon-tasks] "create anonymous channel" ]
     ]
     [:section.public
      "home sweet home"

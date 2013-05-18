@@ -12,8 +12,11 @@ body {
 
   height: 100%;
   font-family: 'Roboto', sans-serif;
-  background: none repeat scroll 0 0 #FBFBFB;
-  color: #666666;
+  background: none repeat scroll 0 0 #000;
+  color: #888888;
+  background-image: url("../img/grain.png");
+  background-position: center top;
+  background-repeat: repeat;
 }
 button i {
   margin-right: 10px;
@@ -49,13 +52,17 @@ Sidebar
 nav {
   /*background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */
 
-  padding: 5px 0 5px 5px;
+  padding: 20px 0 5px 5px;
   transition: width 1s;
   top: 0;
   bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 13px -2px 32px rgba(0, 0, 0, 0.6);
 }
 nav h5 {
   margin-left: 10px;
+  margin-bottom: 20px;
+  color: #ddd;
 }
 nav ul {
   list-style-type: none;
@@ -65,6 +72,7 @@ nav li {
   cursor: pointer;
   line-height: 30px;
   transition: all 0.5s;
+  margin-bottom: 5px;
 }
 nav li i {
   margin-right: 5px;
@@ -77,7 +85,7 @@ nav li.active {
 .nav-0 {
   position: absolute;
   width: 194px;
-  border-right: 1px dotted #009cdc;
+  border-right: 1px dotted #000;
 }
 .nav-1 {
   position: absolute;
@@ -99,7 +107,7 @@ Chan
   top: 0;
   right: 0;
   left: 200px;
-  background-color: rgba(223, 223, 223, 0.3);
+  background-color: rgba(223, 223, 223, 0.16);
   transition: all 0.5s;
   padding: 20px;
 }
