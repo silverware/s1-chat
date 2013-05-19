@@ -7,7 +7,7 @@ Colors
 
 @blue: #009CDC;
 @white: #fff;
-@text: #888;
+@text: #999;
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Common
@@ -82,12 +82,15 @@ nav {
 	//background: -ms-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* IE10+ */
 	//background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* W3C */
 	
+	position: absolute;
 	padding: 20px 0 5px 5px;
-	transition: width 1s;
+	transition: width 0.5s;
 	top: 0;
 	bottom: 0;
+	width: 194px;
 	background-color: rgba(255,255,255,0.1);
 	box-shadow: 13px -2px 32px rgba(0,0,0,0.6);
+	border-right: 2px solid #222222;
 	h5 {
 		margin-left: 10px;
 		margin-bottom: 20px;
@@ -115,16 +118,11 @@ nav {
 }
 
 .nav-0 {
-    //background-color: yellow;
-    position: absolute;
-    width: 194px;
-    border-right: 1px dotted #000;
+    left: 0px;
+       
 }
 
 .nav-1 {
-    //background-color: #ddd;
-    position: absolute;
-    width: 195px;
     left: 200px;
 }
 

@@ -65,10 +65,8 @@ define [
       @contentView = view
 
     arrangeContent: ->
-      setTimeout (=>
-        marginLeft = ((@navigation.length + 1) * 200)
-        $(".content").css "left", "#{marginLeft}px"
-      ), 100
+      marginLeft = ((@navigation.length + 1) * 200)
+      $(".content").css "left", "#{marginLeft}px"
       $(".nav-0 li").click ({target}) ->
         $(".nav-0 li").removeClass "active"
         $(target).addClass "active"

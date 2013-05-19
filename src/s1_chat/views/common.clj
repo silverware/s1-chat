@@ -33,7 +33,7 @@
          ([name label-text & args] 
           (control-group name label-text (text-field (get-attr-map args) name (get-value args)))))
 
-(defelem bootstrap-submit [label] (submit-button {:class "btn"} label))
+(defelem bootstrap-submit [label] (submit-button {:class "btn btn-primary"} label))
 
 (defn layout [& content]
             (html5
@@ -45,6 +45,7 @@
                (include-js "/lib/jquery.gracefulWebSocket.js")
                (include-js "/lib/jquery.connect.js")
                (include-js "/js/require-config.js")
+               (include-js "/lib/jquery.validate.min.js")
                (include-js "/bootstrap/js/bootstrap-tab.js")
                (include-js "/bootstrap/js/bootstrap-tooltip.js")
                (include-js "/bootstrap/js/bootstrap-popover.js")
@@ -54,6 +55,5 @@
                (include-css "/css/font-awesome.min.css")
 ;               (include-css "/bootstrap/css/bootstrap-responsive.css")
               ]
-              [:body
-               [:div content]]
+              [:body content]
               ))

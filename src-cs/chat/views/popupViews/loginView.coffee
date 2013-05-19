@@ -1,13 +1,14 @@
 define [
   "text!/login_template.hbs"
   "./popupView"
-], (template, PopupView) ->
+  "form/Save"
+], (template, PopupView, Save) ->
   PopupView.extend
     template: Ember.Handlebars.compile template
     classNames: ['login']
 
     didInsertElement: ->
       @_super()
-      @$("form").submit (event) ->
-      	event.preventDefault()
+      new Save
+      	form: @$("form")
 
