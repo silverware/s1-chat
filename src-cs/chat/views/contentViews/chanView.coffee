@@ -1,8 +1,8 @@
 define [
   "text!/chan_template.hbs"
-  
-], (template) ->
-  Ember.View.extend
+  "./contentView"
+], (template, ContentView) ->
+  ContentView.extend
     chan: null
     template: Ember.Handlebars.compile template
     classNames: ['content chan']
@@ -23,5 +23,8 @@ define [
 
         @$("#message").val ""
     
-      
+    
+    onMessageSizeChanged: (->
+      @$(".messages").scrollTop(@$(".messages")[0].scrollHeight)
+    ).observes("chan.messages.@each")
 

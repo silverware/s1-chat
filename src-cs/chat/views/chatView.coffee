@@ -1,10 +1,11 @@
 define [
   "text!/chat_template.hbs"
-  "./chanView"
+  "./contentViews/chanView"
   "./queryStreamView"
-  "./chanUsersView"
-  "./homeView"
-], (template, ChanView, QueryStreamView, ChanUsersView, HomeView) ->
+  "./navigationViews/chanUsersView"
+  "./contentViews/homeView"
+  "./popupViews/loginView"
+], (template, ChanView, QueryStreamView, ChanUsersView, HomeView, LoginView) ->
 
   Ember.View.extend
     ChanView: ChanView
@@ -22,6 +23,8 @@ define [
     didInsertElement: ->
       $(".homeLink").click =>
         @openHome()
+      $(".loginLink").click ->
+        LoginView.create().show()
       $("#joinChat").submit (event) =>
         event.preventDefault()
         Chat.join $("#channelName").val()

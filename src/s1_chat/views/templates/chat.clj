@@ -20,14 +20,11 @@
        [:h5 "{{Chat.username}}"]
        [:ul
         [:li.editProfile [:i.icon-edit] "edit profile"]
-	      [:li.editProfile [:i.icon-edit] "log out"]
+	      [:li.loginLink [:i.icon-edit] "log out"]
        ]
        ]
       ]
-      
-
-    [:div#content]
-    [:div#queryStreams
+     [:div#queryStreams
       "{{#each stream in Chat.queryStreams}}{{view view.QueryStreamView streamBinding=\"stream\"}}{{/each}}"]
 ))
 
@@ -44,7 +41,7 @@
 (defn hbs-chan-template []
   (html
        [:div.messages
-        "{{#each msg in chan.messages}}{{msg.name}}: {{msg.text}} <br /> {{/each}}"
+        "{{#each msg in view.chan.messages}}{{msg.name}}: {{msg.text}} <br /> {{/each}}"
         ]
     
     [:form#messageForm
@@ -78,3 +75,11 @@
     ]
 ))
 
+
+(defn hbs-login-template []
+  (html
+    [:h3 "login"]
+    (common/horizontal-form-to [:post "/login"]
+                               (common/bootstrap-text-field :username "username" {:placeholder "name@example.com"})
+                               (common/bootstrap-text-field :password "Password")
+                               (common/bootstrap-submit "Submit"))))
