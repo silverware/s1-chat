@@ -7,7 +7,7 @@ Colors
 
 @blue: #009CDC;
 @white: #fff;
-@text: #999;
+@text: #888;
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Common
@@ -20,7 +20,7 @@ body {
 	padding: 0;*/
 	height: 100%;
 	font-family: 'Roboto', sans-serif;
-	background: none repeat scroll 0 0 #000;
+	background: none repeat scroll 0 0 #fff;
 	color: @text;
 	background-image: url("../img/grain.png");
   	background-position: center top;
@@ -88,13 +88,11 @@ nav {
 	top: 0;
 	bottom: 0;
 	width: 194px;
-	background-color: rgba(255,255,255,0.1);
-	box-shadow: 13px -2px 32px rgba(0,0,0,0.6);
-	border-right: 2px solid #222222;
+	border-right: 1px solid #ccc;
 	h5 {
 		margin-left: 10px;
 		margin-bottom: 20px;
-		color: #ddd;
+		color: #444;
 	}
 
 	ul {
@@ -119,7 +117,7 @@ nav {
 
 .nav-0 {
     left: 0px;
-       
+
 }
 
 .nav-1 {
@@ -135,19 +133,17 @@ section.anonym {
 	height: 33%;
 }
 
-
-
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Chan
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 .content {
+	background-color: rgba(0, 0, 0, 0.05);
 	position: absolute;
 	bottom: 0;
 	top: 0;
 	right: 0;
 	left: 200px;
-	background-color: rgba(223, 223, 223, 0.16);
 	transition: all 0.5s;
 	padding: 20px;
 }
