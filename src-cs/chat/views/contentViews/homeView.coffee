@@ -8,5 +8,9 @@ define [
 
     didInsertElement: ->
       @_super()
+      @$(".join-chan").click ({target}) ->
+      	chanName = $(target).html()
+      	Chat.join chanName
+
     
 

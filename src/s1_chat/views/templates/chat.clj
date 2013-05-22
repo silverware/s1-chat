@@ -1,5 +1,6 @@
 (ns s1-chat.views.templates.chat
-  (:require [s1-chat.views.common :as common])
+  (:require [s1-chat.views.common :as common]
+            [s1-chat.models.chat :as chat])
   (:use [hiccup.page :only [include-css include-js html5]]
         [hiccup.core]))
 
@@ -72,6 +73,9 @@
     ]
     [:section.public
      "home sweet home"
+     
+     (for [chan-name (keys @chat/chans)]
+                 [:div.join-chan chan-name])
     ]
 ))
 
