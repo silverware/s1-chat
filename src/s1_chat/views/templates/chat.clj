@@ -8,19 +8,19 @@
   (html 
      [:nav.nav-0
       [:ul
-	      [:li.homeLink [:i.icon-home] "home"]
+	      [:li {:nav-id "home"} [:i.icon-home] "home"]
       ]
       [:h5 "channels"]
       [:ul
 	      "{{#each chan in Chat.chans}}"
-	        "<li {{action \"open\" target=\"chan\"}}><img src=\"img/dummy.png\" /> {{chan.name}} </li>"
+	        "<li {{action \"open\" target=\"chan\"}} nav-id=\"{{unbound chan.name}}\"><img src=\"img/dummy.png\" /> {{chan.name}} </li>"
 	      "{{/each}}"
       ]
       
-      [:div {:style "bottom: 20px; position: absolute; width: 194px"} 
+      [:div {:style "bottom: 20px; position: absolute; width: 214px"} 
        [:h5 "{{Chat.username}}"]
        [:ul
-        [:li.editProfile [:i.icon-edit] "edit profile"]
+        [:li.editProfile {:nav-id "profile-edit"} [:i.icon-edit] "edit profile"]
 	      [:li.loginLink [:i.icon-edit] "log out"]
        ]
        ]

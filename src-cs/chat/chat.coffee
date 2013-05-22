@@ -30,14 +30,13 @@ define [
       @set "chans", []
       @websocket = $.gracefulWebSocket "ws://#{window.location.hostname}:8008/"
       @view = ChatView.create chat: @
-      @view.appendTo "body"
       @websocket.onmessage = @onResponse.bind @
       randomName = names[Math.floor(Math.random() * names.length)]
 
       @authenticate randomName, "pass"
       @set "username", randomName
 
-      setTimeout((=> @join(@initialChan)), 1100) if @initialChan
+      #setTimeout((=> @join(@initialChan)), 1100) if @initialChan
         
     authenticate: (username, password) ->
       @ticket.username = username

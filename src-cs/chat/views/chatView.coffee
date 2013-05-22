@@ -19,17 +19,14 @@ define [
     init: ->
       @_super()
       @navigation = []
+      @appendTo "body"
 
     didInsertElement: ->
-      $(".homeLink").click =>
+      @$("[nav-id='home']").click =>
         @openHome()
       $(".loginLink").click ->
         LoginView.create().show()
-      $("#joinChat").submit (event) =>
-        event.preventDefault()
-        Chat.join $("#channelName").val()
-        $("#channelName").val ""
-
+      @openHome()
 
     openHome: ->
       @removeNavItems()
@@ -62,11 +59,14 @@ define [
     setContentView: (view) ->
       @contentView?.destroy()
       view.appendTo "body"
-      @contentView = view
+      @set "contentView", view
+      navId = view.get "navId"
+      $(".nav-0 li").removeClass "active"
+      console.debug navId
+      setTimeout (-> $(".nav-0 li[nav-id='#{navId}']").addClass "active"), 10
+
 
     arrangeContent: ->
-      marginLeft = ((@navigation.length + 1) * 200)
+      marginLeft = ((@navigation.length + 1) * 220)
       $(".content").css "left", "#{marginLeft}px"
-      $(".nav-0 li").click ({target}) ->
-        $(".nav-0 li").removeClass "active"
-        $(target).addClass "active"
+      

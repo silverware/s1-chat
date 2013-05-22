@@ -5,6 +5,10 @@ define [
   ContentView.extend
     template: Ember.Handlebars.compile template
     classNames: ['content home']
+    navId: "home"
+
+    init: ->
+      @_super()
 
     didInsertElement: ->
       @_super()

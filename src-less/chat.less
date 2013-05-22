@@ -53,6 +53,7 @@ private Streams
 	position: fixed;
 	bottom: 0;
 	right: 10px;
+	z-index: 10;
 }
 
 #queryStreams .queryStream {
@@ -61,11 +62,16 @@ private Streams
 }
 #queryStreams .queryStream .header {
 	background-color: @blue;
+	color: white;
+	padding: 5px;
 }
 
 #queryStreams .queryStream .messages {
 	max-height: 200px;
 	overflow: auto;
+	background-color: white;
+    font-size: 14px;
+    padding: 5px;
 }
 
 
@@ -75,24 +81,21 @@ Sidebar
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 nav {
-	/*background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */
-	//background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
-	//background: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* Chrome10+,Safari5.1+ */
-	//background: -o-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* Opera 11.10+ */
-	//background: -ms-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* IE10+ */
-	//background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* W3C */
-	
 	position: absolute;
 	padding: 20px 0 5px 5px;
 	transition: width 0.5s;
 	top: 0;
 	bottom: 0;
-	width: 194px;
-	border-right: 1px solid #ccc;
+	width: 214px;
+	border-right: 1px solid #ddd;
+	box-shadow: 2px 0 7px #ddd;
 	h5 {
-		margin-left: 10px;
-		margin-bottom: 20px;
-		color: #444;
+ 		color: #444;
+	    font-size: 18px;
+	    font-weight: 100;
+	    margin-bottom: 10px;
+	    margin-left: 10px;
+	    margin-top: 20px;
 	}
 
 	ul {
@@ -117,11 +120,10 @@ nav {
 
 .nav-0 {
     left: 0px;
-
 }
 
 .nav-1 {
-    left: 200px;
+    left: 220px;
 }
 
 
@@ -131,6 +133,24 @@ Home
 
 section.anonym {
 	height: 33%;
+}
+
+section.public {
+	text-align: center;
+}
+
+.join-chan {
+	padding: 40px;
+	font-size: 20px;
+	float: left;
+	font-weight: bold;
+	transition: all 0.5s;
+	cursor: pointer;
+	width: 200px;
+}
+.join-chan:hover {
+	background-color: @blue;
+	color: white;
 }
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_

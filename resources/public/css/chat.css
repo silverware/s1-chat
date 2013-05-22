@@ -34,6 +34,7 @@ private Streams
   position: fixed;
   bottom: 0;
   right: 10px;
+  z-index: 10;
 }
 #queryStreams .queryStream {
   display: inline-block;
@@ -41,29 +42,36 @@ private Streams
 }
 #queryStreams .queryStream .header {
   background-color: #009cdc;
+  color: white;
+  padding: 5px;
 }
 #queryStreams .queryStream .messages {
   max-height: 200px;
   overflow: auto;
+  background-color: white;
+  font-size: 14px;
+  padding: 5px;
 }
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Sidebar
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 nav {
-  /*background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */
-
   position: absolute;
   padding: 20px 0 5px 5px;
   transition: width 0.5s;
   top: 0;
   bottom: 0;
-  width: 194px;
-  border-right: 1px solid #ccc;
+  width: 214px;
+  border-right: 1px solid #ddd;
+  box-shadow: 2px 0 7px #ddd;
 }
 nav h5 {
-  margin-left: 10px;
-  margin-bottom: 20px;
   color: #444;
+  font-size: 18px;
+  font-weight: 100;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-top: 20px;
 }
 nav ul {
   list-style-type: none;
@@ -87,13 +95,29 @@ nav li.active {
   left: 0px;
 }
 .nav-1 {
-  left: 200px;
+  left: 220px;
 }
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Home
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 section.anonym {
   height: 33%;
+}
+section.public {
+  text-align: center;
+}
+.join-chan {
+  padding: 40px;
+  font-size: 20px;
+  float: left;
+  font-weight: bold;
+  transition: all 0.5s;
+  cursor: pointer;
+  width: 200px;
+}
+.join-chan:hover {
+  background-color: #009cdc;
+  color: white;
 }
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Chan

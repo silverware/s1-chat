@@ -7,6 +7,10 @@ define [
     template: Ember.Handlebars.compile template
     classNames: ['content chan']
 
+    navId: (->
+      @get("chan.name")
+    ).property("chan")
+
     didInsertElement: ->
       @_super()
       @$("#messageForm").submit (event) =>
