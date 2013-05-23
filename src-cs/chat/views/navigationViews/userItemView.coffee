@@ -5,6 +5,10 @@ define ->
     classNames: ['username']
 
     didInsertElement: ->
+      #$(':not(.popover li)').on 'click', (e) ->
+      #    $('.popover').each ->
+      #      $(@).hide()
+
       @$().popover
         placement: "right"
         trigger: "click"

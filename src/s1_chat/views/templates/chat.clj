@@ -53,7 +53,7 @@
 	  ]
     
     [:form#messageForm
-     [:input#message.span10 {:type "text" :placeholder "Message"}]
+     [:input#message.span10 {:type "text" :placeholder "Message" :autocomplete "off"}]
     ]
 ))
 

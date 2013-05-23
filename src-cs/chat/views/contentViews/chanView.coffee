@@ -6,6 +6,12 @@ define [
     chan: null
     template: Ember.Handlebars.compile template
     classNames: ['content chan']
+    messageHistory: []
+
+
+    init: ->
+      @_super()
+      @set "messageHistory", []
 
     navId: (->
       @get("chan.name")
@@ -17,6 +23,8 @@ define [
         event.preventDefault()
 
         message = @$("#message").val()
+        @messageHistory.pushObject message
+
         if message.indexOf("/") == 0
           commandArgs = message[1..message.length].split " "
           command = commandArgs[0]
@@ -27,6 +35,8 @@ define [
 
         @$("#message").val ""
     
+      $("#message").keydown ({target}) ->
+        #console.debug "huhu"
     
     onMessageSizeChanged: (->
       @$(".messages").scrollTop(@$(".messages")[0].scrollHeight)
