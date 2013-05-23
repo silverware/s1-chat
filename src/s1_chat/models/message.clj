@@ -44,6 +44,7 @@
         (println "default action do nothing")
         ))))
 
+
 ;; message validators
 
 (vali/defvalidator already-joined? "join"

@@ -32,3 +32,7 @@ define [
       @$(".messages").scrollTop(@$(".messages")[0].scrollHeight)
     ).observes("chan.messages.@each")
 
+
+    queryUser: (username) ->
+      @$("form input").val "/query #{username} "
+      @$("form input").focus()

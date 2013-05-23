@@ -13,7 +13,6 @@ define [
     chans: []
     controller: {}
     initialChan: "Test"
-    username: ""
 
     # Private Chats
     queryStreams: []
@@ -31,15 +30,14 @@ define [
       @set "chans", []
       @websocket = $.gracefulWebSocket "ws://#{window.location.hostname}:8008/"
       @websocket.onmessage = @onResponse.bind @
-      randomName = names[Math.floor(Math.random() * names.length)]
       @set "controller", ChatController.create()
+      randomName = names[Math.floor(Math.random() * names.length)]
       @authenticate randomName, "pass"
-      @set "username", randomName
 
       #setTimeout((=> @join(@initialChan)), 1100) if @initialChan
         
     authenticate: (username, password) ->
-      @ticket.username = username
+      @set "ticket.username", username
       authentification =
         type: "auth"
         username: username
@@ -76,7 +74,7 @@ define [
       response = JSON.parse event.data
       switch response.type
         when "authsuccess"
-          @ticket["session-id"] = response["session-id"]
+          @set "ticket.session-id", response["session-id"]
         when "joinsuccess"
           obj = @sentObjects[response.id]
           chan = Chan.create(id: @maxId, name: obj["chan-name"], usernames: response.usernames)
@@ -93,6 +91,10 @@ define [
     createQueryStream: (user, text, received) ->
       author = if received then user else @ticket.username
       if (@queryStreams.every (x) -> user isnt x.username)
-        @queryStreams.pushObject QueryStream.create(username: user)
+        @queryStreams.pushObject QueryStream.create username: user
       stream.messages.pushObject Message.create(author, text) for stream in @queryStreams when stream.username is user
 
+
+    isAuthenticated: (->
+      @get("ticket.session-id") isnt null
+    ).property("ticket.session-id", "ticket.username")

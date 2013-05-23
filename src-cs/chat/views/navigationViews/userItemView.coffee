@@ -6,10 +6,17 @@ define ->
 
     didInsertElement: ->
       @$().popover
-        placement: "left"
+        placement: "right"
         trigger: "click"
         title: @user
         html: true
-        content: """<i class="icon-remove"></i>hier kommt was"""
+        content: """
+          <ul>
+            <li onclick="Chat.controller.contentView.queryUser('#{@user}');"><i class="queryUser icon-edit"></i>private message</li>
+            <li><i class="icon-edit"></i>private chat</li>
+          </ul>
+          <script></script>
+        """
+      
       
 

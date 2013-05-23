@@ -36,6 +36,13 @@ private Streams
 #queryStreams .queryStream {
   display: inline-block;
   margin: 0 10px;
+  box-shadow: 0 0 5px #CCC;
+}
+#queryStreams .queryStream form {
+  margin: 0;
+}
+#queryStreams .queryStream input {
+  margin: 0;
 }
 #queryStreams .queryStream .header {
   background-color: #009cdc;
@@ -157,4 +164,21 @@ Popup
   padding-left: 100px;
   top: 33%;
   background-color: white;
+}
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
+Popover Bootstrap overrides
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+.popover-content {
+  padding: 9px 0;
+}
+.popover {
+  background-color: #333;
+  border-radius: 2px 2px 2px 2px;
+}
+.popover-title {
+  background-color: #222;
+  border-bottom: 1px solid #555;
+}
+.popover.right .arrow:after {
+  border-right-color: #333;
 }

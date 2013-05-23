@@ -17,13 +17,20 @@
 	      "{{/each}}"
       ]
       
-      [:div {:style "bottom: 20px; position: absolute; width: 214px"} 
-       [:h5 "{{Chat.username}}"]
-       [:ul
-        [:li.editProfile {:nav-id "profile-edit"} [:i.icon-edit] "edit profile"]
-	      [:li.loginLink [:i.icon-edit] "log out"]
+      [:div {:style "bottom: 20px; position: absolute; width: 214px"}
+       "{{#if Chat.isAuthenticated}}"
+	       [:h5 "{{Chat.ticket.username}}"]
+	       [:ul
+	        [:li.editProfile {:nav-id "profile-edit"} [:i.icon-edit] "edit profile"]
+		      [:li.loginLink [:i.icon-edit] "log out"]
+	      ]
+       "{{else}}"
+	       [:ul
+	         [:li.loginLink [:i.icon-edit] "log in"]
+	       ]
+       "{{/if}}"
        ]
-       ]
+      
       ]
      [:div#queryStreams
       "{{#each stream in Chat.queryStreams}}{{view view.QueryStreamView streamBinding=\"stream\"}}{{/each}}"]
@@ -41,9 +48,9 @@
 
 (defn hbs-chan-template []
   (html
-       [:div.messages
-        "{{#each msg in view.chan.messages}}{{msg.name}}: {{msg.text}} <br /> {{/each}}"
-        ]
+	 [:div.messages
+	  "{{#each msg in view.chan.messages}}{{msg.name}}: {{msg.text}} <br /> {{/each}}"
+	  ]
     
     [:form#messageForm
      [:input#message.span10 {:type "text" :placeholder "Message"}]
@@ -60,7 +67,9 @@
 
       [:h5 "participants"]
       [:ul
-       "{{#each user in view.chan.usernames}}<li>{{view view.UserItemView userBinding=\"user\"}}</li>{{/each}}"
+       "{{#each user in view.chan.usernames}}"
+         [:li "{{view view.UserItemView userBinding=\"user\"}}" ]
+       "{{/each}}"
      ]
 ))
 
@@ -72,8 +81,7 @@
 	    [:button.btn.btn-large.btn-primary {:type "button"} [:i.icon-tasks] "create anonymous channel" ]
     ]
     [:section.public
-     "home sweet home"
-     
+    
      (for [chan-name (keys @chat/chans)]
                  [:div.join-chan chan-name])
     ]
@@ -84,6 +92,6 @@
   (html
     [:h3 "login"]
     (common/horizontal-form-to [:post "/login"]
-                               (common/bootstrap-text-field :username "username" {:placeholder "name@example.com"})
-                               (common/bootstrap-text-field :password "Password")
-                               (common/bootstrap-submit "Submit"))))
+                             (common/bootstrap-text-field :username "username" {:placeholder "name@example.com"})
+                             (common/bootstrap-text-field :password "Password")
+                             (common/bootstrap-submit "Submit"))))

@@ -17,11 +17,13 @@ define [
       @view = ChatView.create()
       @openHome()
 
+
     openHome: ->
       @removeNavItems()
       @setContentView HomeView.create()
 
     openChan: (chan) ->
+      if not Chat.get("isAuthenticated") then return LoginView.create()
       @removeNavItems()
 
       contentView = ChanView.create chan: chan
