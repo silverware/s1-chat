@@ -1,16 +1,17 @@
 define [
   "./chan"
   "./message"
-  "./views/chatView"
+  "./controllers/chatController"
   "./names"
   "./queryStream"
   "./videoChatController"
-], (Chan, Message, ChatView, names, QueryStream, VideoChat) ->
+], (Chan, Message, ChatController, names, QueryStream, VideoChat) ->
 
   Em.Application.extend
 
     websocket: null
     chans: []
+    controller: {}
     initialChan: "Test"
     username: ""
 
@@ -29,10 +30,9 @@ define [
       @set "queryStreams", []
       @set "chans", []
       @websocket = $.gracefulWebSocket "ws://#{window.location.hostname}:8008/"
-      @view = ChatView.create chat: @
       @websocket.onmessage = @onResponse.bind @
       randomName = names[Math.floor(Math.random() * names.length)]
-
+      @set "controller", ChatController.create()
       @authenticate randomName, "pass"
       @set "username", randomName
 
@@ -81,7 +81,7 @@ define [
           obj = @sentObjects[response.id]
           chan = Chan.create(id: @maxId, name: obj["chan-name"], usernames: response.usernames)
           @chans.pushObject chan
-          @view.openChan chan
+          @controller.openChan chan
         when "query"
           @createQueryStream response.username, response.text, true
         when "video"

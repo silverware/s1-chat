@@ -3,6 +3,6 @@ define ->
     classNames: ['content']
 
     didInsertElement: ->
-      Chat.view.arrangeContent()
+      Chat.controller.arrangeContent()
     
 

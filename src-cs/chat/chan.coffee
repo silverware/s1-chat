@@ -36,4 +36,4 @@ define [
       Chat.chans.removeObject @
 
     open: ->
-      Chat.view.openChan @
+      Chat.controller.openChan @

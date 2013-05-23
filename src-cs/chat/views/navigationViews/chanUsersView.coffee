@@ -14,4 +14,4 @@ define [
       
     partChan: ->
       @chan.part()
-      Chat.view.openHome()
+      Chat.controller.openHome()

@@ -14,9 +14,6 @@ body {
   font-family: 'Roboto', sans-serif;
   background: none repeat scroll 0 0 #fff;
   color: #888888;
-  background-image: url("../img/grain.png");
-  background-position: center top;
-  background-repeat: repeat;
 }
 button i {
   margin-right: 10px;
@@ -131,6 +128,9 @@ Chan
   left: 200px;
   transition: all 0.5s;
   padding: 20px;
+  background-image: url("../img/grain.png");
+  background-position: center top;
+  background-repeat: repeat;
 }
 .chan .messages {
   overflow-y: auto;
