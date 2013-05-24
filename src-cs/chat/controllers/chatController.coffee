@@ -31,8 +31,6 @@ define [
       
       @appendNavItem usersView
       @setContentView contentView
-      
-      
 
     removeNavItems: ->
       for i in [0...@navigationViews.length]
@@ -53,7 +51,6 @@ define [
       @set "contentView", view
       navId = view.get "navId"
       $(".nav-0 li").removeClass "active"
-      console.debug navId
       setTimeout (-> $(".nav-0 li[nav-id='#{navId}']").addClass "active"), 10
 
 
