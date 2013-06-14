@@ -14,10 +14,10 @@
 (defn controls [& content] (html [:div.controls 
                                         content]))
 
-(defelem control-group [name label-text & content]
-              [:div {:class (if (vali/errors? name) "control-group error" "control-group")} 
-               [:label.control-label {:for name} label-text]
-               (controls (list content (when (vali/errors? name) [:span.help-inline (first (vali/get-errors name))])))])
+(defelem control-group [field-name label-text & content]
+              [:div {:class (if (vali/errors? field-name) "control-group error" "control-group")} 
+               [:label.control-label {:for field-name} label-text]
+               (controls (list content (when (vali/errors? field-name) [:span.help-inline (first (vali/get-errors field-name))])))])
 
 (defn- get-attr-map [args] 
   (if (map? (first args))
@@ -30,8 +30,8 @@
     (second args)))
 
 (defelem bootstrap-text-field 
-         ([name label-text & args] 
-          (control-group name label-text (text-field (get-attr-map args) name (get-value args)))))
+         ([field-name label-text & args] 
+          (control-group field-name label-text (text-field (get-attr-map args) field-name (get-value args)))))
 
 (defelem bootstrap-submit [label] (submit-button {:class "btn btn-primary"} label))
 

@@ -3,6 +3,7 @@
             [s1-chat.views.common :as common]
             [monger.core :as mg]
             [monger.collection :as mc]
+            [digest]
             [monger.result :as mr])
   (:use [hiccup.form]
         [hiccup.core :only [html]]
@@ -32,17 +33,19 @@
                                (common/bootstrap-submit "Submit"))))
 
 
-(defn hash-password [raw-password]
-  (str raw-password))
+(defn hash-password [password-string]
+  (digest/sha-256 password-string))
 
 (defn register-post [user]
-  (if (mr/has-error? 
-        (mc/insert "users" 
-                   {:email (:email user)
-                    :password (hash-password (:password user))
-                    :username (:username user)}))
-    (println "error while inserting user")
-    (println "insert success")))
+  (if (valid-user? user)
+    (if (mr/has-error? 
+          (mc/insert "users" 
+                     {:email (:email user)
+                      :password (hash-password (:password user))
+                      :username (:username user)}))
+      (println "error while inserting user")
+      (println "insert success"))
+     (register user)))
       
 
 (defn login []
