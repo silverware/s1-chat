@@ -21,7 +21,7 @@
 (defn valid-user? [{:keys [email username]}]
   (vali/rule (vali/is-email? email) [:email "Diese E-Mail-Adresse ist leider ungültig."])
 
-  (vali/rule (duplicate-email? email) [:email "Diese E-Mail-Adresse ist bei uns bereits registriert."])
+  (vali/rule (not (duplicate-email? email)) [:email "Diese E-Mail-Adresse ist bei uns bereits registriert."])
   (not (vali/errors? :email)))
 
 (defn register [{email :email username :username}]
