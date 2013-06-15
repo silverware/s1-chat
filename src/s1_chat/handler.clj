@@ -11,6 +11,7 @@
 
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
+            [s1-chat.controllers.login :as login-controllers]
             [cemerick.friend :as friend]
             [monger.core :as mg]
            ; [friend-oauth2.workflow :as oauth2]
@@ -60,35 +61,32 @@
                     :roles #{::user}}})
 
 (def app-routes
-  [
-   (GET "/" [] (layout "This is the main page, nothing to see here yet."))
+  (into 
+    login-controllers/login-routes
+    [
+     (GET "/" [] (layout "This is the main page, nothing to see here yet."))
+     (GET "/chat" [] (chat))
+     (GET "/chan/create" [] (create-anon-chan))
+     (POST "/chan/create" [] (create-anon-chan-post))
+     (GET "/chan/join/:chan-name" [chan-name] (join-anon-chan chan-name))
 
-   (GET "/chat" [] (chat))
-   (GET "/register" {{:as user} :params} (register user))
-   (POST "/register" {{:as user} :params} (register-post user))
-   (GET "/login" [] (login))
+     ; template routing
+     (GET "/chat_template.hbs" [] (hbs-chat-template))
+     (GET "/query_stream_template.hbs" [] (hbs-query-stream-template))
+     (GET "/chan_template.hbs" [] (hbs-chan-template))
+     (GET "/chan_users_template.hbs" [] (hbs-chan-users-template))
+     (GET "/home_template.hbs" [] (hbs-home-template))
+     (GET "/login_template.hbs" [] (hbs-login-template))
 
-   (GET "/chan/create" [] (create-anon-chan))
-   (POST "/chan/create" [] (create-anon-chan-post))
+     ;; (GET "/facebookcallback" [] (do
+     ;;                                   (println "huhu")
+     ;;                                   (str "huhu")))
 
-   (GET "/chan/join/:chan-name" [chan-name] (join-anon-chan chan-name))
+     (GET "/authlink" [] (friend/authorize #{::user} ("Authorized page.")))
 
-   ; template routing
-   (GET "/chat_template.hbs" [] (hbs-chat-template))
-   (GET "/query_stream_template.hbs" [] (hbs-query-stream-template))
-   (GET "/chan_template.hbs" [] (hbs-chan-template))
-   (GET "/chan_users_template.hbs" [] (hbs-chan-users-template))
-   (GET "/home_template.hbs" [] (hbs-home-template))
-   (GET "/login_template.hbs" [] (hbs-login-template))
+     (route/resources "/")
+     ]))
 
-  ;; (GET "/facebookcallback" [] (do
-  ;;                                   (println "huhu")
-  ;;                                   (str "huhu")))
-
-   (GET "/authlink" [] (friend/authorize #{::user} ("Authorized page.")))
-
-   (route/resources "/")
-   ])
 
 (def app 
   (-> 
