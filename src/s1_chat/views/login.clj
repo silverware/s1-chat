@@ -11,12 +11,13 @@
     (common/horizontal-form-to [:post ""]
                                (common/bootstrap-text-field :email "E-Mail" {:placeholder "name@example.com"} email )
                                (common/bootstrap-text-field :username "Username" username)
-                               (common/bootstrap-text-field :password "password")
+                               (common/bootstrap-password-field :password "password")
+                               (common/bootstrap-password-field :password "password (repeat)")
                                (common/bootstrap-submit "Submit"))))
 
 (defn login []
   (common/layout
     (common/horizontal-form-to [:post "/login"]
                                (common/bootstrap-text-field :username "username" {:placeholder "name@example.com"})
-                               (common/bootstrap-text-field :password "Password")
+                               (common/bootstrap-password-field :password "Password")
                                (common/bootstrap-submit "Submit"))))

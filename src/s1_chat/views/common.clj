@@ -29,6 +29,10 @@
     (first args)
     (second args)))
 
+(defelem bootstrap-password-field 
+         ([field-name label-text & args] 
+          (control-group field-name label-text (password-field (get-attr-map args) field-name (get-value args)))))
+
 (defelem bootstrap-text-field 
          ([field-name label-text & args] 
           (control-group field-name label-text (text-field (get-attr-map args) field-name (get-value args)))))
