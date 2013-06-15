@@ -1,6 +1,6 @@
 (ns s1-chat.views.login
   (:require 
-            [s1-chat.views.common :as common])
+    [s1-chat.views.common :as common])
   (:use [hiccup.form]
         [hiccup.core :only [html]]
         compojure.response
@@ -11,8 +11,8 @@
     (common/horizontal-form-to [:post ""]
                                (common/bootstrap-text-field :email "E-Mail" {:placeholder "name@example.com"} email )
                                (common/bootstrap-text-field :username "Username" username)
-                               (common/bootstrap-password-field :password "password")
-                               (common/bootstrap-password-field :password "password (repeat)")
+                               (common/bootstrap-password-field :password1 "password")
+                               (common/bootstrap-password-field :password2 "password (repeat)")
                                (common/bootstrap-submit "Submit"))))
 
 (defn login []

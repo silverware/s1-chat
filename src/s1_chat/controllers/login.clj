@@ -14,16 +14,23 @@
 (defn duplicate-email? [email]
   (mc/any? "users" {:email email}))
 
+(defn valid-passwords? [password1 password2]
+  (and (= password1 password2) (not (empty? password1))))
+
 (defmacro if-user-exists [user then-clause else-clause]
   `(if (duplicate-email? (:email user))
      ~then-clause
      ~else-clause))
 
-(defn valid-user? [{:keys [email username]}]
+(defn valid-user? [{:keys [email username password1 password2]}]
   (vali/rule (vali/is-email? email) [:email "Diese E-Mail-Adresse ist leider ungültig."])
 
   (vali/rule (not (duplicate-email? email)) [:email "Diese E-Mail-Adresse ist bei uns bereits registriert."])
-  (not (vali/errors? :email)))
+
+  (vali/rule (valid-passwords? password1 password2) [:password1 "Die Passwörter stimmen nicht überein."])
+
+  (vali/rule (#(not (empty? username))) [:username "Benutzername darf nicht leer sein."])
+  (not (vali/errors? :email :password1 :username)))
 
 (defn register [user] (vl/register user))
 
