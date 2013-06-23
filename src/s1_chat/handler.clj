@@ -12,6 +12,7 @@
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
             [s1-chat.controllers.login :as login-controllers]
+            [monger.collection :as mc]
             [cemerick.friend :as friend]
             [monger.core :as mg]
            ; [friend-oauth2.workflow :as oauth2]
@@ -47,18 +48,6 @@
 ;                               :redirect_uri (oauth2/format-config-uri client-config)
 ;                               :code ""}}})
 ; 
-;;;;;;;;;;;;;;;;;;;;;;
-;; INTERACTIVE FORM ;;
-;;;;;;;;;;;;;;;;;;;;;;
-
-(def users {"root" {:username "root"
-                    :password (creds/hash-bcrypt "root")
-                    :cemerick.friend/workflow :form
-                    :roles #{::admin}}
-            "jane" {:username "jane"
-                    :password (creds/hash-bcrypt "user_password")
-                    :cemerick.friend/workflow :form
-                    :roles #{::user}}})
 
 (def app-routes
   (into 
@@ -87,13 +76,20 @@
      (route/resources "/")
      ]))
 
+(defn my-credential-fn [{username :username password :password}]
+  (if-let [user (mc/find-one-as-map "users" {:username username})]
+    (do 
+      (if (= (login-controllers/hash-password password) (:password user))
+        {:identity username :roles #{::user}} 
+        nil))
+    nil))
 
 (def app 
   (-> 
     (app-handler app-routes)
     (friend/authenticate 
       {
-       :credential-fn (partial creds/bcrypt-credential-fn users)
+       :credential-fn my-credential-fn
        :workflows [(workflows/interactive-form)]})
     (handler/site)))
 

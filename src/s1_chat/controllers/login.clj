@@ -39,7 +39,7 @@
     (if (mr/has-error? 
           (mc/insert "users" 
                      {:email (:email user)
-                      :password (hash-password (:password user))
+                      :password (hash-password (:password1 user))
                       :username (:username user)}))
       (println "error while inserting user")
       (println "insert success"))

@@ -17,6 +17,7 @@
   (mc/drop "users")
   (generate-testdata)
   (mc/ensure-index "users" { :email 1 } { :unique true })
+  (mc/ensure-index "users" { :username 1 } { :unique true })
 
   (mg/disconnect!)
 
