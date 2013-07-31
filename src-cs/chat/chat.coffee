@@ -33,6 +33,7 @@ define [
       @set "controller", ChatController.create()
       randomName = names[Math.floor(Math.random() * names.length)]
       @authenticate randomName, ""
+      #@authenticate  "test", "test"
 
       #setTimeout((=> @join(@initialChan)), 1100) if @initialChan
         
