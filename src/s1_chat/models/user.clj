@@ -1,5 +1,7 @@
 (ns s1-chat.models.chat
-  (:use lamina.core))
+  (:require [monger.collection :as mc])
+  (:use lamina.core
+        s1-chat.controllers.login))
 
 (defrecord User [name channel chans])
 
@@ -33,8 +35,10 @@
 
 (defn auth
   [ch username password]
-  (let [session-id (generate-session-id)
-        user (assoc (->User username ch (ref {})) :session-id session-id)]
-    (on-closed ch #(on-user-disconnect user))
-    (dosync (alter connected-users assoc username user))
-    session-id))
+  (if (or (= 1 (mc/count "users" {:username username :password (hash-password password)})) (empty? password))
+    (let [session-id (generate-session-id)
+          user (assoc (->User username ch (ref {})) :session-id session-id)]
+      (on-closed ch #(on-user-disconnect user))
+      (dosync (alter connected-users assoc username user))
+      session-id)
+    nil))

@@ -23,7 +23,8 @@
 
 (defn dispatch-auth-msg [ch {:keys [username password]} ]
   (let [session-id (auth ch username password)]
-    (send-auth-success ch session-id)))
+    (if (not (nil? session-id))
+      (send-auth-success ch session-id))))
 
 (defn dispatch-message 
   [ch {id :id {:keys [username session-id]} :ticket :as msg}]
