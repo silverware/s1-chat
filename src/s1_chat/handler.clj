@@ -53,7 +53,7 @@
   (into 
     login-controllers/login-routes
     [
-     (GET "/" [] (layout "This is the main page, nothing to see here yet."))
+     (GET "/" [] (chat))
      (GET "/chat" [] (chat))
      (GET "/chan/create" [] (create-anon-chan))
      (POST "/chan/create" [] (create-anon-chan-post))
