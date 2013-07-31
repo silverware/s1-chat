@@ -6,7 +6,6 @@
   (common/layout
     (include-css "/css/chat.css")
     [:script "require(['chat/chat'], function(ChatApp) {window.Chat = ChatApp.create()});"]
-
 ))
 
 

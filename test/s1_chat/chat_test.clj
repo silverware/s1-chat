@@ -7,7 +7,7 @@
         aleph.http))
 
 (defn send-auth [ch]
-  (enqueue ch {:type "auth" :username "Hans" :password "Magic"}))
+  (enqueue ch {:type "auth" :username "Hans" :password ""}))
 
 (defn wrap-auth-json-channel [ch ticket]
     (splice
@@ -22,7 +22,7 @@
 (defn authed-ws-client 
   ([username]
   (let [ch @(websocket-client {:url "ws://localhost:8009"})]
-    (enqueue ch (formats/encode-json->string {:type "auth" :username username :password "Magic"}))
+    (enqueue ch (formats/encode-json->string {:type "auth" :username username :password ""}))
     (let [{session-id :session-id} (formats/decode-json @(read-channel ch))]
       (println (str "session-id " session-id))
       (wrap-auth-json-channel ch {:username username :session-id session-id}))))
