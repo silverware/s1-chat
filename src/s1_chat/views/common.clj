@@ -5,12 +5,6 @@
         hiccup.form
         hiccup.def))
 
-(defelem horizontal-form-to 
-         ;([& body]
-         ; (form-to {:class "form-horizontal"} [:post ""] body))
-         ([[method action] & body]
-          (form-to {:class "form-horizontal"} [method action] body)))
-
 (defn controls [& content] (html [:div.controls 
                                         content]))
 
@@ -28,6 +22,10 @@
   (if (not (map? (first args)))
     (first args)
     (second args)))
+
+(defelem horizontal-form-to 
+         ([[method action attr-map] & body]
+          (form-to (into {:class "form-horizontal"} attr-map) [method action] body)))
 
 (defelem bootstrap-password-field 
          ([field-name label-text & args] 

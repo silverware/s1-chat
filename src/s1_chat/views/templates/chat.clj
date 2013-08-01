@@ -91,7 +91,7 @@
 (defn hbs-login-template []
   (html
     [:h3 "login"]
-    (common/horizontal-form-to [:post "/login"]
+    (common/horizontal-form-to [:post "/login" {:id "login-form"}] 
                              (common/bootstrap-text-field :username "username" {:placeholder "name@example.com"})
                              (common/bootstrap-text-field :password "Password")
                              (common/bootstrap-submit "Submit"))))
