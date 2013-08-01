@@ -16,7 +16,7 @@
 
 (defn create-anon-chan-post []
   (dosync
-    (loop [anon-chan (create-chan (str "Anonymous " @anon-chan-count))]
+    (loop [anon-chan (create-chan (str "Anonymous " @anon-chan-count) {:anonymous? true})]
       (if (nil? anon-chan)
         (do 
           (alter anon-chan-count inc)

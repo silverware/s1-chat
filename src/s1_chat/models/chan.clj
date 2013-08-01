@@ -4,7 +4,7 @@
 (def chans (ref {}))
 (def anon-chan-count(ref 0))
 
-(defrecord Chan [name channel users props])
+(defrecord Chan [name channel users attr-map])
 
 (declare craft-public-msg)
 (defn secure-channel [ch]
@@ -14,9 +14,9 @@
 
 (defn create-chan
   ([name] (create-chan name {}))
-  ([name & props]
+  ([name attr-map]
    (dosync 
-     (let [ch (secure-channel (channel)) chan (Chan. name ch (ref #{}) props)]
+     (let [ch (secure-channel (channel)) chan (Chan. name ch (ref #{}) attr-map)]
        (if (not (@chans name))
          (do 
            (alter chans assoc name chan)
