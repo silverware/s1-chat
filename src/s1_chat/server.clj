@@ -28,7 +28,6 @@
        (if (not (empty? (validate msg)))
          (do 
            (println "Errors: " (validate msg))
-           ;(doall (map (fn [error-text] (enqueue json-ch {:type "error" :id id :text error-text})) (validate msg))))
            (doall (map (fn [error-text] (send-error json-ch id error-text)) (validate msg))))
          (if (= _type "auth")
            (dispatch-auth-msg json-ch msg)
