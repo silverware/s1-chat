@@ -4,7 +4,7 @@
 
 (load "chan")
 
-(defn send-error [ch text] (enqueue ch {:id 0 :type error :text text}))
+(defn send-error [ch id text] (enqueue ch {:id id :type "error" :text text}))
 
 (defn send-join-success [ch id usernames]
   (enqueue ch {:id id :type "joinsuccess" :usernames usernames}))
@@ -21,10 +21,11 @@
 (defn send-auth-success [ch session-id]
   (enqueue ch {:type "authsuccess" :session-id session-id}))
 
-(defn dispatch-auth-msg [ch {:keys [username password]} ]
+(defn dispatch-auth-msg [ch {:keys [id username password]} ]
   (let [session-id (auth ch username password)]
     (if (not (nil? session-id))
-      (send-auth-success ch session-id))))
+      (send-auth-success ch session-id)
+      (send-error ch id "Username or Password incorrect."))))
 
 (defn dispatch-message 
   [ch {id :id {:keys [username session-id]} :ticket :as msg}]
@@ -58,10 +59,17 @@
   (when (nil? (get-chan (:chan-name msg)))
     (str "Der Channel " (:chan-name msg) " existiert nicht")))
 
+(vali/defvalidator username-taken? "auth"
+                   [msg]
+                   (let [user (get-user (:username msg))]
+                     (when (and (vali/not-nil? user) (:guest? @(:attr-map user)))
+                       "The username is already taken.")))
+
 (vali/defvalidator already-authed? "auth"
                    [msg]
-                   (when (vali/not-nil? (get-user (:username msg)))
-                     "Du Flasche bist schon authentifiziert"))
+                   (let [user (get-user (:username msg))]
+                     (when (and (vali/not-nil? user) (not (:guest? @(:attr-map user))))
+                       "Du Flasche bist schon authentifiziert")))
 
 (vali/defvalidator self-video-call? "video"
                    [msg]

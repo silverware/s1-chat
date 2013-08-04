@@ -16,9 +16,14 @@ define [
 
     # Private Chats
     queryStreams: []
+
+    # authentication
+    authCallback: null
     ticket:
       username: null
       "session-id": null
+    authMessageID: null
+
     maxId: 0
     sentObjects: {}
 
@@ -67,7 +72,7 @@ define [
       obj.id = @get "maxId"
       obj.ticket = @ticket if not noTicket
       @sentObjects[obj.id] = obj
-      console.debug "send message with object", obj
+      console.debug "sent message with object", obj
       @websocket.send JSON.stringify(obj)
 
     onResponse: (event) ->
@@ -76,6 +81,7 @@ define [
       switch response.type
         when "authsuccess"
           @set "ticket.session-id", response["session-id"]
+          @authCallback()
         when "joinsuccess"
           obj = @sentObjects[response.id]
           chan = Chan.create(id: @maxId, name: obj["chan-name"], usernames: response.usernames)
@@ -85,6 +91,9 @@ define [
           @createQueryStream response.username, response.text, true
         when "video"
           @videoChatController.init response
+        when "error"
+            if @sentObjects[response.id].type == "auth"
+              @authCallback(response.text)
         else
           chan.received response for chan in @chans when chan.name is response["chan-name"]
             

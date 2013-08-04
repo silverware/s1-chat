@@ -13,5 +13,10 @@ define [
       $("#guest-login-form").submit (event) ->
         event.preventDefault()
         username = $("input[name=\"username\"]").val()
+        Chat.authCallback = (errorText) =>
+          if Chat.get("isAuthenticated")
+            view.$().fadeOut("slow")
+          else
+            alert errorText
+
         Chat.authenticate username, ""
-        view.$().fadeOut("slow")

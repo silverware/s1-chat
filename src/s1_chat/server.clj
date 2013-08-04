@@ -23,10 +23,13 @@
 (defn chat-handler [ch handshake] 
   (let [json-ch (wrap-json-channel ch)] 
   (receive-all json-ch 
-    #(let [msg % _type (:type msg)]
+    #(let [msg % _type (:type msg) id (:id msg)]
        (println (str "Message:" msg))
        (if (not (empty? (validate msg)))
-         (println "Errors: " (validate msg))
+         (do 
+           (println "Errors: " (validate msg))
+           ;(doall (map (fn [error-text] (enqueue json-ch {:type "error" :id id :text error-text})) (validate msg))))
+           (doall (map (fn [error-text] (send-error json-ch id error-text)) (validate msg))))
          (if (= _type "auth")
            (dispatch-auth-msg json-ch msg)
            (dispatch-message json-ch msg)))))))
