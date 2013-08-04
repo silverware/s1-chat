@@ -1,2 +1,0 @@
-require 'heroku-headless'
-HerokuHeadless::Deployer.deploy( 'fast-waters-2982' )
