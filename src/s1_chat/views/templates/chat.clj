@@ -90,8 +90,18 @@
 
 (defn hbs-login-template []
   (html
-    [:h3 "login"]
+    [:ul {:class "nav nav-tabs"} 
+     [:li {:class "active"} [:a {:href "#guest-login-pane" :data-toggle "tab"} "Guest"]]
+     [:li [:a {:href "#login-pane" :data-toggle "tab"} "Login"]]]
+
+    [:div {:class "tab-content"}
+    [:div {:class "tab-pane active" :id "guest-login-pane"}
+    (common/horizontal-form-to [:post "/login" {:id "guest-login-form"}] 
+                             (common/bootstrap-text-field :username "username" {:placeholder "Guest"})
+                             (common/bootstrap-submit "Submit"))]
+
+    [:div {:class "tab-pane" :id "login-pane"}
     (common/horizontal-form-to [:post "/login" {:id "login-form"}] 
                              (common/bootstrap-text-field :username "username" {:placeholder "name@example.com"})
                              (common/bootstrap-text-field :password "Password")
-                             (common/bootstrap-submit "Submit"))))
+                             (common/bootstrap-submit "Submit"))]]))

@@ -9,6 +9,9 @@ define [
 
     didInsertElement: ->
       @_super()
-      new Save
-      	form: @$("form")
-
+      view = this
+      $("#guest-login-form").submit (event) ->
+        event.preventDefault()
+        username = $("input[name=\"username\"]").val()
+        Chat.authenticate username, ""
+        view.$().fadeOut("slow")

@@ -35,7 +35,12 @@
          ([field-name label-text & args] 
           (control-group field-name label-text (text-field (get-attr-map args) field-name (get-value args)))))
 
-(defelem bootstrap-submit [label] (submit-button {:class "btn btn-primary"} label))
+(defelem bootstrap-check-box
+         ([field-name label-text & args] 
+          (control-group field-name label-text (check-box (get-attr-map args) field-name (get-value args)))))
+
+
+(defelem bootstrap-submit [label] (html [:button {:class "btn btn-primary"} label]))
 
 (defn layout [& content]
             (html5
