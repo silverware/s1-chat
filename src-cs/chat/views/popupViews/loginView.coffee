@@ -9,14 +9,25 @@ define [
 
     didInsertElement: ->
       @_super()
-      view = this
-      $("#guest-login-form").submit (event) ->
+      
+      @$("#username").focus()
+
+      $("#guest-login-form").submit (event) =>
         event.preventDefault()
         username = $("input[name=\"username\"]").val()
         Chat.authCallback = (errorText) =>
           if Chat.get("isAuthenticated")
-            view.$().fadeOut("slow")
+            @$().fadeOut("slow")
           else
-            alert errorText
+            @$("<span>" +  errorText + "</span>").insertBefore("#guest-login-form")
 
         Chat.authenticate username, ""
+
+    show: ->
+      @_super()
+     
+      $(document).ready(=>
+        $("#username").focus()
+      )
+
+

@@ -7,7 +7,10 @@ define ->
     """
 
     didInsertElement: ->
-      #todo
+      $(document).keyup((e) =>
+        if e.keyCode == 27
+          $(".popup-container").remove()
+      )
 
     show: ->
       @appendTo "body"
