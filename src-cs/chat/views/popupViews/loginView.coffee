@@ -19,7 +19,7 @@ define [
 
         # clear old error messages
         controlGroup.removeClass("error")
-        $(".help-inline").remove()
+        @$(".help-inline").remove()
 
         buttonHTML = @$(":button").html()
         @$(":button").html("&nbsp;<i class=\"icon-spinner icon-spin\"></i>")
@@ -36,6 +36,10 @@ define [
             @$("<span class=\"help-inline\">" +  errorText + "</span>").insertAfter("#username")
 
         Chat.authenticate username, ""
+
+      $("#login-form").submit (event) =>
+        event.preventDefault
+     
 
     show: ->
       @_super()

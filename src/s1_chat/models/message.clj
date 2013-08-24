@@ -59,6 +59,12 @@
   (when (nil? (get-chan (:chan-name msg)))
     (str "Der Channel " (:chan-name msg) " existiert nicht")))
 
+(vali/defvalidator username-empty? "auth"
+                   [msg]
+                   (let [username (:username msg)]
+                     (when (empty? username)
+                       "The username cannot be empty.")))
+
 (vali/defvalidator username-taken? "auth"
                    [msg]
                    (let [user (get-user (:username msg))]
