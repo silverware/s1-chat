@@ -20,7 +20,7 @@ watch = (folder, onChange) ->
     allFiles = readDir folder
     for file in allFiles then do (file) ->
         fs.watch file, (curr, prev) ->
-            if +curr.mtime isnt +prev.mtime
+            if prev and +curr.mtime isnt +prev.mtime
                 onChange()
 
 task 'build-cs', 'start watching coffeescript files', ->
@@ -32,7 +32,7 @@ task 'build-less', 'start watching coffeescript files', ->
   lessFiles = readDir("src-less")
   for file in lessFiles then do (file) ->
     file = file.split("src-less/")[1]
-    child = exec 'lessc src-less/' + file + ' resources/public/css/' + file.split(".")[0] + '.css', (err, stdout, stderr) ->
+    child = exec 'lessc src-less/' + file + ' > resources/public/css/' + file.split(".")[0] + '.css', (err, stdout, stderr) ->
       throw err if err
     child.stdout.pipe process.stdout
     child.stderr.pipe process.stderr
