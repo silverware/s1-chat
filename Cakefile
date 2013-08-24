@@ -2,8 +2,12 @@
 fs = require 'fs'
 
 readDir = (src) ->
-  files = fs.readdirSync(src)
   allFiles = []
+
+  if src.match /\/\./g
+    return allFiles
+
+  files = fs.readdirSync(src)
   for file in files
     if file.match(/\.less$/)
       allFiles.push src + "/" + file
