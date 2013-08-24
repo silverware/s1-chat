@@ -1,184 +1,28 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Colors
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Common
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-body {
-  font-size: 16px !important;
-  /*margin: 0;
-	padding: 0;*/
-
-  height: 100%;
-  font-family: 'Roboto', sans-serif;
-  background: none repeat scroll 0 0 #fff;
-  color: #888888;
-}
-button i {
-  margin-right: 10px;
-}
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Home
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-.anonym {
-  text-align: center;
-}
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-private Streams
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-#queryStreams {
-  position: fixed;
-  bottom: 0;
-  right: 10px;
-  z-index: 10;
-}
-#queryStreams .queryStream {
-  display: inline-block;
-  margin: 0 10px;
-  box-shadow: 0 0 5px #CCC;
-}
-#queryStreams .queryStream form {
-  margin: 0;
-}
-#queryStreams .queryStream input {
-  margin: 0;
-}
-#queryStreams .queryStream .header {
-  background-color: #009cdc;
-  color: white;
-  padding: 5px;
-}
-#queryStreams .queryStream .messages {
-  max-height: 200px;
-  overflow: auto;
-  background-color: white;
-  font-size: 14px;
-  padding: 5px;
-}
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Sidebar
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-nav {
-  position: absolute;
-  padding: 20px 0 5px 5px;
-  transition: width 0.5s;
-  top: 0;
-  bottom: 0;
-  width: 214px;
-  border-right: 1px solid #ddd;
-  box-shadow: 2px 0 7px #ddd;
-}
-nav h5 {
-  color: #444;
-  font-size: 18px;
-  font-weight: 100;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  margin-top: 20px;
-}
-nav ul {
-  list-style-type: none;
-  margin: 0 0 10px 10px;
-}
-nav li {
-  cursor: pointer;
-  line-height: 30px;
-  transition: all 0.5s;
-  margin-bottom: 5px;
-}
-nav li i {
-  margin-right: 5px;
-}
-nav li:hover,
-nav li.active {
-  background-color: #009cdc;
-  color: #ffffff;
-}
-.nav-0 {
-  left: 0px;
-}
-.nav-1 {
-  left: 220px;
-}
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Home
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-section.anonym {
-  height: 33%;
-}
-section.public {
-  text-align: center;
-}
-.join-chan {
-  padding: 40px;
-  font-size: 20px;
-  float: left;
-  font-weight: bold;
-  transition: all 0.5s;
-  cursor: pointer;
-  width: 200px;
-}
-.join-chan:hover {
-  background-color: #009cdc;
-  color: white;
-}
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Chan
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-.content {
-  background-color: rgba(0, 0, 0, 0.05);
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  right: 0;
-  left: 200px;
-  transition: all 0.5s;
-  padding: 20px;
-  background-image: url("../img/grain.png");
-  background-position: center top;
-  background-repeat: repeat;
-}
-.chan .messages {
-  overflow-y: auto;
-  height: 89%;
-}
-.chan #messageForm {
-  position: absolute;
-  bottom: 0;
-  left: 30px;
-}
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Popup
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-.popup-container {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-}
-.popup-content {
-  position: fixed;
-  width: 100%;
-  height: 33%;
-  padding-left: 100px;
-  top: 33%;
-  background-color: white;
-}
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Popover Bootstrap overrides
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-.popover-content {
-  padding: 9px 0;
-}
-.popover {
-  background-color: #333;
-  border-radius: 2px 2px 2px 2px;
-}
-.popover-title {
-  background-color: #222;
-  border-bottom: 1px solid #555;
-}
-.popover.right .arrow:after {
-  border-right-color: #333;
-}
+body{font-size:16px !important;height:100%;font-family:'Roboto',sans-serif;background:none repeat scroll 0 0 #fff;color:#888888;}
+button i{margin-right:10px;}
+.anonym{text-align:center;}
+#queryStreams{position:fixed;bottom:0;right:10px;z-index:10;}
+#queryStreams .queryStream{display:inline-block;margin:0 10px;box-shadow:0 0 5px #CCC;}#queryStreams .queryStream form{margin:0;}
+#queryStreams .queryStream input{margin:0;}
+#queryStreams .queryStream .header{background-color:#009cdc;color:white;padding:5px;}
+#queryStreams .queryStream .messages{max-height:200px;overflow:auto;background-color:white;font-size:14px;padding:5px;}
+nav{position:absolute;padding:20px 0 5px 5px;transition:width 0.5s;top:0;bottom:0;width:214px;border-right:1px solid #ddd;box-shadow:2px 0 7px #ddd;}nav h5{color:#444;font-size:18px;font-weight:100;margin-bottom:10px;margin-left:10px;margin-top:20px;}
+nav ul{list-style-type:none;margin:0 0 10px 10px;}
+nav li{cursor:pointer;line-height:30px;transition:all 0.5s;margin-bottom:5px;}nav li i{margin-right:5px;}
+nav li:hover,nav li.active{background-color:#009cdc;color:#ffffff;}
+.nav-0{left:0px;}
+.nav-1{left:220px;}
+section.anonym{height:33%;}
+section.public{text-align:center;}
+.join-chan{padding:40px;font-size:20px;float:left;font-weight:bold;transition:all 0.5s;cursor:pointer;width:200px;}
+.join-chan:hover{background-color:#009cdc;color:white;}
+.content{background-color:rgba(0, 0, 0, 0.05);position:absolute;bottom:0;top:0;right:0;left:200px;transition:all 0.5s;padding:20px;background-image:url("../img/grain.png");background-position:center top;background-repeat:repeat;}
+.chan .messages{overflow-y:auto;height:89%;}
+.chan #messageForm{position:absolute;bottom:0;left:30px;}
+.popup-container{position:fixed;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.8);}
+.popup-content{display:inline-block;padding:50px 100px 50px 100px;background-color:white;height:auto;width:auto;border-radius:10px;}
+.popover-content{padding:9px 0;}
+.popover{background-color:#333;border-radius:2px 2px 2px 2px;}
+.popover-title{background-color:#222;border-bottom:1px solid #555;}
+.popover.right .arrow:after{border-right-color:#333;}
