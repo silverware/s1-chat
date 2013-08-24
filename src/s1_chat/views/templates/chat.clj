@@ -17,7 +17,7 @@
 	      "{{/each}}"
       ]
       
-      [:div {:style "bottom: 20px; position: absolute; width: 214px"}
+      [:div.bottom-nav
        "{{#if Chat.isAuthenticated}}"
 	       [:h5 "{{Chat.ticket.username}}"]
 	       [:ul
@@ -48,12 +48,15 @@
 
 (defn hbs-chan-template []
   (html
+    [:div.chan-title
+     "{{view.chan.name}}"
+     ]
 	 [:div.messages
-	  "{{#each msg in view.chan.messages}}{{msg.name}}: {{msg.text}} <br /> {{/each}}"
+	  "{{#each msg in view.chan.messages}}<div class='message-key'>{{msg.name}}</div> <div class='message-body'>{{msg.text}}</div> <br /> {{/each}}"
 	  ]
     
     [:form#messageForm
-     [:input#message.span10 {:type "text" :placeholder "Message" :autocomplete "off"}]
+     [:input#message {:type "text" :placeholder "Message" :autocomplete "off" :style "width: 95%"}]
     ]
 ))
 

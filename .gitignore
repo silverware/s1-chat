@@ -15,7 +15,7 @@ pom.xml
 .DS_Store
 .swp
 resources/public/js/
-resources/public/css/chat.css
+resources/public/css/*.css
 .lein-failures
 .lein-classpath
 .settings

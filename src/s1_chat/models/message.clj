@@ -1,5 +1,6 @@
 (ns s1-chat.models.chat
-  (:require [s1-chat.validation :as vali])
+  (:require [s1-chat.validation :as vali]
+            [clojure.string :as string])
   (:use aleph.formats lamina.core))
 
 (load "chan")
@@ -62,7 +63,7 @@
 (vali/defvalidator username-empty? "auth"
                    [msg]
                    (let [username (:username msg)]
-                     (when (empty? username)
+                     (when (string/blank? username)
                        "The username cannot be empty.")))
 
 (vali/defvalidator username-taken? "auth"
