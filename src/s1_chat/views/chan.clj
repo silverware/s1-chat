@@ -14,15 +14,6 @@
       :value join-url}]
     [:a {:href join-url} "Join"])))
 
-(defn create-anon-chan-post []
-  (dosync
-    (loop [anon-chan (create-chan (str "Anonymous " @anon-chan-count) {:anonymous? true})]
-      (if (nil? anon-chan)
-        (do 
-          (alter anon-chan-count inc)
-          (recur (create-chan (str "Anonymous " @anon-chan-count))))
-        (show-anon-chan-url anon-chan)))))
-
 (defn join-anon-chan [chan-name]
   (common/layout
     ;(include-css "/css/chat.css")

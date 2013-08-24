@@ -12,6 +12,7 @@
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
             [s1-chat.controllers.login :as login-controllers]
+            [s1-chat.controllers.chan :as chan-controllers]
             [monger.collection :as mc]
             [cemerick.friend :as friend]
             [monger.core :as mg]
@@ -50,14 +51,12 @@
 ; 
 
 (def app-routes
-  (into 
+  (clojure.set/union
     login-controllers/login-routes
+    chan-controllers/chan-routes
     [
      (GET "/" [] (chat))
      (GET "/chat" [] (chat))
-     (GET "/chan/create" [] (create-anon-chan))
-     (POST "/chan/create" [] (create-anon-chan-post))
-     (GET "/chan/join/:chan-name" [chan-name] (join-anon-chan chan-name))
 
      ; template routing
      (GET "/chat_template.hbs" [] (hbs-chat-template))
