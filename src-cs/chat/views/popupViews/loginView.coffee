@@ -15,11 +15,25 @@ define [
       $("#guest-login-form").submit (event) =>
         event.preventDefault()
         username = $("input[name=\"username\"]").val()
+        controlGroup = $("#username").parent().parent()
+
+        # clear old error messages
+        controlGroup.removeClass("error")
+        $(".help-inline").remove()
+
+        buttonHTML = @$(":button").html()
+        @$(":button").html("&nbsp;<i class=\"icon-spinner icon-spin\"></i>")
+        
         Chat.authCallback = (errorText) =>
+
+          # remove spinner
+          @$(":button").html(buttonHTML)
+
           if Chat.get("isAuthenticated")
             @$().fadeOut("slow")
           else
-            @$("<span>" +  errorText + "</span>").insertBefore("#guest-login-form")
+            controlGroup.addClass("error")
+            @$("<span class=\"help-inline\">" +  errorText + "</span>").insertAfter("#username")
 
         Chat.authenticate username, ""
 
