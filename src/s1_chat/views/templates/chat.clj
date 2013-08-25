@@ -109,7 +109,7 @@
 
 (defn hbs-register-template []
   (html 
-    (common/horizontal-form-to [:post ""]
+    (common/horizontal-form-to [:post "" {:id "register-form"}]
                                (common/bootstrap-text-field :email "E-Mail" {:placeholder "name@example.com"})
                                (common/bootstrap-text-field :username "Username")
                                (common/bootstrap-password-field :password1 "password")

@@ -15,6 +15,9 @@
 (defn duplicate-email? [email]
   (mc/any? "users" {:email email}))
 
+(defn duplicate-username? [username]
+  (mc/any? "users" {:username username}))
+
 (defn valid-passwords? [password1 password2]
   (and (= password1 password2) (not (empty? password1))))
 
@@ -27,6 +30,8 @@
   (vali/rule (vali/is-email? email) [:email "Diese E-Mail-Adresse ist leider ungültig."])
 
   (vali/rule (not (duplicate-email? email)) [:email "Diese E-Mail-Adresse ist bei uns bereits registriert."])
+
+  (vali/rule (not (duplicate-username? username)) [:username "Username is not available."])
 
   (vali/rule (valid-passwords? password1 password2) [:password1 "Die Passwörter stimmen nicht überein."])
 
