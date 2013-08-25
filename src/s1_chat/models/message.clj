@@ -44,6 +44,7 @@
         "video" 
           (let [receiver (get-user (:receiver msg))]
             (enqueue (:channel receiver) (assoc (dissoc msg :ticket) :username username)))
+        "logout" (logout-user user)
         (println "default action do nothing")
         ))))
 

@@ -12,7 +12,7 @@
 (defn send-part [chan user]
   (enqueue (:channel chan) {:id 0 :type "part" :username (:name user) :chan-name (:name chan)}))
 
-(defn on-user-disconnect [user] 
+(defn logout-user [user] 
   (println "User " (:name user) " disconnected.")
   (dosync
     (alter connected-users dissoc (:name user))
@@ -38,7 +38,7 @@
   (if (or (= 1 (mc/count "users" {:username username :password (hash-password password)})) (empty? password))
     (let [session-id (generate-session-id)
           user (assoc (->User username ch (ref {}) (ref {:guest? (empty? password)})) :session-id session-id)]
-      (on-closed ch #(on-user-disconnect user))
+      (on-closed ch #(logout-user user))
       (dosync (alter connected-users assoc username user))
       session-id)
     nil))

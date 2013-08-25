@@ -22,11 +22,11 @@
 	       [:h5 "{{Chat.ticket.username}}"]
 	       [:ul
 	        [:li.editProfile {:nav-id "profile-edit"} [:i.icon-edit] "edit profile"]
-		      [:li.loginLink [:i.icon-edit] "log out"]
+		      "<li class=\"logout-link\" {{action logout target=\"Chat\"}}>" [:i.icon-edit] "log out </li>"
 	      ]
        "{{else}}"
 	       [:ul
-	         [:li.loginLink [:i.icon-edit] "log in"]
+	         "<li class=\"login-link\" {{action openLoginPopup target=\"view\"}}>" [:i.icon-edit] "log in </li>"
 	       ]
        "{{/if}}"
        ]

@@ -2,10 +2,9 @@ define [
   "./chan"
   "./message"
   "./controllers/chatController"
-  "./names"
   "./queryStream"
   "./videoChatController"
-], (Chan, Message, ChatController, names, QueryStream, VideoChat) ->
+], (Chan, Message, ChatController, QueryStream, VideoChat) ->
 
   Em.Application.extend
 
@@ -28,7 +27,7 @@ define [
     sentObjects: {}
 
     videoChatController: VideoChat
-	
+
     init: ->
       @_super()
       @set "queryStreams", []
@@ -36,22 +35,28 @@ define [
       @websocket = $.gracefulWebSocket "ws://#{window.location.hostname}:8008/"
       @websocket.onmessage = @onResponse.bind @
       @set "controller", ChatController.create()
-      randomName = names[Math.floor(Math.random() * names.length)]
-      #@authenticate randomName, ""
-      #@authenticate  "test", "test"
 
-      #setTimeout((=> @join(@initialChan)), 1100) if @initialChan
-        
     authenticate: (username, password) ->
       @set "ticket.username", username
       authentification =
         type: "auth"
         username: username
         password: password
-      setTimeout((=> @send(authentification, true)), 1000)
+      setTimeout((=> @sendMsg(authentification, true)), 1000)
+
+    logout: ->
+      console.debug "logout", @
+      if not @get("isAuthenticated") then return
+      @sendMsg
+        type: "logout"
+      @set "ticket.username", null
+      @set "ticket.session-id", null
+      @chans.clear()
+      @queryStreams.clear()
+      Chat.controller.openHome()
 
     join: (channelName) ->
-      @send
+      @sendMsg
         type: "join"
         "chan-name": channelName
 
@@ -63,11 +68,11 @@ define [
         receivers: receivers
         text: text
       @createQueryStream receiver, text for receiver in receivers
-    
+
     video: (receiver) ->
        @videoChatController.startVideo true, receiver
-      
-    send: (obj, noTicket) ->
+
+    sendMsg: (obj, noTicket) ->
       @set "maxId", @maxId + 1
       obj.id = @get "maxId"
       obj.ticket = @ticket if not noTicket
@@ -96,7 +101,7 @@ define [
               @authCallback(response.text)
         else
           chan.received response for chan in @chans when chan.name is response["chan-name"]
-            
+
 
     createQueryStream: (user, text, received) ->
       author = if received then user else @ticket.username

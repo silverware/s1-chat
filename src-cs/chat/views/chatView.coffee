@@ -20,5 +20,6 @@ define [
     didInsertElement: ->
       @$("[nav-id='home']").click =>
         Chat.controller.openHome()
-      $(".loginLink").click ->
-        LoginView.create().show()
+
+    openLoginPopup: ->
+      LoginView.create().show()
