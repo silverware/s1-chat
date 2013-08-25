@@ -1,4 +1,8 @@
-(ns s1-chat.validation)
+(ns s1-chat.validation
+  (:require [noir.validation :as vali]))
+
+(defn json-errors [& fields]
+    (into {} (remove (comp nil? val) (reduce #(assoc %1 %2 (vali/get-errors %2)) {}  fields))))
 
 (def not-nil? (comp not nil?)) 
 

@@ -4,7 +4,8 @@ define [
   "./queryStreamView"
   "./navigationViews/chanUsersView"
   "./popupViews/loginView"
-], (template, ChanView, QueryStreamView, ChanUsersView, LoginView) ->
+  "./popupViews/registerView"
+], (template, ChanView, QueryStreamView, ChanUsersView, LoginView, RegisterView) ->
 
   Ember.View.extend
     ChanView: ChanView
@@ -20,5 +21,9 @@ define [
     didInsertElement: ->
       @$("[nav-id='home']").click =>
         Chat.controller.openHome()
+
+      $(".registerLink").click ->
+        RegisterView.create().show()
+
       $(".loginLink").click ->
         LoginView.create().show()

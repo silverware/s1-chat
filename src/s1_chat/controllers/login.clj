@@ -1,12 +1,13 @@
 (ns s1-chat.controllers.login 
-  (:use compojure.core)
+  (:use compojure.core
+        aleph.formats
+        s1-chat.validation)
   (:require [s1-chat.views.login :as vl]
             [monger.collection :as mc]
             [noir.validation :as vali]  
             [monger.core :as mg]
             [digest]
             [monger.result :as mr]))
-
 
 (defn hash-password [password-string]
   (digest/sha-256 password-string))
@@ -36,14 +37,13 @@
 
 (defn register-post [user]
   (if (valid-user? user)
-    (if (mr/has-error? 
-          (mc/insert "users" 
+    (if (mr/has-error? (mc/insert "users" 
                      {:email (:email user)
                       :password (hash-password (:password1 user))
                       :username (:username user)}))
-      (println "error while inserting user")
-      (println "insert success"))
-    (vl/register user)))
+      (encode-json->string {:errors ["Error while inserting into database."]})
+      (encode-json->string {:success true}))
+    (encode-json->string {:fieldErrors (json-errors :email :password1 :username)})))
 
 (def login-routes [
              (GET "/register" {{:as user} :params} (register user))

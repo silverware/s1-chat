@@ -27,6 +27,7 @@
        "{{else}}"
 	       [:ul
 	         [:li.loginLink [:i.icon-edit] "log in"]
+	         [:li.registerLink [:i.icon-edit] "register"]
 	       ]
        "{{/if}}"
        ]
@@ -105,3 +106,12 @@
                              (common/bootstrap-text-field :username "username" {:placeholder "name@example.com"})
                              (common/bootstrap-text-field :password "Password")
                              (common/bootstrap-submit "Submit"))]]))
+
+(defn hbs-register-template []
+  (html 
+    (common/horizontal-form-to [:post ""]
+                               (common/bootstrap-text-field :email "E-Mail" {:placeholder "name@example.com"})
+                               (common/bootstrap-text-field :username "Username")
+                               (common/bootstrap-password-field :password1 "password")
+                               (common/bootstrap-password-field :password2 "password (repeat)")
+                               (common/bootstrap-submit "Submit"))))
