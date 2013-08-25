@@ -22,8 +22,8 @@ define [
       @$("[nav-id='home']").click =>
         Chat.controller.openHome()
 
-      $(".registerLink").click ->
+    openRegisterPopup: ->
         RegisterView.create().show()
 
-      $(".loginLink").click ->
-        LoginView.create().show()
+    openLoginPopup: ->
+      LoginView.create().show()

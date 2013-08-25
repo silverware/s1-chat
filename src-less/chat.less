@@ -22,7 +22,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	background: none repeat scroll 0 0 #fff;
 	color: @text;
-	
+
 }
 
 button {
@@ -132,6 +132,12 @@ nav {
     left: 220px;
 }
 
+.bottom-nav {
+	bottom: 20px;
+	position: absolute;
+	width: 214px;
+}
+
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Home
@@ -177,18 +183,37 @@ Chan
   	background-repeat: repeat;
 }
 
-.chan .messages {
-	overflow-y: auto;
-	height: 89%;
+.chan {
+
+	.messages {
+		overflow-y: auto;
+		height: 95%;
+		.message-key {
+			font-weight: bold;
+			width: 120px;
+			display: inline-block;
+		}
+
+		.message-body {
+			display: inline-block;
+		}
+	}
+
+	#messageForm {
+		margin: 0;
+	}
+
+	.chan-title {
+		position: absolute;
+		right: 0px;
+		top: 20px;
+		width: 30%;
+		font-size: 25px;
+		background-color: @blue;
+		color: @white;
+		padding: 10px;
+	}
 }
-
-.chan #messageForm {
-	position: absolute;
-	bottom: 0;
-	left: 30px;
-}
-
-
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Popup
@@ -204,7 +229,7 @@ Popup
 .popup-content {
     display: inline-block;
     padding: 50px 100px 50px 100px;
-	background-color: white;
+		background-color: @white;
     height: auto;
     width: auto;
     border-radius: 10px;

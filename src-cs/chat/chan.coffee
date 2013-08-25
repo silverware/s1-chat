@@ -7,7 +7,7 @@ define [
     name: ""
     messages: []
     usernames: []
-	
+
     init: ->
       @_super()
       @messages = []
@@ -24,13 +24,13 @@ define [
           @usernames.pushObject message.username
 
     sendMessage: (text) ->
-      Chat.send
+      Chat.sendMsg
         type: "msg"
         "chan-name": @name
         text: text
 
     part: ->
-      Chat.send
+      Chat.sendMsg
         type: "part"
         "chan-name": @name
       Chat.chans.removeObject @

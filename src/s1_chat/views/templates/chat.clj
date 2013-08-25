@@ -17,17 +17,17 @@
 	      "{{/each}}"
       ]
       
-      [:div {:style "bottom: 20px; position: absolute; width: 214px"}
+      [:div.bottom-nav
        "{{#if Chat.isAuthenticated}}"
 	       [:h5 "{{Chat.ticket.username}}"]
 	       [:ul
 	        [:li.editProfile {:nav-id "profile-edit"} [:i.icon-edit] "edit profile"]
-		      [:li.loginLink [:i.icon-edit] "log out"]
+		      "<li class=\"logout-link\" {{action logout target=\"Chat\"}}>" [:i.icon-edit] "log out </li>"
 	      ]
        "{{else}}"
 	       [:ul
-	         [:li.loginLink [:i.icon-edit] "log in"]
-	         [:li.registerLink [:i.icon-edit] "register"]
+	         "<li class=\"login-link\" {{action openLoginPopup target=\"view\"}}>" [:i.icon-edit] "log in </li>"
+	         "<li class=\"login-link\" {{action openRegisterPopup target=\"view\"}}>" [:i.icon-edit] "register</li>"
 	       ]
        "{{/if}}"
        ]
@@ -49,12 +49,15 @@
 
 (defn hbs-chan-template []
   (html
+    [:div.chan-title
+     "{{view.chan.name}}"
+     ]
 	 [:div.messages
-	  "{{#each msg in view.chan.messages}}{{msg.name}}: {{msg.text}} <br /> {{/each}}"
+	  "{{#each msg in view.chan.messages}}<div class='message-key'>{{msg.name}}</div> <div class='message-body'>{{msg.text}}</div> <br /> {{/each}}"
 	  ]
     
     [:form#messageForm
-     [:input#message.span10 {:type "text" :placeholder "Message" :autocomplete "off"}]
+     [:input#message {:type "text" :placeholder "Message" :autocomplete "off" :style "width: 95%"}]
     ]
 ))
 

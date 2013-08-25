@@ -21,12 +21,12 @@ define [
       @_super()
       @$("#messageForm").submit (event) =>
         event.preventDefault()
-
         message = @$("#message").val()
+        if not message then return
         @messageHistory.pushObject message
         @historyIndex = @messageHistory.length
 
-        if message.indexOf("/") == 0
+        if message.indexOf("/") is 0
           commandArgs = message[1..message.length].split " "
           command = commandArgs[0]
           args = commandArgs[1..commandArgs.length]
@@ -35,7 +35,7 @@ define [
           @chan.sendMessage message
 
         @$("#message").val ""
-    
+
       @$("#message").keydown ({keyCode}) =>
         if keyCode is 38 and @historyIndex >= 0
           @historyIndex--
@@ -45,7 +45,7 @@ define [
           message = @messageHistory.objectAt @historyIndex
           if message then @$("#message").val message
 
-    
+
     onMessageSizeChanged: (->
       @$(".messages").scrollTop(@$(".messages")[0].scrollHeight)
     ).observes("chan.messages.@each")

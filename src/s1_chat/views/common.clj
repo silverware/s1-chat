@@ -57,9 +57,10 @@
                (include-js "/bootstrap/js/bootstrap-tooltip.js")
                (include-js "/bootstrap/js/bootstrap-popover.js")
                [:title "s1-chat"]
-               ;(include-css "/css/reset.css")
+               (include-css "/css/normalize.css")
                (include-css "/bootstrap/css/bootstrap.css")
-               (include-css "/css/font-awesome.min.css")
+               (include-css "/css/font-awesome.css")
+               (include-css "/css/common.css")
 ;               (include-css "/bootstrap/css/bootstrap-responsive.css")
               ]
               [:body content]

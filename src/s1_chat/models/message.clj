@@ -1,5 +1,6 @@
 (ns s1-chat.models.chat
-  (:require [s1-chat.validation :as vali])
+  (:require [s1-chat.validation :as vali]
+            [clojure.string :as string])
   (:use aleph.formats lamina.core))
 
 (load "chan")
@@ -43,6 +44,7 @@
         "video" 
           (let [receiver (get-user (:receiver msg))]
             (enqueue (:channel receiver) (assoc (dissoc msg :ticket) :username username)))
+        "logout" (logout-user user)
         (println "default action do nothing")
         ))))
 
@@ -62,7 +64,7 @@
 (vali/defvalidator username-empty? "auth"
                    [msg]
                    (let [username (:username msg)]
-                     (when (empty? username)
+                     (when (string/blank? username)
                        "The username cannot be empty.")))
 
 (vali/defvalidator username-taken? "auth"

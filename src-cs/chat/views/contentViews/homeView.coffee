@@ -16,5 +16,5 @@ define [
       	chanName = $(target).html()
       	Chat.join chanName
 
-    
+
 
