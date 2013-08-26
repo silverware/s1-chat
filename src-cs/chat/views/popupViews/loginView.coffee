@@ -7,19 +7,30 @@ define [
     template: Ember.Handlebars.compile template
     classNames: ['login']
 
+    insertErrorMessage: (field, message) ->
+      formID = '#register-form'
+      controlGroup = @$(formID + ' #' + field).parent().parent()
+      controlGroup.addClass 'error'
+      @$('<span class="help-inline">' + message + '</span>').insertAfter @$(formID + ' #'+ field)
+
+    clearErrorMessages: ->
+      formID = '#register-form'
+      @$(formID + " .control-group .help-inline").remove()
+      @$(formID + " .error").removeClass("error")
+
     didInsertElement: ->
       @_super()
       
-      @$("#username").focus()
+      @$("#guest-username").focus()
 
       $("#guest-login-form").submit (event) =>
         event.preventDefault()
-        username = $("input[name=\"username\"]").val()
-        controlGroup = $("#username").parent().parent()
+        username = $("input[name=\"guest-username\"]").val()
+        controlGroup = $("#guest-username").parent().parent()
 
         # clear old error messages
-        controlGroup.removeClass("error")
-        @$(".help-inline").remove()
+        controlGroup.removeClass("#guest-login-form error")
+        @$("#guest-login-form .help-inline").remove()
 
         buttonHTML = @$(":button").html()
         @$(":button").html("&nbsp;<i class=\"icon-spinner icon-spin\"></i>")
@@ -33,19 +44,38 @@ define [
             @$().fadeOut("slow")
           else
             controlGroup.addClass("error")
-            @$("<span class=\"help-inline\">" +  errorText + "</span>").insertAfter("#username")
+            @$("<span class=\"help-inline\">" +  errorText + "</span>").insertAfter("#guest-username")
 
         Chat.authenticate username, ""
 
       $("#login-form").submit (event) =>
         event.preventDefault
-     
+
+      $("#register-form").submit (event) =>
+        event.preventDefault()
+        @clearErrorMessages()
+        formData = @$("#register-form").serialize()
+
+        buttonHTML = @$(":button").html()
+        @$(":button").html("&nbsp;<i class=\"icon-spinner icon-spin\"></i>")
+
+        $.post('/register', formData, (data) =>
+          @$(":button").html(buttonHTML)
+          if data.fieldErrors
+            for entry in data.fieldErrors
+              @insertErrorMessage(entry[0], entry[1])
+
+          else if data.errors
+            alert data.errors
+          else
+            alert "ok"
+        , "json")
 
     show: ->
       @_super()
      
       $(document).ready(=>
-        $("#username").focus()
+        $("#guest-username").focus()
       )
 
 

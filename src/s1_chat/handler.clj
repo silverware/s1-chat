@@ -65,7 +65,6 @@
      (GET "/chan_users_template.hbs" [] (hbs-chan-users-template))
      (GET "/home_template.hbs" [] (hbs-home-template))
      (GET "/login_template.hbs" [] (hbs-login-template))
-     (GET "/register_template.hbs" [] (hbs-register-template))
 
      ;; (GET "/facebookcallback" [] (do
      ;;                                   (println "huhu")
