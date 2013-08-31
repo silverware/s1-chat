@@ -22,10 +22,10 @@ define [
       @_super()
 
       @$("a[href=" + @initialTab + "]").tab('show')
-      
+
       @$("#guest-username").focus()
 
-      $("#guest-login-form").submit (event) =>
+      @$("#guest-login-form").submit (event) =>
         event.preventDefault()
         username = $("input[name=\"guest-username\"]").val()
         controlGroup = $("#guest-username").parent().parent()
@@ -36,24 +36,24 @@ define [
 
         buttonHTML = @$(":button").html()
         @$(":button").html("&nbsp;<i class=\"icon-spinner icon-spin\"></i>")
-        
+
         Chat.authCallback = (errorText) =>
 
           # remove spinner
           @$(":button").html(buttonHTML)
 
           if Chat.get("isAuthenticated")
-            @$().fadeOut("slow")
+            @destroy()
           else
             controlGroup.addClass("error")
             @$("<span class=\"help-inline\">" +  errorText + "</span>").insertAfter("#guest-username")
 
         Chat.authenticate username, ""
 
-      $("#login-form").submit (event) =>
+      @$("#login-form").submit (event) =>
         event.preventDefault
 
-      $("#register-form").submit (event) =>
+      @$("#register-form").submit (event) =>
         event.preventDefault()
         @clearErrorMessages()
         formData = @$("#register-form").serialize()
@@ -81,7 +81,7 @@ define [
 
     show: ->
       @_super()
-     
+
       $(document).ready(=>
         $("#guest-username").focus()
       )

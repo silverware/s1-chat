@@ -5,7 +5,8 @@ define [
   "chat/views/navigationViews/chanUsersView"
   "chat/views/contentViews/homeView"
   "chat/views/popupViews/loginView"
-], (template, ChatView, ChanView,  ChanUsersView, HomeView, LoginView) ->
+  "chat/views/contentViews/profileEditView"
+], (template, ChatView, ChanView,  ChanUsersView, HomeView, LoginView, ProfileEditView) ->
 
   Ember.Controller.extend
     navigationViews: []
@@ -28,11 +29,13 @@ define [
 
       contentView = ChanView.create chan: chan
       usersView = ChanUsersView.create chan: chan
-      
+
       @appendNavItem usersView
       @setContentView contentView
 
-      
+    openEditProfile: ->
+      @removeNavItems()
+      @setContentView ProfileEditView.create()
 
     removeNavItems: ->
       for i in [0...@navigationViews.length]
@@ -45,7 +48,7 @@ define [
       $("body").append "<nav class='nav-#{lastIndex + 1}'>"
       view.appendTo ".nav-#{lastIndex + 1}"
       @navigationViews.pushObject view
-      
+
 
     setContentView: (view) ->
       @contentView?.destroy()
@@ -59,4 +62,4 @@ define [
     arrangeContent: ->
       marginLeft = ((@navigationViews.length + 1) * 220)
       $(".content").css "left", "#{marginLeft}px"
-      
+

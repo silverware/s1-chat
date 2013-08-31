@@ -7,18 +7,21 @@ define ->
     """
 
     didInsertElement: ->
-      $(document).keyup((e) =>
-        if e.keyCode == 27
-          $(".popup-container").remove()
-      )
-     
+      $(document).keyup (e) =>
+        if e.keyCode is 27
+          @destroy()
+
       popupContent = @$(".popup-content")
 
       popupContent.css("position","absolute")
       popupContent.css("top", Math.max(0, (($(window).height() - popupContent.outerHeight()) / 2) + $(window).scrollTop()) + "px")
       popupContent.css("left", Math.max(0, (($(window).width() - popupContent.outerWidth()) / 2) + $(window).scrollLeft()) + "px")
-      
+
       $(".popup-content").fadeIn()
 
     show: ->
       @appendTo "body"
+
+    destroy: ->
+      @$().fadeOut("slow")
+      @_super()

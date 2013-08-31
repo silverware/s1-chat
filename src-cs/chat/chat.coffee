@@ -4,8 +4,7 @@ define [
   "./controllers/chatController"
   "./queryStream"
   "./videoChatController"
-  "./views/contentViews/profileEditView"
-], (Chan, Message, ChatController, QueryStream, VideoChat, ProfileEditView) ->
+], (Chan, Message, ChatController, QueryStream, VideoChat) ->
 
   Em.Application.extend
 
@@ -55,9 +54,6 @@ define [
       @chans.clear()
       @queryStreams.clear()
       Chat.controller.openHome()
-
-    openEditProfile: ->
-      @controller.setContentView ProfileEditView.create()
 
     join: (channelName) ->
       @sendMsg
