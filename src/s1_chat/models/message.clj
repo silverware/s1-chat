@@ -72,7 +72,7 @@
 (vali/defvalidator username-taken? "auth"
                    [msg]
                    (let [user (get-user (:username msg))]
-                     (when (or (vali/not-nil? user) (login-ctrl/duplicate-username? (:username msg)))
+                     (when (or (vali/not-nil? user) (and (login-ctrl/duplicate-username? (:username msg)) (string/blank? (:password msg))))
                        "The username is already in use.")))
 
 (vali/defvalidator already-authed? "auth"

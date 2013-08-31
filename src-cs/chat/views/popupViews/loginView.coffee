@@ -51,7 +51,19 @@ define [
         Chat.authenticate username, ""
 
       @$("#login-form").submit (event) =>
-        event.preventDefault
+        event.preventDefault()
+        
+        username = @$("#login-username").val()
+        password = @$("#login-password").val()
+
+        Chat.authCallback = (errorText) =>
+          if Chat.get("isAuthenticated")
+            @destroy()
+          else
+            alert errorText
+            # todo
+
+        Chat.authenticate username, password
 
       @$("#register-form").submit (event) =>
         event.preventDefault()
