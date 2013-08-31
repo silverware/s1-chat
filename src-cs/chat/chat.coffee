@@ -67,7 +67,7 @@ define [
     query: (receivers, text...) ->
       receivers = receivers.split ","
       text = text.join " "
-      @send
+      @sendMsg
         type: "query"
         receivers: receivers
         text: text

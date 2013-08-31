@@ -1,6 +1,8 @@
 (ns s1-chat.models.chat
   (:require [s1-chat.validation :as vali]
-            [clojure.string :as string])
+            [clojure.string :as string]
+            [s1-chat.controllers.login :as login-ctrl]
+            )
   (:use aleph.formats lamina.core))
 
 (load "chan")
@@ -70,8 +72,8 @@
 (vali/defvalidator username-taken? "auth"
                    [msg]
                    (let [user (get-user (:username msg))]
-                     (when (and (vali/not-nil? user) (:guest? @(:attr-map user)))
-                       "The username is already taken.")))
+                     (when (or (vali/not-nil? user) (login-ctrl/duplicate-username? (:username msg)))
+                       "The username is already in use.")))
 
 (vali/defvalidator already-authed? "auth"
                    [msg]
