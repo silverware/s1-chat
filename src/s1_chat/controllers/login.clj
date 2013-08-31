@@ -1,6 +1,7 @@
 (ns s1-chat.controllers.login 
-  (:use compojure.core
-        aleph.formats
+  (:use aleph.formats
+        compojure.core
+        ring.util.response
         s1-chat.validation)
   (:require [s1-chat.views.login :as vl]
             [monger.collection :as mc]
@@ -46,9 +47,9 @@
                      {:email (:email user)
                       :password (hash-password (:password1 user))
                       :username (:username user)}))
-      (encode-json->string {:errors ["Error while inserting into database."]})
-      (encode-json->string {:success true}))
-    (encode-json->string {:fieldErrors (json-errors :email :password1 :username)})))
+      (response {:errors ["Error while inserting into database."]})
+      (response {:success true}))
+    (response {:fieldErrors (json-errors :email :password1 :username)})))
 
 (def login-routes [
              (GET "/register" {{:as user} :params} (register user))

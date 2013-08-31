@@ -1,12 +1,11 @@
 define [
   "text!/profile_edit_template.hbs"
-], (template) ->
-  Ember.View.extend
+  "./contentView"
+], (template, ContentView) ->
+  ContentView.extend
     template: Ember.Handlebars.compile template
 
     didInsertElement: ->
+      @_super()
       # todo
       
-    partChan: ->
-      @chan.part()
-      Chat.view.openHome()

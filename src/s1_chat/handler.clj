@@ -6,6 +6,7 @@
         s1-chat.views.templates.chat
         s1-chat.views.chan
         s1-chat.server
+        ring.middleware.json
         [ring.adapter.jetty :only [run-jetty]]
         noir.util.middleware)
 
@@ -65,6 +66,7 @@
      (GET "/chan_users_template.hbs" [] (hbs-chan-users-template))
      (GET "/home_template.hbs" [] (hbs-home-template))
      (GET "/login_template.hbs" [] (hbs-login-template))
+     (GET "/profile_edit_template.hbs" [] (hbs-profile-edit-template))
 
      ;; (GET "/facebookcallback" [] (do
      ;;                                   (println "huhu")
@@ -86,6 +88,9 @@
 (def app 
   (-> 
     (app-handler app-routes)
+    (wrap-json-response)
+    (wrap-json-body)
+    (wrap-json-params)
     (friend/authenticate 
       {
        :credential-fn my-credential-fn

@@ -5,6 +5,7 @@
                            [aleph "0.3.0-beta7"]
                            [clj-coffee-script "1.1.0"]
                            [clj-json "0.5.3"]
+                           [ring/ring-json "0.2.0"]
                            [ring/ring-jetty-adapter "1.1.0"]
                            [compojure "1.1.5"]
                            [crate "0.1.0-SNAPSHOT"]
@@ -33,5 +34,5 @@
             :ring {:handler s1-chat.handler/app
                    :init s1-chat.server/initialize-app}
             ;            :prep-tasks [["coffeescript" "resources/public/js" "src-cs"] "javac" "compile"]
-)
+            )
 

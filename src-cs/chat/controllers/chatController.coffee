@@ -32,6 +32,8 @@ define [
       @appendNavItem usersView
       @setContentView contentView
 
+      
+
     removeNavItems: ->
       for i in [0...@navigationViews.length]
         @navigationViews[i].destroy()

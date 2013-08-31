@@ -20,6 +20,8 @@ define [
 
     didInsertElement: ->
       @_super()
+
+      @$("a[href=" + @initialTab + "]").tab('show')
       
       @$("#guest-username").focus()
 
@@ -66,9 +68,15 @@ define [
               @insertErrorMessage(entry[0], entry[1])
 
           else if data.errors
-            alert data.errors
+            html = "<ul>"
+            for err in data.errors
+              html += "<li>" + err  + "</li>"
+            html += "</ul>"
+            @$(html).insertBefore("#register-form")
           else
-            alert "ok"
+            @$("a[href=#login-pane]").tab('show')
+            @$("#login-username").val(@$("#username").val())
+            @$('<div class="alert alert-success fade in"><button type="button" class="close" data-dismiss="alert">×</button>Super gemacht, Arschloch!</div>').insertBefore("#login-tabs")
         , "json")
 
     show: ->

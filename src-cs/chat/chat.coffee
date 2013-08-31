@@ -4,7 +4,8 @@ define [
   "./controllers/chatController"
   "./queryStream"
   "./videoChatController"
-], (Chan, Message, ChatController, QueryStream, VideoChat) ->
+  "./views/contentViews/profileEditView"
+], (Chan, Message, ChatController, QueryStream, VideoChat, ProfileEditView) ->
 
   Em.Application.extend
 
@@ -54,6 +55,9 @@ define [
       @chans.clear()
       @queryStreams.clear()
       Chat.controller.openHome()
+
+    openEditProfile: ->
+      @controller.setContentView ProfileEditView.create()
 
     join: (channelName) ->
       @sendMsg
@@ -108,7 +112,6 @@ define [
       if (@queryStreams.every (x) -> user isnt x.username)
         @queryStreams.pushObject QueryStream.create username: user
       stream.messages.pushObject Message.create(author, text) for stream in @queryStreams when stream.username is user
-
 
     isAuthenticated: (->
       @get("ticket.session-id") isnt null

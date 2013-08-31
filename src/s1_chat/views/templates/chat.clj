@@ -21,13 +21,13 @@
        "{{#if Chat.isAuthenticated}}"
 	       [:h5 "{{Chat.ticket.username}}"]
 	       [:ul
-	        [:li.editProfile {:nav-id "profile-edit"} [:i.icon-edit] "edit profile"]
+		      "<li class=\"editProfile\" {{action openEditProfile target=\"Chat\"}}>" [:i.icon-edit] "edit profile </li>"
 		      "<li class=\"logout-link\" {{action logout target=\"Chat\"}}>" [:i.icon-edit] "log out </li>"
 	      ]
        "{{else}}"
 	       [:ul
-	         "<li class=\"login-link\" {{action openLoginPopup target=\"view\"}}>" [:i.icon-edit] "log in </li>"
-	         "<li class=\"login-link\" {{action openRegisterPopup target=\"view\"}}>" [:i.icon-edit] "register</li>"
+	         "<li class=\"login-link\" {{action openLoginPopup \"#guest-login-pane\" target=\"view\"}}>" [:i.icon-edit] "log in </li>"
+	         "<li class=\"register-link\" {{action openLoginPopup \"#register-pane\" target=\"view\"}}>" [:i.icon-edit] "register</li>"
 	       ]
        "{{/if}}"
        ]
@@ -94,7 +94,7 @@
 
 (defn hbs-login-template []
   (html
-    [:ul {:class "nav nav-tabs"} 
+    [:ul#login-tabs {:class "nav nav-tabs"} 
      [:li {:class "active"} [:a {:href "#guest-login-pane" :data-toggle "tab"} "Guest"]]
      [:li [:a {:href "#login-pane" :data-toggle "tab"} "Login"]]
      [:li [:a {:href "#register-pane" :data-toggle "tab"} "Register"]]
@@ -121,3 +121,14 @@
                                  (common/bootstrap-submit "Submit")) 
       ]]))
 
+
+(defn hbs-profile-edit-template []
+  (html
+    [:h1 "Edit Profile"]
+    (common/horizontal-form-to [:post ""]
+                               (common/bootstrap-text-field :email "E-Mail")
+                               (common/bootstrap-password-field :password-old "old password")
+                               (common/bootstrap-password-field :password1 "new password")
+                               (common/bootstrap-password-field :password2 "new password (repeat)")
+                               ))
+  )
