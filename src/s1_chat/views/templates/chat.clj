@@ -21,13 +21,13 @@
        "{{#if Chat.isAuthenticated}}"
 	       [:h5 "{{Chat.ticket.username}}"]
 	       [:ul
-		      "<li class=\"editProfile\" {{action openEditProfile target=\"Chat\"}}>" [:i.icon-edit] "edit profile </li>"
-		      "<li class=\"logout-link\" {{action logout target=\"Chat\"}}>" [:i.icon-edit] "log out </li>"
+		      "<li nav-id=\"editProfile\" {{action openEditProfile target=\"Chat.controller\"}}>" [:i.icon-edit] "edit profile </li>"
+		      "<li {{action logout target=\"Chat\"}}>" [:i.icon-edit] "log out </li>"
 	      ]
        "{{else}}"
 	       [:ul
-	         "<li class=\"login-link\" {{action openLoginPopup \"#guest-login-pane\" target=\"view\"}}>" [:i.icon-edit] "log in </li>"
-	         "<li class=\"register-link\" {{action openLoginPopup \"#register-pane\" target=\"view\"}}>" [:i.icon-edit] "register</li>"
+	         "<li {{action openLoginPopup \"#guest-login-pane\" target=\"view\"}}>" [:i.icon-edit] "log in </li>"
+	         "<li {{action openLoginPopup \"#register-pane\" target=\"view\"}}>" [:i.icon-edit] "register</li>"
 	       ]
        "{{/if}}"
        ]

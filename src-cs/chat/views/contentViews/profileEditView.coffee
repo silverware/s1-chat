@@ -4,8 +4,9 @@ define [
 ], (template, ContentView) ->
   ContentView.extend
     template: Ember.Handlebars.compile template
+    navId: "editProfile"
 
     didInsertElement: ->
       @_super()
       # todo
-      
+
