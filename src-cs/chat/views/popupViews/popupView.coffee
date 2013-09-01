@@ -9,7 +9,7 @@ define ->
     didInsertElement: ->
       $(document).keyup (e) =>
         if e.keyCode is 27
-          @destroy()
+          @hide()
 
       popupContent = @$(".popup-content")
 
@@ -22,6 +22,7 @@ define ->
     show: ->
       @appendTo "body"
 
-    destroy: ->
-      @$().fadeOut("slow")
-      @_super()
+    hide: ->
+      $(".popup-container").fadeOut("fast", () =>
+        @destroy())
+
