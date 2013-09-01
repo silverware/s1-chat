@@ -43,7 +43,7 @@ define [
         username: username
         password: password
         "as-guest": asGuest
-      setTimeout((=> @sendMsg(authentification, true)), 1000)
+      @sendMsg(authentification, true)
 
     authenticateAsGuest: (username) ->
       @authenticate username, null, true
