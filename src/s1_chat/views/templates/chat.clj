@@ -103,12 +103,12 @@
     [:div {:class "tab-content"}
      [:div {:class "tab-pane active" :id "guest-login-pane"}
       (common/horizontal-form-to [:post "/login" {:id "guest-login-form"}] 
-                                 (common/bootstrap-text-field :guest-username "username" {:placeholder "Guest"})
+                                 (common/bootstrap-text-field :guest-username "Username" {:placeholder "Guest"})
                                  (common/bootstrap-submit "Submit"))]
 
      [:div {:class "tab-pane" :id "login-pane"}
       (common/horizontal-form-to [:post "/login" {:id "login-form"}] 
-                                 (common/bootstrap-text-field :login-username "username" {:placeholder "name@example.com"})
+                                 (common/bootstrap-text-field :login-username "Username" {:placeholder ""})
                                  (common/bootstrap-password-field :login-password "Password")
                                  (common/bootstrap-submit "Submit"))]
 
@@ -116,8 +116,8 @@
       (common/horizontal-form-to [:post "" {:id "register-form"}]
                                  (common/bootstrap-text-field :email "E-Mail" {:placeholder "name@example.com"})
                                  (common/bootstrap-text-field :username "Username")
-                                 (common/bootstrap-password-field :password1 "password")
-                                 (common/bootstrap-password-field :password2 "password (repeat)")
+                                 (common/bootstrap-password-field :password1 "Password")
+                                 (common/bootstrap-password-field :password2 "Password (repeat)")
                                  (common/bootstrap-submit "Submit")) 
       ]]))
 
