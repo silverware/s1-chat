@@ -2,6 +2,7 @@ coffee_compile.bat
 start_server.bat
 start_mongodb.bat
 
+config.properties
 pom.xml
 *jar
 /lib/

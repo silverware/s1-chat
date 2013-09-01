@@ -4,6 +4,7 @@
         ring.util.response
         s1-chat.validation)
   (:require [s1-chat.views.login :as vl]
+            [s1-chat.email :as email]
             [monger.collection :as mc]
             [noir.validation :as vali]  
             [monger.core :as mg]
