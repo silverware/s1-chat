@@ -74,7 +74,7 @@ define [
       @createQueryStream receiver, text for receiver in receivers
 
     video: (receiver) ->
-       @videoChatController.startVideo true, receiver
+      @videoChatController.startVideo true, receiver
 
     sendMsg: (obj, noTicket) ->
       @set "maxId", @maxId + 1
