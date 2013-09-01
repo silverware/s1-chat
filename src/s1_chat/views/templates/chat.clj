@@ -109,7 +109,7 @@
      [:div {:class "tab-pane" :id "login-pane"}
       (common/horizontal-form-to [:post "/login" {:id "login-form"}] 
                                  (common/bootstrap-text-field :login-username "username" {:placeholder "name@example.com"})
-                                 (common/bootstrap-text-field :login-password "Password")
+                                 (common/bootstrap-password-field :login-password "Password")
                                  (common/bootstrap-submit "Submit"))]
 
      [:div {:class "tab-pane" :id "register-pane"}

@@ -7,14 +7,16 @@ define [
     template: Ember.Handlebars.compile template
     classNames: ['login']
 
-    insertErrorMessage: (field, message) ->
-      formID = '#register-form'
-      controlGroup = @$(formID + ' #' + field).parent().parent()
-      controlGroup.addClass 'error'
-      @$('<span class="help-inline">' + message + '</span>').insertAfter @$(formID + ' #'+ field)
+    insertFieldErrorMessages: (fieldErrors) ->
+      for err in fieldErrors
+        @insertErrorMessage(err[0], err[1])
 
-    clearErrorMessages: ->
-      formID = '#register-form'
+    insertErrorMessage: (field, message) ->
+      controlGroup = @$('#' + field).parent().parent()
+      controlGroup.addClass 'error'
+      @$('<span class="help-inline">' + message + '</span>').insertAfter @$('#'+ field)
+
+    clearErrorMessages: (formID) ->
       @$(formID + " .control-group .help-inline").remove()
       @$(formID + " .error").removeClass("error")
 
@@ -30,10 +32,8 @@ define [
         username = $("input[name=\"guest-username\"]").val()
         controlGroup = $("#guest-username").parent().parent()
 
-        # clear old error messages
-        controlGroup.removeClass("#guest-login-form error")
-        @$("#guest-login-form .help-inline").remove()
-
+        @clearErrorMessages("#guest-login-form")
+       
         buttonHTML = @$(":button").html()
         @$(":button").html("&nbsp;<i class=\"icon-spinner icon-spin\"></i>")
 
@@ -45,29 +45,28 @@ define [
           if Chat.get("isAuthenticated")
             @destroy()
           else
-            controlGroup.addClass("error")
-            @$("<span class=\"help-inline\">" +  errorText + "</span>").insertAfter("#guest-username")
+            @insertFieldErrorMessages(errorText.fieldErrors)
 
-        Chat.authenticate username, ""
+        Chat.authenticateAsGuest username
 
       @$("#login-form").submit (event) =>
         event.preventDefault()
+        @clearErrorMessages("#login-form")
         
         username = @$("#login-username").val()
         password = @$("#login-password").val()
 
-        Chat.authCallback = (errorText) =>
+        Chat.authCallback = (validationResult) =>
           if Chat.get("isAuthenticated")
             @destroy()
           else
-            alert errorText
-            # todo
-
+            @insertFieldErrorMessages(validationResult.fieldErrors)
+          
         Chat.authenticate username, password
 
       @$("#register-form").submit (event) =>
         event.preventDefault()
-        @clearErrorMessages()
+        @clearErrorMessages("#register-form")
         formData = @$("#register-form").serialize()
 
         buttonHTML = @$(":button").html()
@@ -76,9 +75,7 @@ define [
         $.post('/register', formData, (data) =>
           @$(":button").html(buttonHTML)
           if data.fieldErrors
-            for entry in data.fieldErrors
-              @insertErrorMessage(entry[0], entry[1])
-
+            @insertFieldErrorMessages(data.fieldErrors)
           else if data.errors
             html = "<ul>"
             for err in data.errors

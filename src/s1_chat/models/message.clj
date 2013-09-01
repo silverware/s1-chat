@@ -6,6 +6,7 @@
   (:use aleph.formats lamina.core))
 
 (load "chan")
+(load "user")
 
 (defn send-error [ch id text] (enqueue ch {:id id :type "error" :text text}))
 
@@ -26,9 +27,10 @@
 
 (defn dispatch-auth-msg [ch {:keys [id username password]} ]
   (let [session-id (auth ch username password)]
-    (if (not (nil? session-id))
-      (send-auth-success ch session-id)
-      (send-error ch id "Username or Password incorrect."))))
+    (case session-id
+      :unknown-username (send-error ch id {:fieldErrors [[:login-username "Username unknown."]]})
+      :wrong-password (send-error ch id {:fieldErrors [[:login-password "Wrong password."]]})
+      (send-auth-success ch session-id))))
 
 (defn dispatch-message 
   [ch {id :id {:keys [username session-id]} :ticket :as msg}]
@@ -66,14 +68,30 @@
 (vali/defvalidator username-empty? "auth"
                    [msg]
                    (let [username (:username msg)]
-                     (when (string/blank? username)
-                       "The username cannot be empty.")))
+                     (when (and (string/blank? username) (not (:as-guest msg)))
+                       {:fieldErrors [[:login-username "The username cannot be empty."]]})))
 
-(vali/defvalidator username-taken? "auth"
+(vali/defvalidator password-empty? "auth"
+                   [msg]
+                   (let [password (:password msg)]
+                     (when (and (string/blank? password) (not (:as-guest msg)))
+                       {:fieldErrors [[:login-password "The password cannot be empty."]]})))
+
+(vali/defvalidator guest-username-empty? "auth"
+                   [msg]
+                   (let [username (:username msg)]
+                     (when (and (string/blank? username) (:as-guest msg))
+                       {:fieldErrors [[:guest-username "The username cannot be empty."]]})))
+
+(vali/defvalidator guest-username-taken? "auth"
                    [msg]
                    (let [user (get-user (:username msg))]
-                     (when (or (vali/not-nil? user) (and (login-ctrl/duplicate-username? (:username msg)) (string/blank? (:password msg))))
-                       "The username is already in use.")))
+                     (when (or 
+                             (vali/not-nil? user) 
+                             (and 
+                               (login-ctrl/duplicate-username? (:username msg)) 
+                               (:as-guest msg)))
+                       {:fieldErrors [[:guest-username "The username is already in use."]]})))
 
 (vali/defvalidator already-authed? "auth"
                    [msg]

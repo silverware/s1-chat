@@ -36,13 +36,17 @@ define [
       @websocket.onmessage = @onResponse.bind @
       @set "controller", ChatController.create()
 
-    authenticate: (username, password) ->
+    authenticate: (username, password, asGuest = false) ->
       @set "ticket.username", username
       authentification =
         type: "auth"
         username: username
         password: password
+        "as-guest": asGuest
       setTimeout((=> @sendMsg(authentification, true)), 1000)
+
+    authenticateAsGuest: (username) ->
+      @authenticate username, null, true
 
     logout: ->
       console.debug "logout", @
