@@ -42,14 +42,15 @@
 (defn register [user] (vl/register user))
 
 (defn register-post [user]
-  (if (valid-user? user)
-    (if (mr/has-error? (mc/insert "users" 
-                     {:email (:email user)
-                      :password (hash-password (:password1 user))
-                      :username (:username user)}))
-      (response {:errors ["Error while inserting into database."]})
-      (response {:success true}))
-    (response {:fieldErrors (json-errors :email :password1 :username)})))
+  (let [response-map {:success false :errors nil :fieldErrors nil}]
+    (if (valid-user? user)
+      (if (mr/has-error? (mc/insert "users" 
+                                    {:email (:email user)
+                                     :password (hash-password (:password1 user))
+                                     :username (:username user)}))
+        (response (assoc response-map :errors ["Error while inserting into database."]))
+        (response (assoc response-map :success true)))
+      (response (assoc response-map :fieldErrors (json-errors :email :password1 :username))))))
 
 (def login-routes [
              (GET "/register" {{:as user} :params} (register user))
