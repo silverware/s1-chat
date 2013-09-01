@@ -16,6 +16,12 @@
 	        "<li {{action \"open\" target=\"chan\"}} nav-id=\"{{unbound chan.name}}\"><img src=\"img/dummy.png\" /> {{chan.name}} </li>"
 	      "{{/each}}"
       ]
+      [:h5 "private channels"]
+      [:ul
+	      "{{#each channel in Chat.privateChannels}}"
+	        "<li {{action \"open\" target=\"channel\"}} nav-id=\"{{unbound channel.name}}\"><img src=\"img/dummy.png\" /> {{channel.name}} </li>"
+	      "{{/each}}"
+      ]
       
       [:div.bottom-nav
        "{{#if Chat.isAuthenticated}}"
@@ -34,7 +40,7 @@
       
       ]
      [:div#queryStreams
-      "{{#each stream in Chat.queryStreams}}{{view view.QueryStreamView streamBinding=\"stream\"}}{{/each}}"]
+      "{{#each stream in Chat.queryStreams}}{{#if stream.isVisible}}{{view view.QueryStreamView streamBinding=\"stream\"}}{{/if}}{{/each}}"]
 ))
 
 (defn hbs-query-stream-template []

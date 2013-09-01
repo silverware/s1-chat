@@ -43,13 +43,12 @@ define [
         username: username
         password: password
         "as-guest": asGuest
-      @sendMsg(authentification, true)
+      @sendMsg authentification, true
 
     authenticateAsGuest: (username) ->
       @authenticate username, null, true
 
     logout: ->
-      console.debug "logout", @
       if not @get("isAuthenticated") then return
       @sendMsg
         type: "logout"
@@ -116,3 +115,7 @@ define [
     isAuthenticated: (->
       @get("ticket.session-id") isnt null
     ).property("ticket.session-id", "ticket.username")
+
+    privateChannels: (->
+      @get("queryStreams")
+    ).property("queryStreams.@each")

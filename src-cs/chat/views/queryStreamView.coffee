@@ -12,5 +12,4 @@ define [
         message = @$(".query").val()
         @stream.query message
         @$(".query").val ""
-      @$(".close").click =>
-        @stream.close()
+      @$(".close").click => @stream.hide()
