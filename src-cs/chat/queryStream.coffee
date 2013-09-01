@@ -15,5 +15,8 @@ define ->
     hide: ->
       @set "isVisible", false
 
+    open: ->
+      @set "isVisible", true
+
     close: ->
       Chat.queryStreams.removeObject @

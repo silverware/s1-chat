@@ -19,7 +19,7 @@
       [:h5 "private channels"]
       [:ul
 	      "{{#each channel in Chat.privateChannels}}"
-	        "<li {{action \"open\" target=\"channel\"}} nav-id=\"{{unbound channel.name}}\"><img src=\"img/dummy.png\" /> {{channel.name}} </li>"
+	        "<li {{action \"open\" target=\"channel\"}}><img src=\"img/dummy.png\" /> {{channel.username}} </li>"
 	      "{{/each}}"
       ]
       
