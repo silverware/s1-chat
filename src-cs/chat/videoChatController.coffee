@@ -21,6 +21,7 @@ define [
 
     startVideo: (isCaller, receiver) ->
 
+      Chat.controller.removeNavItems()
       Chat.controller.setContentView VideoChatView.create()
 
       pc_config = "iceServers": ["url": "stun:stun.l.google.com:19302"]

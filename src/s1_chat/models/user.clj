@@ -26,12 +26,13 @@
 
 ;; user to chat authentication
 
-(defn generate-session-id [] (dosync (alter session-id-ref inc)))
+(defn generate-session-id [] (dosync (str (alter session-id-ref inc))))
 
 (defn get-user [username] (@connected-users username))
 
 (defn valid-session-id? [username provided-id]
-  (dosync (= (:session-id (@connected-users username)) provided-id)))
+  (dosync 
+    (= (:session-id (@connected-users username)) (str provided-id))))
 
 (defn auth
   [ch username password]

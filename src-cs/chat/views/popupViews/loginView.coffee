@@ -39,6 +39,12 @@ define [
 
         Chat.authCallback = (errorText) =>
 
+          $.post("/ajax/user/GJL",
+            {
+              user: {username: username, age:9999},
+              "session-id": Chat.ticket["session-id"]}
+          )
+
           # remove spinner
           @$(":button").html(buttonHTML)
 

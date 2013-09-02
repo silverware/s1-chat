@@ -12,8 +12,9 @@
 
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
-            [s1-chat.controllers.login :as login-controllers]
-            [s1-chat.controllers.chan :as chan-controllers]
+            [s1-chat.controllers.login :as login-controller]
+            [s1-chat.controllers.chan :as chan-controller]
+            [s1-chat.controllers.ajax :as ajax-controller]
             [monger.collection :as mc]
             [cemerick.friend :as friend]
             [monger.core :as mg]
@@ -53,8 +54,9 @@
 
 (def app-routes
   (clojure.set/union
-    login-controllers/login-routes
-    chan-controllers/chan-routes
+    login-controller/login-routes
+    chan-controller/chan-routes
+    ajax-controller/ajax-routes
     [
      (GET "/" [] (chat))
      (GET "/chat" [] (chat))
@@ -80,7 +82,7 @@
 (defn my-credential-fn [{username :username password :password}]
   (if-let [user (mc/find-one-as-map "users" {:username username})]
     (do 
-      (if (= (login-controllers/hash-password password) (:password user))
+      (if (= (login-controller/hash-password password) (:password user))
         {:identity username :roles #{::user}} 
         nil))
     nil))
