@@ -38,6 +38,8 @@ define [
       @websocket = $.gracefulWebSocket "ws://#{window.location.hostname}:8008/"
       @websocket.onmessage = @onResponse.bind @
       @set "controller", ChatController.create()
+      $(window).unload => @onUnload()
+      @loadStorageData()
 
     authenticate: (username, password, isGuest = false) ->
       @set "ticket.username", username
@@ -123,3 +125,12 @@ define [
     privateChannels: (->
       @get("queryStreams")
     ).property("queryStreams.@each")
+
+    onUnload: ->
+      localStorage.username = @get "ticket.username"
+      localStorage.isGuest = @get "isGuest"
+      localStorage.password = @get "ticket.passwordHash"
+
+    loadStorageData: ->
+      if not (localStorage or localStorage.username) then return
+      setTimeout (=> @authenticate localStorage.username, null, true), 1000

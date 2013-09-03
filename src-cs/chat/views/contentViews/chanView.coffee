@@ -66,6 +66,7 @@ define [
     ).observes("chan.messages.@each")
 
     adjustHeight: ->
+      if not @$() then return
       @$('.content-messages').height @$(".messages").height()
 
     queryUser: (username) ->

@@ -33,7 +33,7 @@ define [
         controlGroup = $("#guest-username").parent().parent()
 
         @clearErrorMessages("#guest-login-form")
-       
+
         buttonHTML = @$(":button").html()
         @$(":button").html("&nbsp;<i class=\"icon-spinner icon-spin\"></i>")
 
@@ -52,7 +52,7 @@ define [
       @$("#login-form").submit (event) =>
         event.preventDefault()
         @clearErrorMessages("#login-form")
-        
+
         username = @$("#login-username").val()
         password = @$("#login-password").val()
 
@@ -61,7 +61,7 @@ define [
             @destroy()
           else
             @insertFieldErrorMessages(validationResult.fieldErrors)
-          
+
         Chat.authenticate username, password
 
       @$("#register-form").submit (event) =>
@@ -90,9 +90,7 @@ define [
 
     show: ->
       @_super()
-
-      $(document).ready(=>
+      $(document).ready =>
         $("#guest-username").focus()
-      )
 
 

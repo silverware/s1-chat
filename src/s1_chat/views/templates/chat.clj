@@ -10,18 +10,21 @@
       [:ul
 	      [:li {:nav-id "home"} [:i.icon-home] "home"]
       ]
+      "{{#if Chat.isAuthenticated}}"
       [:h5 "channels"]
       [:ul
 	      "{{#each chan in Chat.chans}}"
 	        "<li {{action \"open\" target=\"chan\"}} nav-id=\"{{unbound chan.name}}\"><img src=\"img/dummy.png\" /> {{chan.name}} <i {{action part target=\"chan\"}} style=\"float: right; padding-top: 8px\" class=\"icon-remove\"></i> </li>"
 	      "{{/each}}"
       ]
+
       [:h5 "private channels"]
       [:ul
 	      "{{#each channel in Chat.privateChannels}}"
 	        "<li {{action \"open\" target=\"channel\"}}><img src=\"img/dummy.png\" /> {{channel.username}} </li>"
 	      "{{/each}}"
       ]
+      "{{/if}}"
 
       [:div.bottom-nav
        "{{#if Chat.isAuthenticated}}"
