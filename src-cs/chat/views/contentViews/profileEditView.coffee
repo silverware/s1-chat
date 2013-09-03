@@ -1,15 +1,12 @@
 define [
   "./contentView"
-], (ContentView) ->
-  ContentView.extend
+  "/form/textField"
+  "/form/validationMixin"
+], (ContentView, TextField, Validation) ->
+  ContentView.extend Validation,
     template: Ember.Handlebars.compile """
-    <form action="" class="form-horizontal" method="POST">
-      <div class="control-group">
-        <label class="control-label" for="email">E-Mail</label>
-        <div class="controls">
-          {{view Em.TextField valueBinding="view.user.email" id="email"}}
-        </div>
-      </div>
+    <form class="form-horizontal">
+      {{view TextField valueBinding="view.user.email" viewName="email" label="Email"}}
       <button {{action "save" target="view"}} type="submit">Lutscher</button>
      </form>
     """
@@ -23,11 +20,11 @@ define [
       )
 
     save: () ->
-      $.post("/ajax/user/" + Chat.ticket.username, {user: @user, "session-id": Chat.ticket["session-id"]}, (result) =>
-        )
+      $.post "/ajax/user/" + Chat.ticket.username, {user: @user, "session-id": Chat.ticket["session-id"]}, (result) =>
+        @handleResponse result
 
     didInsertElement: ->
       @_super()
-      
+
       # todo
 
