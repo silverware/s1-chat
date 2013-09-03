@@ -29,7 +29,7 @@ define [
         @set "user", result
 
     save: ->
-      $.post "/ajax/user/" + Chat.ticket.username, {user: @user, "session-id": Chat.ticket["session-id"]}, (result) =>
+      $.post "/ajax/user/", {user: @user, "session-id": Chat.ticket["session-id"]}, (result) =>
         @handleResponse result
 
     changePassword: ->

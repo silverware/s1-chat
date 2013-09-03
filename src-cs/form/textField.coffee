@@ -11,6 +11,6 @@ define [], () ->
       <label class="control-label" for="{{unbound view.textfield.id}}">{{view.label}}</label>
         <div class="controls">
           {{view Em.TextField valueBinding="view.value" viewName="textfield" nameBinding="view.viewName"}}
+          <span class="help-inline">{{view.message}}</span>
         </div>
-        <span class="help-inline">{{view.message}}</span>
       """
