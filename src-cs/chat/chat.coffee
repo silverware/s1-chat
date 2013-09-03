@@ -20,6 +20,7 @@ define [
 
     # authentication
     authCallback: null
+    isGuest: null
     ticket:
       username: null
       "session-id": null
@@ -38,13 +39,14 @@ define [
       @websocket.onmessage = @onResponse.bind @
       @set "controller", ChatController.create()
 
-    authenticate: (username, password, asGuest = false) ->
+    authenticate: (username, password, isGuest = false) ->
       @set "ticket.username", username
+      @set "isGuest", isGuest
       authentification =
         type: "auth"
         username: username
         password: password
-        "as-guest": asGuest
+        "guest?": isGuest
       @sendMsg authentification, true
 
     authenticateAsGuest: (username) ->

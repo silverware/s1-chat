@@ -27,7 +27,9 @@
        "{{#if Chat.isAuthenticated}}"
 	       [:h5 "{{Chat.ticket.username}}"]
 	       [:ul
-		      "<li nav-id=\"editProfile\" {{action openEditProfile target=\"Chat.controller\"}}>" [:i.icon-edit] "edit profile </li>"
+              "{{#unless Chat.isGuest}}"
+                "<li nav-id=\"editProfile\" {{action openEditProfile target=\"Chat.controller\"}}>" [:i.icon-edit] "edit profile </li>"
+              "{{/unless}}"
 		      "<li {{action logout target=\"Chat\"}}>" [:i.icon-edit] "log out </li>"
 	      ]
        "{{else}}"

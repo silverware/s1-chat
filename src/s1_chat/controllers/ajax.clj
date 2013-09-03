@@ -11,10 +11,10 @@
   (let [doc-id (.toString (:_id (mconv/from-db-object monger-object true)))]
     (assoc (mconv/from-db-object monger-object true) :_id doc-id)))
 
-
 (defn user-profile [username]
-  (response (dissoc (convert-id (mc/find-one "users" {:username username})) :password)))
- 
+  (when-let [mongo-object (mc/find-one "users" {:username username})]
+    (response (dissoc (convert-id mongo-object) :password))))
+
 (defn save-user-profile [{:keys [username] :as user} session-id]
   (when (chat/valid-session-id? username session-id)
     (mc/update "users" {:username username} {"$set" (dissoc user :_id)} :upsert false)

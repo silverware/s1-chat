@@ -68,19 +68,19 @@
 (vali/defvalidator username-empty? "auth"
                    [msg]
                    (let [username (:username msg)]
-                     (when (and (string/blank? username) (not (:as-guest msg)))
+                     (when (and (string/blank? username) (not (:guest? msg)))
                        {:fieldErrors [[:login-username "The username cannot be empty."]]})))
 
 (vali/defvalidator password-empty? "auth"
                    [msg]
                    (let [password (:password msg)]
-                     (when (and (string/blank? password) (not (:as-guest msg)))
+                     (when (and (string/blank? password) (not (:guest? msg)))
                        {:fieldErrors [[:login-password "The password cannot be empty."]]})))
 
 (vali/defvalidator guest-username-empty? "auth"
                    [msg]
                    (let [username (:username msg)]
-                     (when (and (string/blank? username) (:as-guest msg))
+                     (when (and (string/blank? username) (:guest? msg))
                        {:fieldErrors [[:guest-username "The username cannot be empty."]]})))
 
 (vali/defvalidator guest-username-taken? "auth"
@@ -90,7 +90,7 @@
                              (vali/not-nil? user) 
                              (and 
                                (login-ctrl/duplicate-username? (:username msg)) 
-                               (:as-guest msg)))
+                               (:guest? msg)))
                        {:fieldErrors [[:guest-username "The username is already in use."]]})))
 
 (vali/defvalidator already-authed? "auth"
