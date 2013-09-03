@@ -2,7 +2,7 @@
             :description "A high scalable real-time chat written in pure Clojure."
             :dependencies [[org.clojure/clojure "1.4.0"]
                            ;[noir "1.3.0-beta10"]
-                           [aleph "0.3.0-beta7"]
+                           [aleph "0.3.0"]
                            [clj-coffee-script "1.1.0"]
                            [clj-json "0.5.3"]
                            [compojure "1.1.5"]

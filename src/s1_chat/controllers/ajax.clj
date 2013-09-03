@@ -13,7 +13,6 @@
 
 
 (defn user-profile [username]
-  (println (convert-id (mc/find-one "users" {:username username})))
   (response (dissoc (convert-id (mc/find-one "users" {:username username})) :password)))
  
 (defn save-user-profile [{:keys [username] :as user} session-id]
