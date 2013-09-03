@@ -13,9 +13,9 @@ define [
       <fieldset>
         <legend>Change Password</legend>
         <form class="form-horizontal" id="passwordForm">
-          {{view TextField viewName="password-old" label="Old Password"}}
-          {{view TextField viewName="password1" label="New Password"}}
-          {{view TextField viewName="password2" label="New Password (repeat)"}}
+          {{view TextField viewName="password-old" type="password" label="Old Password"}}
+          {{view TextField viewName="password1" type="password" label="New Password"}}
+          {{view TextField viewName="password2" type="password" label="New Password (repeat)"}}
           <button class="btn btn-primary" {{action "changePassword" target="view"}} type="submit">Change Password</button>
          </form>
       </fieldset>

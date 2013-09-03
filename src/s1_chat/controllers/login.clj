@@ -1,4 +1,4 @@
-(ns s1-chat.controllers.login 
+(ns s1-chat.controllers.login
   (:use aleph.formats
         compojure.core
         ring.util.response
@@ -6,7 +6,7 @@
   (:require [s1-chat.views.login :as vl]
             [s1-chat.email :as email]
             [monger.collection :as mc]
-            [noir.validation :as vali]  
+            [noir.validation :as vali]
             [monger.core :as mg]
             [digest]
             [monger.result :as mr]))
@@ -45,7 +45,7 @@
 (defn register-post [user]
   (let [response-map {:success false :errors nil :fieldErrors nil}]
     (if (valid-user? user)
-      (if (mr/has-error? (mc/insert "users" 
+      (if (mr/has-error? (mc/insert "users"
                                     {:email (:email user)
                                      :password (hash-password (:password1 user))
                                      :username (:username user)}))

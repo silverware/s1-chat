@@ -1,6 +1,6 @@
 define [], () ->
   Em.TextField.reopen
-    attributeBindings: ['placeholder', 'disabled', 'maxlength', "name"]
+    attributeBindings: ['placeholder', 'disabled', 'maxlength', "name", "type"]
 
   window.TextField = Ember.View.extend
     classNames: ['control-group']

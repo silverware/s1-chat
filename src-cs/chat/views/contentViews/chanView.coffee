@@ -1,10 +1,22 @@
 define [
-  "text!/chan_template.hbs"
   "./contentView"
-], (template, ContentView) ->
+], (ContentView) ->
   ContentView.extend
     chan: null
-    template: Ember.Handlebars.compile template
+    template: Ember.Handlebars.compile """
+      <div class="chan-title">{{view.chan.name}}</div>
+      <div class="messages">
+        <div class="content-messages">
+        {{#each msg in view.chan.messages}}
+          <div><div class='message-key'><span>{{msg.formattedDate}}</span> {{msg.name}}</div> <div class='message-body'>{{msg.text}}</div></div>
+        {{/each}}
+        </div>
+      </div>
+
+      <form id="messageForm">
+       <input id="message" type="text" placeholder="Message" autocomplete="off" style="width: 95%" />
+      </form>
+    """
     classNames: ['content chan']
     messageHistory: []
     historyIndex: 0
@@ -19,6 +31,9 @@ define [
 
     didInsertElement: ->
       @_super()
+      @adjustHeight()
+      $(window).resize => @adjustHeight()
+
       @$("#messageForm").submit (event) =>
         event.preventDefault()
         message = @$("#message").val()
@@ -50,6 +65,8 @@ define [
       @$(".messages").scrollTop(@$(".messages")[0].scrollHeight)
     ).observes("chan.messages.@each")
 
+    adjustHeight: ->
+      @$('.content-messages').height @$(".messages").height()
 
     queryUser: (username) ->
       @$("form input").val "/query #{username} "

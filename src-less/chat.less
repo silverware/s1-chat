@@ -186,12 +186,23 @@ Chan
 .chan {
 
 	.messages {
-		overflow-y: auto;
-		height: 95%;
+		bottom: 50px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+		.content-messages {
+			display:table-cell;
+			vertical-align:bottom;
+		}
 		.message-key {
 			font-weight: bold;
-			width: 120px;
+			width: 110px;
 			display: inline-block;
+			span {
+				font-weight: normal;
+				font-size: smaller;
+			}
 		}
 
 		.message-body {
@@ -200,7 +211,11 @@ Chan
 	}
 
 	#messageForm {
-		margin: 0;
+		bottom: 0;
+    left: 10px;
+    margin: 0;
+    position: absolute;
+    right: 10px;
 	}
 
 	.chan-title {
