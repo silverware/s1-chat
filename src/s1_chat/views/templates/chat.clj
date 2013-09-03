@@ -13,7 +13,7 @@
       [:h5 "channels"]
       [:ul
 	      "{{#each chan in Chat.chans}}"
-	        "<li {{action \"open\" target=\"chan\"}} nav-id=\"{{unbound chan.name}}\"><img src=\"img/dummy.png\" /> {{chan.name}} <i {{action part target=\"chan\"}} class=\"icon-remove\"></i> </li>"
+	        "<li {{action \"open\" target=\"chan\"}} nav-id=\"{{unbound chan.name}}\"><img src=\"img/dummy.png\" /> {{chan.name}} <i {{action part target=\"chan\"}} style=\"float: right; padding-top: 8px\" class=\"icon-remove\"></i> </li>"
 	      "{{/each}}"
       ]
       [:h5 "private channels"]

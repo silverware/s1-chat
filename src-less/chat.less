@@ -116,10 +116,17 @@ nav {
 		i {
 			margin-right: 5px;
 		}
+		.icon-remove {
+			display: none;
+			transition: all 0.5s;
+		}
 	}
 	li:hover, li.active {
 		background-color: @blue;
 		color: @white;
+	}
+	li:hover .icon-remove , li.active .icon-remove {
+		display: inline-block;
 	}
 
 }
