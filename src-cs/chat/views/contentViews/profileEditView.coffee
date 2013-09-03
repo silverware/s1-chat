@@ -1,7 +1,7 @@
 define [
   "./contentView"
-  "/form/textField"
-  "/form/validationMixin"
+  "form/textField"
+  "form/validationMixin"
 ], (ContentView, TextField, Validation) ->
   ContentView.extend Validation,
     template: Ember.Handlebars.compile """
