@@ -8,6 +8,8 @@ define [
 
   Em.Application.extend
 
+    LOG_TRANSITIONS: true
+
     websocket: null
     chans: []
     controller: {}
