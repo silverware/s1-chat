@@ -30,6 +30,7 @@ define [
         text: text
 
     part: ->
+      Chat.controller.openHome()
       Chat.sendMsg
         type: "part"
         "chan-name": @name

@@ -5,7 +5,7 @@
         [hiccup.core]))
 
 (defn hbs-chat-template []
-  (html 
+  (html
      [:nav.nav-0
       [:ul
 	      [:li {:nav-id "home"} [:i.icon-home] "home"]
@@ -13,7 +13,7 @@
       [:h5 "channels"]
       [:ul
 	      "{{#each chan in Chat.chans}}"
-	        "<li {{action \"open\" target=\"chan\"}} nav-id=\"{{unbound chan.name}}\"><img src=\"img/dummy.png\" /> {{chan.name}} </li>"
+	        "<li {{action \"open\" target=\"chan\"}} nav-id=\"{{unbound chan.name}}\"><img src=\"img/dummy.png\" /> {{chan.name}} <i {{action part target=\"chan\"}} class=\"icon-remove\"></i> </li>"
 	      "{{/each}}"
       ]
       [:h5 "private channels"]
@@ -22,7 +22,7 @@
 	        "<li {{action \"open\" target=\"channel\"}}><img src=\"img/dummy.png\" /> {{channel.username}} </li>"
 	      "{{/each}}"
       ]
-      
+
       [:div.bottom-nav
        "{{#if Chat.isAuthenticated}}"
 	       [:h5 "{{Chat.ticket.username}}"]
@@ -37,7 +37,7 @@
 	       ]
        "{{/if}}"
        ]
-      
+
       ]
      [:div#queryStreams
       "{{#each stream in Chat.queryStreams}}{{#if stream.isVisible}}{{view view.QueryStreamView streamBinding=\"stream\"}}{{/if}}{{/each}}"]
@@ -61,7 +61,7 @@
 	 [:div.messages
 	  "{{#each msg in view.chan.messages}}<div class='message-key'>{{msg.name}}</div> <div class='message-body'>{{msg.text}}</div> <br /> {{/each}}"
 	  ]
-    
+
     [:form#messageForm
      [:input#message {:type "text" :placeholder "Message" :autocomplete "off" :style "width: 95%"}]
     ]
@@ -69,11 +69,11 @@
 
 (defn hbs-chan-users-template []
   (html
-    
+
       [:ul
-	        "<li {{action \"partChan\" target=\"view\"}}> <i class=\"icon-reply\"></i>Leave Channel</li>"
+	        "<li {{action \"part\" target=\"view.chan\"}}> <i class=\"icon-reply\"></i>Leave Channel</li>"
       ]
-      
+
 
       [:h5 "participants"]
       [:ul
@@ -86,12 +86,12 @@
 
 (defn hbs-home-template []
   (html
-    [:section.anonym 
-	   
+    [:section.anonym
+
 	    [:button.btn.btn-large.btn-primary {:type "button"} [:i.icon-tasks] "create anonymous channel" ]
     ]
     [:section.public
-    
+
      (for [chan-name (filter #(not (:anonymous? (:attr-map (@chat/chans %)))) (keys @chat/chans))]
                  [:div.join-chan chan-name])
     ]
@@ -100,7 +100,7 @@
 
 (defn hbs-login-template []
   (html
-    [:ul#login-tabs {:class "nav nav-tabs"} 
+    [:ul#login-tabs {:class "nav nav-tabs"}
      [:li {:class "active"} [:a {:href "#guest-login-pane" :data-toggle "tab"} "Guest"]]
      [:li [:a {:href "#login-pane" :data-toggle "tab"} "Login"]]
      [:li [:a {:href "#register-pane" :data-toggle "tab"} "Register"]]
@@ -108,12 +108,12 @@
 
     [:div {:class "tab-content"}
      [:div {:class "tab-pane active" :id "guest-login-pane"}
-      (common/horizontal-form-to [:post "/login" {:id "guest-login-form"}] 
+      (common/horizontal-form-to [:post "/login" {:id "guest-login-form"}]
                                  (common/bootstrap-text-field :guest-username "Username" {:placeholder "Guest"})
                                  (common/bootstrap-submit "Submit"))]
 
      [:div {:class "tab-pane" :id "login-pane"}
-      (common/horizontal-form-to [:post "/login" {:id "login-form"}] 
+      (common/horizontal-form-to [:post "/login" {:id "login-form"}]
                                  (common/bootstrap-text-field :login-username "Username" {:placeholder ""})
                                  (common/bootstrap-password-field :login-password "Password")
                                  (common/bootstrap-submit "Submit"))]
@@ -124,7 +124,7 @@
                                  (common/bootstrap-text-field :username "Username")
                                  (common/bootstrap-password-field :password1 "Password")
                                  (common/bootstrap-password-field :password2 "Password (repeat)")
-                                 (common/bootstrap-submit "Submit")) 
+                                 (common/bootstrap-submit "Submit"))
       ]]))
 
 
