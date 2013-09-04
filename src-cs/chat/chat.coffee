@@ -116,7 +116,7 @@ define [
       author = if received then user else @ticket.username
       if (@queryStreams.every (x) -> user isnt x.username)
         @queryStreams.pushObject QueryStream.create username: user
-      stream.messages.pushObject Message.create(author, text) for stream in @queryStreams when stream.username is user
+      stream.messages.pushObject Message.create(name: author, text: text) for stream in @queryStreams when stream.username is user
 
     isAuthenticated: (->
       @get("ticket.session-id") isnt null

@@ -1,6 +1,7 @@
-define ->
+define ["chat/ajaxHelper", "chat/Message"], (Ajax, Message) ->
   Ember.View.extend
     user: null
+    chan: null
     template: Ember.Handlebars.compile """<img src="img/dummy.png" />&nbsp;&nbsp;{{user}}"""
     classNames: ['username']
 
@@ -21,6 +22,12 @@ define ->
           </ul>
           <script></script>
         """
-      
-      
+
+    click: ->
+      Ajax.getUser @user, (user) =>
+        @chan.addMessage Message.create
+          type: "user"
+          user: user
+
+
 

@@ -7,9 +7,22 @@ define [
       <div class="chan-title">{{view.chan.name}}</div>
       <div class="messages">
         <div class="content-messages">
+        <div style="overflow: auto" class="content-messages-wrapper">
         {{#each msg in view.chan.messages}}
-          <div><div class='message-key'><span>{{msg.formattedDate}}</span> {{msg.name}}</div> <div class='message-body'>{{msg.text}}</div></div>
+          <div>
+          {{#if msg.isMessage}}
+            <div class='message-key'><span>{{msg.formattedDate}}</span> {{msg.name}}</div> <div class='message-body'>{{msg.text}}</div>
+          {{/if}}
+          {{#if msg.isUser}}
+            <div class="user-message">
+              <h5>{{msg.user.username}}</h5>
+              He is gay
+              <span>its super</span>
+            </div>
+          {{/if}}
+          </div>
         {{/each}}
+        </div>
         </div>
       </div>
 
@@ -62,12 +75,14 @@ define [
 
 
     onMessageSizeChanged: (->
-      @$(".messages").scrollTop(@$(".messages")[0].scrollHeight)
+      @$(".content-messages-wrapper").scrollTop(@$(".content-messages-wrapper")[0].scrollHeight)
     ).observes("chan.messages.@each")
 
     adjustHeight: ->
       if not @$() then return
       @$('.content-messages').height @$(".messages").height()
+      @$('.content-messages').width @$(".messages").width()
+      @$('.content-messages-wrapper').css 'max-height', @$(".messages").height() + "px"
 
     queryUser: (username) ->
       @$("form input").val "/query #{username} "
