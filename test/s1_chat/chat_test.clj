@@ -6,8 +6,9 @@
         clojure.test
         aleph.http))
 
+
 (defn send-auth [ch]
-  (enqueue ch {:type "auth" :username "Hans" :password ""}))
+  (enqueue ch {:type "auth" :username "Hans" :password "" :guest? true}))
 
 (defn wrap-auth-json-channel [ch ticket]
     (splice
@@ -22,7 +23,7 @@
 (defn authed-ws-client 
   ([username]
   (let [ch @(websocket-client {:url "ws://localhost:8009"})]
-    (enqueue ch (formats/encode-json->string {:type "auth" :username username :password ""}))
+    (enqueue ch (formats/encode-json->string {:type "auth" :username username :password "" :guest? true}))
     (let [{session-id :session-id} (formats/decode-json @(read-channel ch))]
       (println (str "session-id " session-id))
       (wrap-auth-json-channel ch {:username username :session-id session-id}))))
@@ -37,16 +38,18 @@
 	 (kill-fn#)))))
 
 (defmacro with-handler [handler & body]
-  `(with-server (start-http-server ~handler
-		  {:port 8009
-                   :websocket true
-		   })
-                (create-default-chans)
+  `(with-server 
+     (start-http-server ~handler
+                        {:port 8009
+                         :websocket true
+                         })
+     (create-default-chans)
+     (server/connect-db)
      ~@body))
 
 (deftest session-id-test
-  (let [id1 (generate-session-id) id2 (generate-session-id)]
-    (is (= (inc id1) id2))))
+         (let [id1 (generate-session-id) id2 (generate-session-id)]
+           (is (not= id1 id2))))
 
 (deftest auth-test
          (with-handler server/chat-handler
@@ -90,5 +93,15 @@
 
                          (is (= (:type @(read-channel ch2)) "part"))
                          (is (= (count @(:users (get-chan "Test"))) 1)))))
+
+(deftest channel-drained-test 
+         (with-handler server/chat-handler
+                       (let [ch (authed-ws-client "AAA") chan (create-chan "Test123") chan-ch (:channel chan)]
+                         (enqueue ch {:type "join" :chan-name "Test123"})
+                         (enqueue ch {:type "part" :chan-name "Test123"})
+                         (is (= false (drained? chan-ch)))
+                         (is (= false (closed? chan-ch))))))
+
+
 
 ; TODO: Tests fail if they all use the same Chan

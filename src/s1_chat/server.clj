@@ -35,12 +35,16 @@
 
 ;(server/load-views "src/s1_chat/views/")
 
-(defn initialize-app []
+(defn connect-db []
   (println "==========================")
   (println "  CONNECTING TO DATABASE  ")
   (println "==========================")
   (mg/connect!)
-  (mg/set-db! (mg/get-db "s1"))
+  (mg/set-db! (mg/get-db "s1")))
+
+
+(defn initialize-app []
+  (connect-db)
   (println "==========================")
   (println "STARTING WEBSOCKET-SERVEUR")
   (println "==========================")
