@@ -3,12 +3,15 @@ define [
   "form/validationMixin"
   "form/textField"
   "form/textArea"
+  "form/birthDateField"
 ], (ContentView, Validation) ->
   ContentView.extend Validation,
     template: Ember.Handlebars.compile """
       <h1>Edit Profile</h1>
       <form class="form-horizontal" id="userForm">
         {{view TextField valueBinding="view.user.email" viewName="email" label="Email"}}
+        {{view BirthDateField}}
+        {{view TextArea valueBinding="view.user.about" viewName="about" label="About"}}
         <button class="btn btn-primary" {{action "save" target="view"}} type="submit">Save</button>
        </form>
       <fieldset>

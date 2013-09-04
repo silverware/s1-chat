@@ -1,10 +1,10 @@
 define ["./formField", "./selectField", "./textField"], (FormField) ->
 
-  months = ["january", "February", "March", "April", "june", "july", "august", "september", "november", "december"]
+  months = ["January", "February", "March", "April", "June", "July", "August", "September", "November", "December"]
 
   getDays = ->
     days = []
-    for i in [0..31]
+    for i in [1..31]
       days.pushObject day: i
     days
 
@@ -19,9 +19,9 @@ define ["./formField", "./selectField", "./textField"], (FormField) ->
 
     template: Ember.Handlebars.compile """
       {{view SelectField notSurrounded="true" valueBinding="view.day"
-        optionValue="day" optionLabel="day" contentBinding="view.days"}}
+        optionValue="content.day" optionLabel="content.day" contentBinding="view.days"}}
       {{view SelectField notSurrounded="true" valueBinding="view.month"
-        optionValue="id" optionLabel="label" contentBinding="view.months"}}
+        optionValue="content.id" optionLabel="content.label" contentBinding="view.months"}}
       {{view TextField notSurrounded="true" valueBinding="view.year"}}
     """
 
