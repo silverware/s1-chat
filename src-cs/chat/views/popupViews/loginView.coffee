@@ -93,4 +93,9 @@ define [
       $(document).ready =>
         $("#guest-username").focus()
 
+    testLogin: ->
+      @$("#login-username").val("test")
+      @$("#login-password").val("test")
+      @$("#login-form").submit()
+
 

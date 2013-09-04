@@ -105,12 +105,12 @@
 
 (defn hbs-login-template []
   (html
+     "<button {{action testLogin target=\"view\"}} type=\"button\">login as Test</button>"
     [:ul#login-tabs {:class "nav nav-tabs"}
      [:li {:class "active"} [:a {:href "#guest-login-pane" :data-toggle "tab"} "Guest"]]
      [:li [:a {:href "#login-pane" :data-toggle "tab"} "Login"]]
      [:li [:a {:href "#register-pane" :data-toggle "tab"} "Register"]]
      ]
-
     [:div {:class "tab-content"}
      [:div {:class "tab-pane active" :id "guest-login-pane"}
       (common/horizontal-form-to [:post "/login" {:id "guest-login-form"}]

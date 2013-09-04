@@ -22,7 +22,7 @@ watch = (folder, onChange) ->
         fs.watchFile file, {persistent: true}, (curr, prev) ->
           console.log "change in file"
           onChange()
-          
+
 
 task 'build-cs', 'start watching coffeescript files', ->
   child = exec 'coffee --watch -o resources/public/js src-cs', (err, stdout, stderr) ->
@@ -43,8 +43,14 @@ task 'startserver', 'start server in dev mode', ->
     throw err if err
   child.stdout.pipe process.stdout
 
+task 'generate-testdata', 'generates the test data', ->
+  child = exec 'lein setup-db', (err, stdout, stderr) ->
+    throw err if err
+  child.stdout.pipe process.stdout
+
 task 'dev', 'start server and compile assets', ->
   invoke 'startserver'
+  invoke 'generate-testdata'
   invoke 'build-cs'
   invoke 'build-less'
   watch "src-less", -> invoke 'build-less'
