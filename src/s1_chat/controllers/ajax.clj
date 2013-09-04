@@ -4,11 +4,13 @@
             [monger.util :as mu]
             [monger.result :as mr]
             [noir.validation :as vali]
+            [clj-time.core :as clj-time]
             [s1-chat.models.chat :as chat])
   (:use compojure.core
         ring.util.response
         s1-chat.validation
-        ))
+        )
+  (:import (org.joda.time IllegalFieldValueException)))
 
 (defn convert-id [monger-object] 
   (let [doc-id (.toString (:_id (mconv/from-db-object monger-object true)))]
@@ -18,8 +20,13 @@
   (when-let [mongo-object (mc/find-one "users" {:username username})]
     (response (dissoc (convert-id mongo-object) :password))))
 
-(defn valid-userprofile? [{:keys [email ]}]
+(defn valid-date? [year month day]
+  (try (clj-time/date-time year month day) true
+    (catch IllegalFieldValueException e false)))
+
+(defn valid-userprofile? [{:keys [email birthday-day birthday-month birthday-year]}]
   (vali/rule (vali/is-email? email) [:email "Invalid E-Mail Address."])
+  (vali/rule (valid-date? birthday-year birthday-month birthday-day) [:birthdate "Invalid birthdate."])
   )
 
 (defn save-user-profile [{:keys [username] :as user} session-id]

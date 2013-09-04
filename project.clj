@@ -5,6 +5,7 @@
                            [aleph "0.3.0"]
                            [clj-coffee-script "1.1.0"]
                            [clj-json "0.5.3"]
+                           [clj-time "0.6.0"]
                            [compojure "1.1.5"]
                            ;[crate "0.1.0-SNAPSHOT"]
                            [hiccup "1.0.2"]
