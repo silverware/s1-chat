@@ -2,6 +2,7 @@ define [
   "./contentView"
   "form/validationMixin"
   "form/textField"
+  "form/textArea"
 ], (ContentView, Validation) ->
   ContentView.extend Validation,
     template: Ember.Handlebars.compile """
