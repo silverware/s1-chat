@@ -1,5 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 
+.boxSizing {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Colors
@@ -198,22 +204,31 @@ Chan
     position: absolute;
     right: 0;
     top: 0;
+    .alert {
+    	margin: 0px;
+    	padding: 5px;
+    }
+    .message {
+    	margin: 5px 10px;
+    	border-bottom: 1px dotted #ddd;
+    }
     .user-message {
     	background-color: #eee;
     	border: 1px solid @blue;
     }
 		.content-messages {
-			display:table-cell;
-			vertical-align:bottom;
+			display: table-cell;
+			vertical-align: bottom;
 		}
-		.message-key {
+		.message-time {
+			width: 50px;
+			display: inline-block;
+			font-size: smaller;
+		}
+		.message-name {
 			font-weight: bold;
 			width: 110px;
 			display: inline-block;
-			span {
-				font-weight: normal;
-				font-size: smaller;
-			}
 		}
 
 		.message-body {
@@ -227,6 +242,11 @@ Chan
     margin: 0;
     position: absolute;
     right: 10px;
+    input {
+    	.boxSizing;
+    	width: 100%;
+    	height: 40px;
+    }
 	}
 
 	.chan-title {
@@ -238,6 +258,7 @@ Chan
 		background-color: @blue;
 		color: @white;
 		padding: 10px;
+		z-index: 10;
 	}
 }
 
@@ -262,9 +283,7 @@ Popup
 		background-color: @white;
 		min-height: 300px;
 		padding: 30px 200px 30px 300px;
-		box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
+		.boxSizing;
 }
 
 
