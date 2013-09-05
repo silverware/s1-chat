@@ -3,23 +3,25 @@ define [], () ->
     message: null
     template: Ember.Handlebars.compile """
       {{#if view.message.isMessage}}
-        <div class='message-key'><span>{{msg.formattedDate}}</span> {{msg.name}}</div> <div class='message-body'>{{msg.text}}</div>
+        <div class="message-time">{{msg.formattedDate}}</div>
+        <div class='message-name'>{{msg.name}}</div>
+        <div class='message-body'>{{msg.text}}</div>
       {{/if}}
       {{#if view.message.isUser}}
-        <div class="user-message">
-          <h5>{{view.message.user.username}}</h5>
+        <div class="alert alert-info">
+          <div>{{view.message.user.username}}</div>
           He is gay
           <span>its super</span>
         </div>
       {{/if}}
       {{#if view.message.isPart}}
         <div class="alert alert-info">
-          <h5>{{view.message.name}} left this channel</h5>
+          <div>{{view.message.name}} left this channel</div>
         </div>
       {{/if}}
       {{#if view.message.isJoin}}
         <div class="alert alert-info">
-          <h5>{{view.message.name}} joined this channel</h5>
+          <div>{{view.message.name}} joined this channel</div>
         </div>
       {{/if}}
       {{#if view.message.isInfo}}

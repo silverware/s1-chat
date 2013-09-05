@@ -18,7 +18,7 @@ define [
       </div>
 
       <form id="messageForm">
-       <input id="message" type="text" placeholder="Message" autocomplete="off" style="width: 95%" />
+       <input id="message" type="text" placeholder="Message" autocomplete="off" />
       </form>
     """
     classNames: ['content chan']
