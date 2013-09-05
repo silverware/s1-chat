@@ -8,17 +8,17 @@
 
 (declare craft-public-msg)
 (defn secure-channel [ch]
-  (splice 
+  (splice
     (map* craft-public-msg ch)
     ch))
 
 (defn create-chan
   ([name] (create-chan name {}))
   ([name attr-map]
-   (dosync 
-     (let [ch (secure-channel (channel)) chan (Chan. name ch (ref #{}) attr-map)]
+   (dosync
+     (let [chan (Chan. name (secure-channel (channel)) (ref #{}) attr-map)]
        (if (not (@chans name))
-         (do 
+         (do
            (alter chans assoc name chan)
            chan)
          nil)
@@ -27,12 +27,12 @@
 (defn get-chan [^String chan-name]
   (@chans chan-name))
 
-(defn create-default-chans [] 
+(defn create-default-chans []
   (let [default-chans ["Gefahr" "Hans" "Test"]]
     (doseq [chan default-chans] (create-chan chan))))
 
 (declare remove-ticket)
-(defn craft-public-msg [{{username :username} :ticket :as msg}] 
+(defn craft-public-msg [{{username :username} :ticket :as msg}]
     "When a user writes into a Chan the message is siphoned into it.
       However, it needs to undergo modifications such as removal of the ticket.
       This function applies the necessary modifications."
@@ -48,7 +48,7 @@
                   bridge-ch (channel)
                   bridge-ch2 (channel)]
           (println "Adding user " (:name user) " to chan " (:name dest-chan))
-          (dosync 
+          (dosync
                   (alter users conj user)
                   (alter (:chans user) assoc dest-chan (list bridge-ch bridge-ch2)))
           (siphon dest-ch bridge-ch2 user-ch)
@@ -62,6 +62,6 @@
   [user chan]
   (dorun
     (map #(close %) (@(:chans user) chan)))
-  (dosync 
+  (dosync
     (alter (:users chan) disj user)
     (alter (:chans user) dissoc chan)))

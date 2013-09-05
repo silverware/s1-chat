@@ -27,3 +27,8 @@ define ->
     isJoin: (->
       @get("type") is "join"
     ).property("type")
+
+    isInfo: (->
+      @get("type") is "info"
+    ).property("type")
+

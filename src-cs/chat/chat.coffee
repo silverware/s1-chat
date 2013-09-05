@@ -13,7 +13,7 @@ define [
     websocket: null
     chans: []
     controller: {}
-    initialChan: "Test"
+    initialChan: ""
 
     # Private Chats
     queryStreams: []
@@ -40,6 +40,7 @@ define [
       @set "controller", ChatController.create()
       $(window).unload => @onUnload()
       @loadStorageData()
+      console.debug @initialChan
 
     authenticate: (username, password, isGuest = false) ->
       @set "ticket.username", username
@@ -96,9 +97,14 @@ define [
         when "authsuccess"
           @set "ticket.session-id", response["session-id"]
           @authCallback()
+          if @initialChan then @join @initialChan
         when "joinsuccess"
           obj = @sentObjects[response.id]
-          chan = Chan.create(id: @maxId, name: obj["chan-name"], usernames: response.usernames)
+          chan = Chan.create
+            id: @maxId
+            name: obj["chan-name"]
+            usernames: response.usernames
+            isAnonymous: response.anonymous
           @chans.pushObject chan
           @controller.openChan chan
         when "query"

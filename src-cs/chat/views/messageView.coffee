@@ -13,14 +13,17 @@ define [], () ->
         </div>
       {{/if}}
       {{#if view.message.isPart}}
-        <div class="part-message">
+        <div class="alert alert-info">
           <h5>{{view.message.name}} left this channel</h5>
         </div>
       {{/if}}
       {{#if view.message.isJoin}}
-        <div class="part-message">
+        <div class="alert alert-info">
           <h5>{{view.message.name}} joined this channel</h5>
         </div>
+      {{/if}}
+      {{#if view.message.isInfo}}
+        <div class="alert alert-info">{{view.message.text}}</div>
       {{/if}}
     """
     classNames: ['message']
