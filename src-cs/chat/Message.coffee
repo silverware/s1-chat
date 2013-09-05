@@ -19,3 +19,11 @@ define ->
     isUser: (->
       @get("type") is "user"
     ).property("type")
+
+    isPart: (->
+      @get("type") is "part"
+    ).property("type")
+
+    isJoin: (->
+      @get("type") is "join"
+    ).property("type")

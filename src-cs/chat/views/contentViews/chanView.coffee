@@ -1,7 +1,9 @@
 define [
   "./contentView"
-], (ContentView) ->
+  "./../messageView"
+], (ContentView, MessageView) ->
   ContentView.extend
+    MessageView: MessageView
     chan: null
     template: Ember.Handlebars.compile """
       <div class="chan-title">{{view.chan.name}}</div>
@@ -9,18 +11,7 @@ define [
         <div class="content-messages">
         <div style="overflow: auto" class="content-messages-wrapper">
         {{#each msg in view.chan.messages}}
-          <div>
-          {{#if msg.isMessage}}
-            <div class='message-key'><span>{{msg.formattedDate}}</span> {{msg.name}}</div> <div class='message-body'>{{msg.text}}</div>
-          {{/if}}
-          {{#if msg.isUser}}
-            <div class="user-message">
-              <h5>{{msg.user.username}}</h5>
-              He is gay
-              <span>its super</span>
-            </div>
-          {{/if}}
-          </div>
+          {{view view.MessageView messageBinding="msg"}}
         {{/each}}
         </div>
         </div>

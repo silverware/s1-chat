@@ -20,8 +20,10 @@ define [
           @addMessage Message.create name: message.username, text: message.text
         when "part"
           @usernames.removeObject message.username
+          @addMessage Message.create type: "part", name: message.username
         when "join"
           @usernames.pushObject message.username
+          @addMessage Message.create type: "join", name: message.username
 
     sendMessage: (text) ->
       Chat.sendMsg
