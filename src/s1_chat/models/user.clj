@@ -14,14 +14,14 @@
 
 (defn logout-user [user] 
   (println "User " (:name user) " disconnected.")
+  (doseq [chan (keys @(:chans user))] (send-part chan user))
   (dosync
     (alter connected-users dissoc (:name user))
     (dorun
       (map #(do
               (map (fn [channel] (close channel)) (@(:chans user) %)) 
-              (alter (:users %) disj user)
-              (send-part % user))
-            (keys @(:chans user))))))
+              (alter (:users %) disj user))
+           (keys @(:chans user))))))
 
 
 ;; user to chat authentication

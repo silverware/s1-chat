@@ -10,8 +10,8 @@
 (defn make-chan 
   ([name] (make-chan name {}))
   ([name attr-map] 
-   (let [chan (Chan. name (secure-channel (permanent-channel)) (ref #{}) (ref attr-map))]
-     (siphon (:channel chan) (permanent-channel)) ; workaround to prevent chan's channel from draining
+   (let [chan (Chan. name (secure-channel (channel)) (ref #{}) (ref attr-map))]
+     (siphon (:channel chan) (channel)) ; workaround to prevent chan's channel from draining
      chan)))
 
 (def default-chans ["Gefahr" "Hans" "Test"])
@@ -58,6 +58,7 @@
       (filter* #(and (= (:chan-name %) (:name dest-chan)) (zero? (count (vali/validate %)))) user-ch)
       bridge-ch
       dest-ch)
+    (println dest-ch (drained? dest-ch) (closed? dest-ch))
     ))
 
 (defn remove-user-from-chan
