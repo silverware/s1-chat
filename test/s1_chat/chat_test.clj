@@ -25,7 +25,6 @@
   (let [ch @(websocket-client {:url "ws://localhost:8009"})]
     (enqueue ch (formats/encode-json->string {:type "auth" :username username :password "" :guest? true}))
     (let [{session-id :session-id} (formats/decode-json @(read-channel ch))]
-      (println (str "session-id " session-id))
       (wrap-auth-json-channel ch {:username username :session-id session-id}))))
 
   ([] (authed-ws-client "Hans")))
@@ -43,7 +42,6 @@
                         {:port 8009
                          :websocket true
                          })
-     (create-default-chans)
      (server/connect-db)
      ~@body))
 
@@ -96,11 +94,21 @@
 
 (deftest channel-drained-test 
          (with-handler server/chat-handler
-                       (let [ch (authed-ws-client "AAA") chan (create-chan "Test123") chan-ch (:channel chan)]
+                       (let [ch (authed-ws-client "AAA") chan (open-chan "Test123") chan-ch (:channel chan)]
+                         (println "drained-test")
                          (enqueue ch {:type "join" :chan-name "Test123"})
+                         (is (= (:type @(read-channel ch)) "join"))
+                         (is (= (:type @(read-channel ch)) "joinsuccess"))
                          (enqueue ch {:type "part" :chan-name "Test123"})
-                         (is (= false (drained? chan-ch)))
-                         (is (= false (closed? chan-ch))))))
+
+                         (enqueue ch {:type "join" :chan-name "Test123"})
+                         (is (= (:type @(read-channel ch)) "join"))
+                         (is (= (:type @(read-channel ch)) "joinsuccess"))
+
+
+                         (is (= false (closed? (:channel chan)))
+                         (is (= false (drained? (:channel chan))))
+                             ))))
 
 
 

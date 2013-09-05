@@ -15,11 +15,12 @@
 
 (defn validate [{t :type :as msg}] 
   (let [v (@validators t)]
-    (filter not-nil? (map #(let [f % text (try
+    (let [errors (filter not-nil? (map #(let [f % text (try
                                             (f msg)
                                             (catch NullPointerException e nil))]
                              (when (not-nil? text)
-                               text)) v))))
+                               text)) v))]
+      errors)))
 
 (defn add-validator [msg-type fun] 
   (dosync 

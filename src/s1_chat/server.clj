@@ -48,6 +48,5 @@
   (println "==========================")
   (println "STARTING WEBSOCKET-SERVEUR")
   (println "==========================")
-  (create-default-chans)
   (start-http-server chat-handler {:port 8008 :websocket true}))
 

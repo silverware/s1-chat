@@ -97,7 +97,7 @@
     ]
     [:section.public
 
-     (for [chan-name (filter #(not (:anonymous? (:attr-map (@chat/chans %)))) (keys @chat/chans))]
+     (for [chan-name (filter #(not (:anonymous? @(:attr-map (@chat/chans %)))) (keys @chat/chans))]
                  [:div.join-chan chan-name])
     ]
 ))

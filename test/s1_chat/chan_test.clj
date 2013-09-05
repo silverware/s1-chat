@@ -17,16 +17,16 @@
 (def hans
   (->User "Hans Magic" hans-channel (ref #{}) (ref {:guest? true})))
 
-(deftest create-chan-test
+(deftest open-chan-test
   (let [old-count (count @chans)]
-    (create-chan :testchan)
+    (open-chan :testchan)
     (is (= (inc old-count) (count @chans)))))
 
 (deftest create-duplicate-chan-test
   (let [old-count (count @chans)]
-    (create-chan :duplicatechan)
+    (open-chan :duplicatechan)
     (is (= (+ old-count 1) (count @chans)))
-    (create-chan :duplicatechan)
+    (open-chan :duplicatechan)
     (is (= (+ old-count 1) (count @chans)))))
 
 
