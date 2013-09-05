@@ -33,8 +33,6 @@
            (dispatch-auth-msg json-ch msg)
            (dispatch-message json-ch msg)))))))
 
-;(server/load-views "src/s1_chat/views/")
-
 (defn connect-db []
   (println "==========================")
   (println "  CONNECTING TO DATABASE  ")

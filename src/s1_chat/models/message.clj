@@ -104,4 +104,11 @@
                    (when (= (:receiver msg) (:username (:ticket msg)))
                      "Du kannst dich nicht selber anrufen"))
 
+;; message validators for query
+
+(vali/defvalidator self-query? "query"
+                   [{{sender :username} :ticket receivers :receivers :as msg}]
+                   (when (some #{sender} receivers)
+                     "You cannot query yourself."))
+
 (println "Registered validators:" @vali/validators)
