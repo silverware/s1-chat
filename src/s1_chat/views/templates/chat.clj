@@ -88,21 +88,6 @@
      ]
 ))
 
-
-(defn hbs-home-template []
-  (html
-    [:section.anonym
-
-	    [:button.btn.btn-large.btn-primary {:type "button"} [:i.icon-tasks] "create anonymous channel" ]
-    ]
-    [:section.public
-
-     (for [chan-name (filter #(not (:anonymous? @(:attr-map (@chat/chans %)))) (keys @chat/chans))]
-                 [:div.join-chan chan-name])
-    ]
-))
-
-
 (defn hbs-login-template []
   (html
      "<button {{action testLogin target=\"view\"}} type=\"button\">login as Test</button>"

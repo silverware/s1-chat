@@ -41,7 +41,7 @@
         ))))
 
 (defn public-chans []
-  (response (filter #(not (:anonymous? (:attr-map (@chat/chans %)))) (keys @chat/chans))))
+  (response (filter #(not (:anonymous? @(:attr-map (@chat/chans %)))) (keys @chat/chans))))
 
 (def ajax-routes [
                   (GET "/ajax/user/:username" [username] (user-profile username))

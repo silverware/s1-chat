@@ -26,6 +26,7 @@
        (if (not (@chans name))
          (do 
            (alter chans assoc name chan)
+           (println "anonymous? " (:anonymous? @(:attr-map chan)))
            chan)
          nil)
        ))))
@@ -58,6 +59,7 @@
       (filter* #(and (= (:chan-name %) (:name dest-chan)) (zero? (count (vali/validate %)))) user-ch)
       bridge-ch
       dest-ch)
+    (println "chan: " (:attr-map dest-chan))
     ))
 
 (defn remove-user-from-chan

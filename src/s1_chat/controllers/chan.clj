@@ -10,7 +10,7 @@
       (if (nil? anon-chan)
         (do
           (alter anon-chan-count inc)
-          (recur (open-chan (str "Anonymous " @anon-chan-count))))
+          (recur (open-chan (str "Anonymous" @anon-chan-count) {:anonymous? true})))
         (response {:chanName (:name anon-chan)})))))
 
 (def chan-routes [
