@@ -16,13 +16,14 @@ define ["./formField", "./selectField", "./textField"], (FormField) ->
     date: new Date()
     days: days
     months: months
+    label: "Birthdate"
 
     template: Ember.Handlebars.compile """
-      {{view SelectField notSurrounded="true" valueBinding="view.day"
-        optionValue="content.day" optionLabel="content.day" contentBinding="view.days"}}
-      {{view SelectField notSurrounded="true" valueBinding="view.month"
-        optionValue="content.id" optionLabel="content.label" contentBinding="view.months"}}
-      {{view TextField notSurrounded="true" valueBinding="view.year"}}
+      {{view Em.Select notSurrounded="true" valueBinding="view.day"
+        optionValuePath="content.day" optionLabelPath="content.day" contentBinding="view.days"}}
+      {{view Em.Select notSurrounded="true" valueBinding="view.month"
+        optionValuePath="content.id" optionLabelPath="content.label" contentBinding="view.months"}}
+      {{view Em.TextField valueBinding="view.year"}}
     """
 
     init: ->
