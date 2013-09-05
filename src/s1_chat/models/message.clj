@@ -11,7 +11,7 @@
 (defn send-error [ch id text] (enqueue ch {:id id :type "error" :text text}))
 
 (defn send-join-success [ch id chan]
-  (enqueue ch {:id id :type "joinsuccess" :usernames (map #(:name %) @(:users chan)) :chan-name (:name chan) :anonymous (:anonymous? (:attr-map chan))}))
+  (enqueue ch {:id id :type "joinsuccess" :usernames (map #(:name %) @(:users chan)) :chan-name (:name chan) :anonymous (:anonymous? @(:attr-map chan))}))
 
 
 (defn remove-ticket [msg] (dissoc msg :ticket))
