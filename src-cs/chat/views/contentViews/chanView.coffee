@@ -1,15 +1,19 @@
 define [
   "./contentView"
-], (ContentView) ->
+  "./../messageView"
+], (ContentView, MessageView) ->
   ContentView.extend
+    MessageView: MessageView
     chan: null
     template: Ember.Handlebars.compile """
       <div class="chan-title">{{view.chan.name}}</div>
       <div class="messages">
         <div class="content-messages">
+        <div style="overflow: auto" class="content-messages-wrapper">
         {{#each msg in view.chan.messages}}
-          <div><div class='message-key'><span>{{msg.formattedDate}}</span> {{msg.name}}</div> <div class='message-body'>{{msg.text}}</div></div>
+          {{view view.MessageView messageBinding="msg"}}
         {{/each}}
+        </div>
         </div>
       </div>
 
@@ -62,12 +66,14 @@ define [
 
 
     onMessageSizeChanged: (->
-      @$(".messages").scrollTop(@$(".messages")[0].scrollHeight)
+      @$(".content-messages-wrapper").scrollTop(@$(".content-messages-wrapper")[0].scrollHeight)
     ).observes("chan.messages.@each")
 
     adjustHeight: ->
       if not @$() then return
       @$('.content-messages').height @$(".messages").height()
+      @$('.content-messages').width @$(".messages").width()
+      @$('.content-messages-wrapper').css 'max-height', @$(".messages").height() + "px"
 
     queryUser: (username) ->
       @$("form input").val "/query #{username} "

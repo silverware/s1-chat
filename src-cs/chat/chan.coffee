@@ -17,11 +17,13 @@ define [
       switch message.type
         when "msg"
           console.debug "push", message
-          @messages.pushObject Message.create message.username, message.text
+          @addMessage Message.create name: message.username, text: message.text
         when "part"
           @usernames.removeObject message.username
+          @addMessage Message.create type: "part", name: message.username
         when "join"
           @usernames.pushObject message.username
+          @addMessage Message.create type: "join", name: message.username
 
     sendMessage: (text) ->
       Chat.sendMsg
@@ -38,3 +40,6 @@ define [
 
     open: ->
       Chat.controller.openChan @
+
+    addMessage: (message) ->
+      @messages.pushObject message

@@ -12,7 +12,7 @@
         )
   (:import (org.joda.time IllegalFieldValueException)))
 
-(defn convert-id [monger-object] 
+(defn convert-id [monger-object]
   (let [doc-id (.toString (:_id (mconv/from-db-object monger-object true)))]
     (assoc (mconv/from-db-object monger-object true) :_id doc-id)))
 
@@ -40,7 +40,11 @@
         (response (assoc response-map :fieldErrors (json-errors :email)))
         ))))
 
+(defn public-chans []
+  (response (filter #(not (:anonymous? (:attr-map (@chat/chans %)))) (keys @chat/chans))))
+
 (def ajax-routes [
                   (GET "/ajax/user/:username" [username] (user-profile username))
+                  (GET "/ajax/chans" [] (public-chans))
                   (POST "/ajax/user/" [user session-id] (save-user-profile user session-id))
                   ])
