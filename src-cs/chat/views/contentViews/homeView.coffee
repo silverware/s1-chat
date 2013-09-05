@@ -8,7 +8,7 @@ define [
       </section>
     <section class="public">
       {{#each chan in view.publicChans}}
-        <div class="join-chan" {{action join chan target="Chat"}}>{{chan}}</div>
+        <div class="join-chan" {{action join chan.name target="Chat"}}>{{chan.name}} ({{chan.users}})</div>
       {{/each}}
     </section>
 
