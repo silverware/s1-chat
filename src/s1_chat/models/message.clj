@@ -10,8 +10,8 @@
 
 (defn send-error [ch id text] (enqueue ch {:id id :type "error" :text text}))
 
-(defn send-join-success [ch id usernames]
-  (enqueue ch {:id id :type "joinsuccess" :usernames usernames}))
+(defn send-join-success [ch id chan]
+  (enqueue ch {:id id :type "joinsuccess" :usernames (map #(:name %) @(:users chan)) :chan-name (:name chan) :anonymous (:anonymous? (:attr-map chan))}))
 
 
 (defn remove-ticket [msg] (dissoc msg :ticket))
@@ -19,7 +19,7 @@
 ;; user to user query dispatch
 (defn dispatch-query [{{username :username} :ticket :as original-msg}]
   (let [msg (assoc (remove-ticket original-msg) :username username) receivers (map get-user (:receivers msg))]
-    (dorun (map #(enqueue (:channel %) msg) receivers)))) 
+    (dorun (map #(enqueue (:channel %) msg) receivers))))
 
 ;; auth message dispatch
 (defn send-auth-success [ch session-id]
@@ -32,7 +32,7 @@
       :wrong-password (send-error ch id {:fieldErrors [[:login-password "Wrong password."]]})
       (send-auth-success ch session-id))))
 
-(defn dispatch-message 
+(defn dispatch-message
   [ch {id :id {:keys [username session-id]} :ticket :as msg}]
   (let [user (get-user username)]
     (if (valid-session-id? username session-id)
@@ -40,12 +40,12 @@
         "join" (let [dest-chan (get-chan (:chan-name msg))]
                  (add-user-to-chan user dest-chan)
                  (enqueue (:channel dest-chan) msg)
-                 (send-join-success ch id (map #(:name %) @(:users dest-chan))))
+                 (send-join-success ch id dest-chan))
         "part" (let [chan (get-chan (:chan-name msg))]
                  (remove-user-from-chan user chan)
                  (send-part chan user))
         "query" (dispatch-query msg)
-        "video" 
+        "video"
           (let [receiver (get-user (:receiver msg))]
             (enqueue (:channel receiver) (assoc (dissoc msg :ticket) :username username)))
         "logout" (logout-user user)
@@ -60,7 +60,7 @@
                    (when (contains? @(:users (get-chan (:chan-name msg))) (get-user (:username (:ticket msg))))
                      (str "Du bist schon im Chan " (:chan-name msg) ", Flasche!")))
 
-(vali/defvalidator channel-exists? "join" 
+(vali/defvalidator channel-exists? "join"
   [msg]
   (when (nil? (get-chan (:chan-name msg)))
     (str "Der Channel " (:chan-name msg) " existiert nicht")))
@@ -86,10 +86,10 @@
 (vali/defvalidator guest-username-taken? "auth"
                    [msg]
                    (let [user (get-user (:username msg))]
-                     (when (or 
-                             (vali/not-nil? user) 
-                             (and 
-                               (login-ctrl/duplicate-username? (:username msg)) 
+                     (when (or
+                             (vali/not-nil? user)
+                             (and
+                               (login-ctrl/duplicate-username? (:username msg))
                                (:guest? msg)))
                        {:fieldErrors [[:guest-username "The username is already in use."]]})))
 

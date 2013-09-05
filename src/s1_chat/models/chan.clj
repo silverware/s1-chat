@@ -4,7 +4,7 @@
 (defrecord Chan [name channel users attr-map])
 (declare craft-public-msg)
 (defn secure-channel [ch]
-  (splice 
+  (splice
     (map* craft-public-msg ch)
     ch))
 (defn make-chan 
@@ -24,7 +24,7 @@
    (dosync 
      (let [chan (make-chan name attr-map)]
        (if (not (@chans name))
-         (do 
+         (do
            (alter chans assoc name chan)
            chan)
          nil)
@@ -64,7 +64,7 @@
   [user chan]
   (dorun
     (map #(close %) (@(:chans user) chan)))
-  (dosync 
+  (dosync
     (alter (:users chan) disj user)
     (alter (:chans user) dissoc chan))
   (println (:name user) " left chan " (:name chan)))

@@ -7,10 +7,15 @@ define [
     name: ""
     messages: []
     usernames: []
+    isAnonymous: false
 
     init: ->
       @_super()
       @messages = []
+      if @isAnonymous
+        @addMessage Message.create
+          type: "info"
+          text: "You can invite your buddies digga. http://#{window.location.hostname}/chan/join/#{@name}"
 
     received: (message) ->
       console.debug "chan #{@name} got ", message
