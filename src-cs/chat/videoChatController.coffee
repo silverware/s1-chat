@@ -16,7 +16,7 @@ define [
         @startVideo false, data.username
       if data.payload.sdp
         @peerConnection.setRemoteDescription(new RTCSessionDescription(data.payload.sdp))
-      else
+      else if data.payload.candidate
         @peerConnection.addIceCandidate(new RTCIceCandidate(data.payload.candidate))
 
     startVideo: (isCaller, receiver) ->
