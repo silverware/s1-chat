@@ -71,10 +71,20 @@ define [
       @queryStreams.clear()
       Chat.controller.openHome()
 
-    join: (channelName) ->
+    getChanByName: (chanName) ->
+      for chan in @chans
+        if chan.name is chanName
+          return chan
+
+    join: (chanName) ->
+      chan = @getChanByName chanName
+      if chan
+        @controller.openChan chan
+        return
+
       @sendMsg
         type: "join"
-        "chan-name": channelName
+        "chan-name": chanName
 
     query: (receivers, text...) ->
       receivers = receivers.split ","
