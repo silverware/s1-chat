@@ -4,7 +4,8 @@ define [
   "./controllers/chatController"
   "./queryStream"
   "./videoChatController"
-], (Chan, Message, ChatController, QueryStream, VideoChat) ->
+  "toastr"
+], (Chan, Message, ChatController, QueryStream, VideoChat, toastr) ->
 
   Em.Application.extend
 
@@ -42,6 +43,11 @@ define [
       @loadStorageData()
       console.debug @initialChan
 
+      toastr.options =
+        positionClass: "toast-bottom-right"
+        closeButton: true
+        newestOnTop: false
+
     authenticate: (username, password, isGuest = false) ->
       @set "ticket.username", username
       @set "isGuest", isGuest
@@ -77,6 +83,9 @@ define [
         type: "query"
         receivers: receivers
         text: text
+
+      if @ticket.username in receivers
+        return
       @createQueryStream receiver, text for receiver in receivers
 
     video: (receiver) ->
@@ -114,6 +123,8 @@ define [
         when "error"
             if @sentObjects[response.id].type == "auth"
               @authCallback(response.text)
+            else
+              toastr.error(response.text)
         else
           chan.received response for chan in @chans when chan.name is response["chan-name"]
 
