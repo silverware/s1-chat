@@ -18,7 +18,6 @@ define [
       @view = ChatView.create()
       @openHome()
 
-
     openHome: ->
       @removeNavItems()
       @setContentView HomeView.create()
@@ -48,7 +47,6 @@ define [
       $("body").append "<nav class='nav-#{lastIndex + 1}'>"
       view.appendTo ".nav-#{lastIndex + 1}"
       @navigationViews.pushObject view
-
 
     setContentView: (view) ->
       @contentView?.destroy()
