@@ -6,29 +6,28 @@
 <title>[DEV] Zensos weBBschule&nbsp;-&nbsp;Startseite</title>
 <script src="/lib/jquery-1.8.3.min.js" type="text/javascript"></script><script src="/lib/handlebars-1.0.rc.3.js" type="text/javascript"></script><script src="/lib/ember-1.0.0-rc.3.js" type="text/javascript"></script>
 
-<script type="text/x-handlebars" data-template-name="index">
+<script type="text/x-handlebars" data-template-name="application">
 This is the master.
+{{view.huhu}}!!!
   {{outlet}}
+
 </script>
 
 <script type="text/javascript" >
 
-window.Chat = Em.Application.create({
+window.App = Em.Application.create({
 LOG_TRANSITIONS: true,
-ApplicationController : Ember.Controller.extend({
-  }),
-
   ApplicationView : Ember.View.extend({
-    templateName: "index" // We use the master template for this view
+    huhu: "hallo digga"
   }),
 });
 
-Chat.Router.map(function(){
+App.Router.map(function(){
   this.route("about", { path: "/about" });
   this.route("favorites", { path: "/favs" });
 });
 
-App.IndexRoute = Ember.Route.extend({
+App.AboutRoute = Ember.Route.extend({
   setupController: function(controller) {
     // Set the IndexController's `title`
     controller.set('title', "My App");
@@ -38,6 +37,6 @@ App.IndexRoute = Ember.Route.extend({
 </script>
 </head>
 <body>
-hallo
+
 </body>
 </html>
