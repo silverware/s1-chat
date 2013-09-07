@@ -159,5 +159,5 @@ define [
       localStorage.password = @get "ticket.passwordHash"
 
     loadStorageData: ->
-      if not (localStorage or localStorage.username) then return
+      if not (localStorage and localStorage.username) then return
       setTimeout (=> @authenticate localStorage.username, null, true), 1000

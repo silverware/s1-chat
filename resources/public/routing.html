@@ -1,0 +1,42 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>[DEV] Zensos weBBschule&nbsp;-&nbsp;Startseite</title>
+<script src="/lib/jquery-1.8.3.min.js" type="text/javascript"></script><script src="/lib/handlebars-1.0.rc.3.js" type="text/javascript"></script><script src="/lib/ember-1.0.0-rc.3.js" type="text/javascript"></script>
+
+<script type="text/x-handlebars" data-template-name="application">
+This is the master.
+{{view.huhu}}!!!
+  {{outlet}}
+
+</script>
+
+<script type="text/javascript" >
+
+window.App = Em.Application.create({
+LOG_TRANSITIONS: true,
+  ApplicationView : Ember.View.extend({
+    huhu: "hallo digga"
+  }),
+});
+
+App.Router.map(function(){
+  this.route("about", { path: "/about" });
+  this.route("favorites", { path: "/favs" });
+});
+
+App.AboutRoute = Ember.Route.extend({
+  setupController: function(controller) {
+    // Set the IndexController's `title`
+    controller.set('title', "My App");
+  }
+});
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
