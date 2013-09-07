@@ -111,4 +111,14 @@
                    (when (some #{sender} receivers)
                      "You cannot query yourself."))
 
+(vali/defvalidator query-receiver-exists? "query"
+                   [{receivers :receivers :as msg}]
+                   (let [invalid-receivers (filter (complement get-user) receivers)
+                         joined-invalid-receivers (string/join ", " invalid-receivers)]
+                     (when (seq invalid-receivers)
+                       (if (= 1 (count invalid-receivers))
+                         (str joined-invalid-receivers " is an unknown user.")
+                         (str joined-invalid-receivers " are unknown users.")
+                         ))))
+
 (println "Registered validators:" @vali/validators)
