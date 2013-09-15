@@ -30,7 +30,7 @@ class FileNode:
 
     def depends_on(self, fileNode):
         name = "Chat.%s" % (fileNode.moduleName)
-        return name in self.source
+        return name in self.source and self is not fileNode
 
     def compute_dependencies(self, fileNodes):
         for node in fileNodes:
