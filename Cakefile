@@ -60,3 +60,4 @@ task 'dev', 'start server and compile assets', ->
   invoke 'build-cs'
   invoke 'build-less'
   watch "src-less", -> invoke 'build-less'
+  watch "src-cs", -> invoke 'build-cs'
