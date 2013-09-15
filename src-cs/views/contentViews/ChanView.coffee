@@ -1,4 +1,4 @@
-Chat.ChanView = ContentView.extend
+Chat.ChanView = Chat.ContentView.extend
   chan: null
   template: Ember.Handlebars.compile """
     <div class="chan-title">{{view.chan.name}}</div>

@@ -1,4 +1,4 @@
-Chat.IndexView = ContentView.extend
+Chat.IndexView = Chat.ContentView.extend
   template: Ember.Handlebars.compile """
     <section class="anonym">
       <button class="btn btn-large btn-primary" type="button" {{action createAnonChan target="view"}}><i class="icon-tasks"></i>create anonymous channel</button>

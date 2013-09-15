@@ -5,8 +5,6 @@ Chat.ApplicationController = Ember.Controller.extend
 
   init: ->
     @_super()
-    @view = ChatView.create()
-    @openHome()
 
   openHome: ->
     @removeNavItems()

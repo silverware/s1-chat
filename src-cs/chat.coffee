@@ -1,4 +1,4 @@
-window.Chat = Em.Application.create
+App = Em.Application.extend
 
   LOG_TRANSITIONS: true
 
@@ -30,6 +30,7 @@ window.Chat = Em.Application.create
     @loadStorageData()
     console.debug @initialChan
 
+    return
     toastr.options =
       positionClass: "toast-bottom-right"
       closeButton: true
@@ -101,6 +102,7 @@ window.Chat = Em.Application.create
     response = JSON.parse event.data
     switch response.type
       when "authsuccess"
+        console.debug @
         @set "ticket.session-id", response["session-id"]
         @authCallback()
         if @initialChan then @join @initialChan
@@ -140,6 +142,8 @@ window.Chat = Em.Application.create
     @get("queryStreams")
   ).property("queryStreams.@each")
 
+  authCallback: ->
+
   onUnload: ->
     localStorage.username = @get "ticket.username"
     localStorage.isGuest = @get "isGuest"
@@ -148,3 +152,5 @@ window.Chat = Em.Application.create
   loadStorageData: ->
     if not (localStorage and localStorage.username) then return
     setTimeout (=> @authenticate localStorage.username, null, true), 1000
+
+window.Chat = App.create()

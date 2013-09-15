@@ -1,7 +1,7 @@
 Em.Select.reopen
   attributeBindings: ["name"]
 
-Chat.SelectFieldView = FormField.extend
+Chat.SelectFieldView = Chat.FormFieldView.extend
   template: Ember.Handlebars.compile """
     {{view Em.Select contentBinding="view.content"
         optionValuePathBinding="view.optionValue"

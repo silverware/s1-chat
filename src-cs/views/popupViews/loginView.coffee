@@ -1,5 +1,33 @@
-Chat.LoginView = PopupView.extend
-  template: Ember.Handlebars.compile template
+Chat.LoginView = Chat.PopupView.extend
+  template: Ember.Handlebars.compile """
+    <button {{action testLogin target="view"}} type="button">login as Test</button>
+    <ul id="login-tabs" class="nav nav-tabs">
+     <li class="active"> [:a {:href "#guest-login-pane" :data-toggle "tab"} "Guest"]]
+     <li> <a href="#login-pane" data-toggle="tab">"Login"</a></li>
+     <li> <a href="#register-pane" data-toggle="tab">"Register"</a></li>
+    </ul>
+    <div class="tab-content">
+     <div class="tab-pane active" id="guest-login-pane">
+      (common/horizontal-form-to [:post "/login" {:id "guest-login-form"}]
+                                 (common/bootstrap-text-field :guest-username "Username" {:placeholder "Guest"})
+                                 (common/bootstrap-submit "Submit"))]
+
+     [:div {:class "tab-pane" :id "login-pane"}
+      (common/horizontal-form-to [:post "/login" {:id "login-form"}]
+                                 (common/bootstrap-text-field :login-username "Username" {:placeholder ""})
+                                 (common/bootstrap-password-field :login-password "Password")
+                                 (common/bootstrap-submit "Submit"))]
+
+     [:div {:class "tab-pane" :id "register-pane"}
+      (common/horizontal-form-to [:post "" {:id "register-form"}]
+                                 (common/bootstrap-text-field :email "E-Mail" {:placeholder "name@example.com"})
+                                 (common/bootstrap-text-field :username "Username")
+                                 (common/bootstrap-password-field :password1 "Password")
+                                 (common/bootstrap-password-field :password2 "Password (repeat)")
+                                 (common/bootstrap-submit "Submit"))
+      </div>
+
+  """
   classNames: ['login']
 
   insertFieldErrorMessages: (fieldErrors) ->

@@ -1,9 +1,9 @@
 Chat.ApplicationView = Em.View.extend
   classNames: ['chat']
-  template: Ember.Handlebars.compile """
+  layout: Ember.Handlebars.compile """
     <nav class="nav-0">
       <ul>
-        <li nav-id="home"> <i class="icon-home></i>home</li>
+        <li nav-id="home">{{#link-to 'index'}}<i class="icon-home"></i>home{{/link-to}}</li>
       </ul>
 
       {{#if Chat.isAuthenticated}}
@@ -24,7 +24,7 @@ Chat.ApplicationView = Em.View.extend
         </ul>
       {{/if}}
 
-      <div class="bottom-nav>
+      <div class="bottom-nav">
         {{#if Chat.isAuthenticated}}
           <h5>{{Chat.ticket.username}}</h5>
           <ul>
@@ -49,5 +49,5 @@ Chat.ApplicationView = Em.View.extend
       </div>
 
 
-      {{outlet}}
+      {{yield}}
     """
