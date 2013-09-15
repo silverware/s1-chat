@@ -1,10 +1,10 @@
-Chat.HomeView = ContentView.extend
+Chat.IndexView = ContentView.extend
   template: Ember.Handlebars.compile """
     <section class="anonym">
       <button class="btn btn-large btn-primary" type="button" {{action createAnonChan target="view"}}><i class="icon-tasks"></i>create anonymous channel</button>
     </section>
   <section class="public">
-    {{#each chan in view.publicChans}}
+    {{#each}}
       <div class="join-chan" {{action join chan.name target="Chat"}}>{{chan.name}} ({{chan.users}})</div>
     {{/each}}
   </section>
@@ -12,12 +12,6 @@ Chat.HomeView = ContentView.extend
   """
   classNames: ['content home']
   navId: "home"
-  publicChans: []
-
-  init: ->
-    @_super()
-    $.get "/ajax/chans", (chans) =>
-      @set "publicChans", chans
 
   didInsertElement: ->
     @_super()

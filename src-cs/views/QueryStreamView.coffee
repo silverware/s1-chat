@@ -2,12 +2,14 @@ Chat.QueryStreamView = Ember.View.extend
   stream: null
   template: Ember.Handlebars.compile """
 
-    [:div.header "{{view.stream.username}}" [:i.icon-remove.close]]
-    [:div.messages
-    "{{#each msg in view.stream.messages}}{{msg.name}}: {{msg.text}}<br />{{/each}}"]
-    [:form.queryForm
-     [:input.query {:type "text" :placeholder "Message"}]
-    ]
+    <div class="header">{{view.stream.username}} <i class="icon-remove.close"></i></div>
+    <div class="messages">
+      {{#each msg in view.stream.messages}}
+        {{msg.name}}: {{msg.text}}<br />{{/each}}
+    </div>
+    <form class="queryForm">
+     <input class="query" type="text" placeholder="Message" />
+    </form>
   """
   classNames: ['queryStream']
 

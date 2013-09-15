@@ -47,4 +47,7 @@ Chat.ApplicationView = Em.View.extend
           {{#if stream.isVisible}}{{view Chat.QueryStreamView streamBinding="stream"}}{{/if}}
         {{/each}}
       </div>
+
+
+      {{outlet}}
     """
