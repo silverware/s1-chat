@@ -1,5 +1,7 @@
 import os
+import sys
 import traceback
+
 
 def get_coffee_files(startDir):
     result = []
@@ -48,7 +50,7 @@ class FileNode:
 orderedFiles = []
 
 def visit(node):
-    print "visit", node.moduleName
+    # print "visit", node.moduleName
     if node.compiled: return
     if node.marked_temporarily and not node.compiled: raise Exception("circular dependencies")
     node.marked_temporarily = True
@@ -66,11 +68,9 @@ def determine_ordering(fileNodes):
             visit(node)
 
 def write_file():
-    f = open("ordered.coffee", "w+")
     for node in orderedFiles:
-        node.write_src_to(f)
+        node.write_src_to(sys.stdout)
 
-    f.close()
 
     
 if __name__ == "__main__":
@@ -79,7 +79,7 @@ if __name__ == "__main__":
         for node in fileNodes:
             node.compute_dependencies(fileNodes)
         for fn in fileNodes:
-            print fn.moduleName, "referenced_by: ", fn.referenced_by
+            # print fn.moduleName, "referenced_by: ", fn.referenced_by
         determine_ordering(fileNodes)
         write_file()
     except:
