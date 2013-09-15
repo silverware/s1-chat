@@ -78,7 +78,7 @@ if __name__ == "__main__":
         fileNodes = get_coffee_files("src-cs")
         for node in fileNodes:
             node.compute_dependencies(fileNodes)
-        for fn in fileNodes:
+        # for fn in fileNodes:
             # print fn.moduleName, "referenced_by: ", fn.referenced_by
         determine_ordering(fileNodes)
         write_file()
