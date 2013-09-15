@@ -7,8 +7,7 @@
   ([initial-chan]
     (common/layout
       (include-css "/css/chat.css")
-      [:script (format "require(['chat/chat'], function(ChatApp) {
-          window.Chat = ChatApp.create({initialChan: '%s'})});" initial-chan)]
+      [:script (format "Chat = Chat.create({initialChan: '%s'});" initial-chan)]
 )))
 
 

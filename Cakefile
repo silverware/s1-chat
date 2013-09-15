@@ -23,11 +23,12 @@ watch = (folder, onChange) ->
           console.log "change in file"
           onChange()
 
-
+###
 task 'build-cs', 'start watching coffeescript files', ->
   child = exec 'coffee --watch -o resources/public/js src-cs', (err, stdout, stderr) ->
     throw err if err
   child.stdout.pipe process.stdout
+###
 
 task 'build-less', 'start watching coffeescript files', ->
   lessFiles = readDir("src-less")
@@ -46,6 +47,13 @@ task 'startserver', 'start server in dev mode', ->
 task 'generate-testdata', 'generates the test data', ->
   child = exec 'lein setup-db', (err, stdout, stderr) ->
     throw err if err
+  child.stdout.pipe process.stdout
+
+task 'build-cs', 'concat coffee files', ->
+  child = exec 'python jc.py', (err, stdout, stderr) ->
+    throw err if err
+    exec 'coffee -o resources/public/js/chat.js ordered.coffee', (err, stdout, stderr) ->
+      throw err if err
   child.stdout.pipe process.stdout
 
 task 'dev', 'start server and compile assets', ->

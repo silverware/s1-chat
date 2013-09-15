@@ -1,5 +1,4 @@
-define [], () ->
-  Ember.View.extend
+Chat.MessageView = Ember.View.extend
     message: null
     template: Ember.Handlebars.compile """
       {{#if view.message.isMessage}}

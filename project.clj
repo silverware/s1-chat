@@ -19,7 +19,6 @@
                            ;[cheshire "2.2.0"]
                            ;[jayq "0.1.0-SNAPSHOT"]
                            ;[fetch "0.1.0-SNAPSHOT"]
-                           [handlebars-clj "0.9.0"]
                            [digest "1.3.0"]
                            ;[dieter/dieter "0.3.0"]
                            [com.cemerick/friend "0.1.3"]
@@ -27,7 +26,7 @@
                            ]
 
             :min-lein-version "2.0.0"
-            :main s1-chat.handler/-main 
+            :main s1-chat.handler/-main
             :eval-in-leiningen true
             :plugins [[lein-cljsbuild "0.2.7"]
                       [lein-tarsier "0.9.1"]
