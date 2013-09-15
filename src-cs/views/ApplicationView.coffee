@@ -1,6 +1,6 @@
 Chat.ApplicationView = Em.View.extend
   classNames: ['chat']
-  layout: Ember.Handlebars.compile """
+  defaultTemplate: Ember.Handlebars.compile """
     <nav class="nav-0">
       <ul>
         <li nav-id="home">{{#link-to 'index'}}<i class="icon-home"></i>home{{/link-to}}</li>
@@ -31,7 +31,7 @@ Chat.ApplicationView = Em.View.extend
             {{#unless Chat.isGuest}}"
               <li nav-id="editProfile" {{action openEditProfile target="Chat.controller"}}> <i class="icon-edit"></i>edit profile</li>
             {{/unless}}
-            <li {{action logout target="Chat"}}> [:i.icon-edit] log out </li>
+            <li {{action logout target="Chat"}}><i class="icon-edit"></i>log out</li>
           </ul>
        {{else}}
          <ul>
@@ -49,5 +49,5 @@ Chat.ApplicationView = Em.View.extend
       </div>
 
 
-      {{yield}}
+      {{outlet}}
     """

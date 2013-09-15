@@ -5,7 +5,7 @@ Chat.IndexView = Chat.ContentView.extend
     </section>
   <section class="public">
     {{#each}}
-      <div class="join-chan" {{action join chan.name target="Chat"}}>{{chan.name}} ({{chan.users}})</div>
+      {{#link-to 'chan/' chan.name}}<div class="join-chan">{{name}} ({{users}})</div>{{/link-to}}
     {{/each}}
   </section>
 
