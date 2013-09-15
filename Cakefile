@@ -50,7 +50,7 @@ task 'generate-testdata', 'generates the test data', ->
   child.stdout.pipe process.stdout
 
 task 'build-cs', 'concat coffee files', ->
-  child = exec 'python jc.py | coffee -c --stdio -o resources/public/js/chat.js', (err, stdout, stderr) ->
+  child = exec 'python jc.py | coffee --compile --stdio > resources/public/js/chat.js', (err, stdout, stderr) ->
       throw err if err
   child.stdout.pipe process.stdout
 
