@@ -79,7 +79,7 @@ if __name__ == "__main__":
         for node in fileNodes:
             node.compute_dependencies(fileNodes)
         for fn in fileNodes:
-            print fn.moduleName, "references: ", fn.referenced_by
+            print fn.moduleName, "referenced_by: ", fn.referenced_by
         determine_ordering(fileNodes)
         write_file()
     except:
