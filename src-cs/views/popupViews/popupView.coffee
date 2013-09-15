@@ -1,30 +1,28 @@
-define ->
+Chat.PopupView = Ember.View.extend
+  classNames: ['popup-container']
+  layout: Ember.Handlebars.compile """
+    <div class="popup-content">{{yield}}</div>
+  """
 
-  Ember.View.extend
-    classNames: ['popup-container']
-    layout: Ember.Handlebars.compile """
-      <div class="popup-content">{{yield}}</div>
-    """
+  didInsertElement: ->
+    $(document).keyup (e) =>
+      if e.keyCode is 27
+        @hide()
 
-    didInsertElement: ->
-      $(document).keyup (e) =>
-        if e.keyCode is 27
-          @hide()
+    popupContent = @$(".popup-content")
 
-      popupContent = @$(".popup-content")
+    popupContent.css("position","absolute")
+    #popupContent.css("top", Math.max(0, (($(window).height() - popupContent.outerHeight()) / 2) + $(window).scrollTop()) + "px")
+    #popupContent.css("left", Math.max(0, (($(window).width() - popupContent.outerWidth()) / 2) + $(window).scrollLeft()) + "px")
 
-      popupContent.css("position","absolute")
-      #popupContent.css("top", Math.max(0, (($(window).height() - popupContent.outerHeight()) / 2) + $(window).scrollTop()) + "px")
-      #popupContent.css("left", Math.max(0, (($(window).width() - popupContent.outerWidth()) / 2) + $(window).scrollLeft()) + "px")
+    $(".popup-content").fadeIn()
 
-      $(".popup-content").fadeIn()
+  show: ->
+    @appendTo "body"
+    #console.debug @$()
+    #@$(".popup-container").fadeIn "slow"
 
-    show: ->
-      @appendTo "body"
-      #console.debug @$()
-      #@$(".popup-container").fadeIn "slow"
-
-    hide: ->
-      $(".popup-container").fadeOut("fast", () =>
-        @destroy())
+  hide: ->
+    $(".popup-container").fadeOut("fast", () =>
+      @destroy())
 
