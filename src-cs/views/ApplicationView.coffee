@@ -44,7 +44,7 @@ Chat.ApplicationView = Em.View.extend
       </nav>
       <div id="queryStreams">
         {{#each stream in Chat.queryStreams}}
-          {{#if stream.isVisible}}{{view view.QueryStreamView streamBinding="stream"}}{{/if}}
+          {{#if stream.isVisible}}{{view Chat.QueryStreamView streamBinding="stream"}}{{/if}}
         {{/each}}
       </div>
     """

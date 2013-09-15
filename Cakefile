@@ -9,7 +9,7 @@ readDir = (src) ->
 
   files = fs.readdirSync(src)
   for file in files
-    if file.match(/\.less$/)
+    if file.match(/\.less$/) or file.match(/\.coffee$/)
       allFiles.push src + "/" + file
     else
       allFiles = allFiles.concat readDir(src + "/" + file)

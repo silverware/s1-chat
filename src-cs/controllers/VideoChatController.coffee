@@ -3,10 +3,8 @@ if typeof webkitRTCPeerConnection != "undefined"
 else if typeof mozRTCPeerConnection != "undefined"
     RTCPeerConnection = mozRTCPeerConnection
 
-define [
-  "./views/contentViews/videoChatView"
-  ], (VideoChatView) ->
-  VideoChatController =
+
+ Chat.VideoChatController =
 
     # RTCPeerConnection
     peerConnection: null

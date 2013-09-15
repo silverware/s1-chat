@@ -3,4 +3,4 @@ Chat.User = Em.Object.extend
 
 Chat.User.reopenClass
   find: (id) ->
-    Ember.$.get
+    Ember.$.getJSON('/pulls').then (user) -> user

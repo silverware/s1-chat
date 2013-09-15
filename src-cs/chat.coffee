@@ -1,4 +1,4 @@
-window.Chat = Em.Application.extends
+window.Chat = Em.Application.create
 
   LOG_TRANSITIONS: true
 
@@ -19,8 +19,6 @@ window.Chat = Em.Application.extends
 
   maxId: 0
   sentObjects: {}
-
-  videoChatController: VideoChat
 
   init: ->
     @_super()
