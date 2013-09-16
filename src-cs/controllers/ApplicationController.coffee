@@ -1,14 +1,8 @@
 Chat.ApplicationController = Ember.Controller.extend
-  navigationViews: []
-  contentView: null
-  view: null
 
+  hallo: "huhu"
   init: ->
     @_super()
-
-  openHome: ->
-    @removeNavItems()
-    @setContentView HomeView.create()
 
   openChan: (chan) ->
     if not Chat.get("isAuthenticated") then return LoginView.create()

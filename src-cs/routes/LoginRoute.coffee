@@ -1,4 +1,4 @@
 Chat.LoginRoute = Ember.Route.extend
   model: ->
-    Ember.$.getJSON('/pulls').then (data) ->
+    $.get('/pulls').then (data) ->
       data
