@@ -1,11 +1,10 @@
 Chat.ChanView = Chat.ContentView.extend
-  chan: null
   template: Ember.Handlebars.compile """
-    <div class="chan-title">{{view.chan.name}}</div>
+    <div class="chan-title">{{name}}</div>
     <div class="messages">
       <div class="content-messages">
       <div style="overflow: auto" class="content-messages-wrapper">
-      {{#each msg in view.chan.messages}}
+      {{#each msg in messages}}
         {{view Chat.MessageView messageBinding="msg"}}
       {{/each}}
       </div>
@@ -23,10 +22,6 @@ Chat.ChanView = Chat.ContentView.extend
   init: ->
     @_super()
     @set "messageHistory", []
-
-  navId: (->
-    @get("chan.name")
-  ).property("chan")
 
   didInsertElement: ->
     @_super()

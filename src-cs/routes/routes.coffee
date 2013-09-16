@@ -1,4 +1,9 @@
 Chat.Router.map ->
-  @resource 'chan', path: '/:chan_name'
   @route 'about'
   @route 'login'
+  @resource 'chan', path: '/chan/:chan_name'
+  @route 'profile'
+
+Chat.Router.reopen
+  location: 'history'
+

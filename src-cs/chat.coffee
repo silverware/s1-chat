@@ -57,7 +57,7 @@ App = Em.Application.extend
     @set "ticket.session-id", null
     @chans.clear()
     @queryStreams.clear()
-    Chat.controller.openHome()
+
 
   getChanByName: (chanName) ->
     for chan in @chans
@@ -67,7 +67,7 @@ App = Em.Application.extend
   join: (chanName) ->
     chan = @getChanByName chanName
     if chan
-      @controller.openChan chan
+      #@controller.openChan chan
       return
 
     @sendMsg
@@ -108,13 +108,13 @@ App = Em.Application.extend
         if @initialChan then @join @initialChan
       when "joinsuccess"
         obj = @sentObjects[response.id]
-        chan = Chan.create
+        chan = @Chan.create
           id: @maxId
           name: obj["chan-name"]
           usernames: response.usernames
           isAnonymous: response.anonymous
         @chans.pushObject chan
-        @controller.openChan chan
+        #@Router.transitionTo 'profile'
       when "query"
         @createQueryStream response.username, response.text, true
       when "video"
@@ -131,8 +131,8 @@ App = Em.Application.extend
   createQueryStream: (user, text, received) ->
     author = if received then user else @ticket.username
     if (@queryStreams.every (x) -> user isnt x.username)
-      @queryStreams.pushObject QueryStream.create username: user
-    stream.messages.pushObject Message.create(name: author, text: text) for stream in @queryStreams when stream.username is user
+      @queryStreams.pushObject @QueryStream.create username: user
+    stream.messages.pushObject @Message.create(name: author, text: text) for stream in @queryStreams when stream.username is user
 
   isAuthenticated: (->
     @get("ticket.session-id") isnt null

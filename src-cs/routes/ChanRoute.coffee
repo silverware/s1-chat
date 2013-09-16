@@ -1,3 +1,3 @@
 Chat.ChanRoute = Ember.Route.extend Chat.EnsureAuthentificationMixin,
-  model: ->
-    $.get '/ajax/chans'
+  model: ({chan_name}) ->
+    Chat.getChanByName chan_name

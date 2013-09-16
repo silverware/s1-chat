@@ -1,48 +1,39 @@
-Chat.LoginView = Chat.PopupView.extend
+Chat.LoginView = Chat.ContentView.extend
   template: Ember.Handlebars.compile """
+    <h1>Login</h1>
     <button {{action testLogin target="view"}} type="button">login as Test</button>
     <ul id="login-tabs" class="nav nav-tabs">
-     <li class="active"> [:a {:href "#guest-login-pane" :data-toggle "tab"} "Guest"]]
+     <li class="active"> <a href="#guest-login-pane" data-toggle="tab">Guest</a></li>
      <li> <a href="#login-pane" data-toggle="tab">"Login"</a></li>
      <li> <a href="#register-pane" data-toggle="tab">"Register"</a></li>
     </ul>
     <div class="tab-content">
      <div class="tab-pane active" id="guest-login-pane">
-      (common/horizontal-form-to [:post "/login" {:id "guest-login-form"}]
+     <form class="form-horizontal" id="guest-login-form">
+        {{view Chat.TextFieldView}}
+     </form>
                                  (common/bootstrap-text-field :guest-username "Username" {:placeholder "Guest"})
                                  (common/bootstrap-submit "Submit"))]
 
-     [:div {:class "tab-pane" :id "login-pane"}
-      (common/horizontal-form-to [:post "/login" {:id "login-form"}]
-                                 (common/bootstrap-text-field :login-username "Username" {:placeholder ""})
-                                 (common/bootstrap-password-field :login-password "Password")
-                                 (common/bootstrap-submit "Submit"))]
+     <div class="tab-pane" id="login-pane">
+     <form class="form-horizontal" id="login-form">
+      {{view Chat.TextFieldView viewName="login-username"}}
+      {{view Chat.TextFieldView viewName="login-password" type="password"}}
+      <button class="btn btn-primary" type="submit">Submit</button>
+     </form>
+      </div>
 
-     [:div {:class "tab-pane" :id "register-pane"}
-      (common/horizontal-form-to [:post "" {:id "register-form"}]
+     <div class="tab-pane" id="register-pane">
+     <form class="form-horizontal" id="register-form">
                                  (common/bootstrap-text-field :email "E-Mail" {:placeholder "name@example.com"})
                                  (common/bootstrap-text-field :username "Username")
                                  (common/bootstrap-password-field :password1 "Password")
                                  (common/bootstrap-password-field :password2 "Password (repeat)")
                                  (common/bootstrap-submit "Submit"))
+     </form>
       </div>
 
   """
-  classNames: ['login']
-
-  insertFieldErrorMessages: (fieldErrors) ->
-    for err in fieldErrors
-      @insertErrorMessage(err[0], err[1])
-
-  insertErrorMessage: (field, message) ->
-    controlGroup = @$('#' + field).parent().parent()
-    controlGroup.addClass 'error'
-    @$('<span class="help-inline">' + message + '</span>').insertAfter @$('#'+ field)
-
-  clearErrorMessages: (formID) ->
-    @$(formID + " .control-group .help-inline").remove()
-    @$(formID + " .error").removeClass("error")
-
   didInsertElement: ->
     @_super()
 
@@ -74,14 +65,13 @@ Chat.LoginView = Chat.PopupView.extend
 
     @$("#login-form").submit (event) =>
       event.preventDefault()
-      @clearErrorMessages("#login-form")
 
-      username = @$("#login-username").val()
-      password = @$("#login-password").val()
+      username = @$("[name=login-username]").val()
+      password = @$("[name=login-password]").val()
 
       Chat.authCallback = (validationResult) =>
         if Chat.get("isAuthenticated")
-          @destroy()
+          #@transitionTo 'index'
         else
           @insertFieldErrorMessages(validationResult.fieldErrors)
 
@@ -117,8 +107,8 @@ Chat.LoginView = Chat.PopupView.extend
       $("#guest-username").focus()
 
   testLogin: ->
-    @$("#login-username").val("test")
-    @$("#login-password").val("test")
+    @$("[name=login-username]").val("test")
+    @$("[name=login-password]").val("test")
     @$("#login-form").submit()
 
 

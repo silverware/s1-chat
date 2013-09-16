@@ -39,8 +39,5 @@ Chat.Chan = Em.Object.extend
       "chan-name": @name
     Chat.chans.removeObject @
 
-  open: ->
-    Chat.controller.openChan @
-
   addMessage: (message) ->
     @messages.pushObject message

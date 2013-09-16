@@ -3,16 +3,17 @@ Chat.ApplicationView = Em.View.extend
   defaultTemplate: Ember.Handlebars.compile """
     <nav class="nav-0">
       <ul>
-        <li nav-id="home">{{#link-to 'index'}}<i class="icon-home"></i>home{{/link-to}}</li>
+        {{#link-to 'index' tagName='li'}}<i class="icon-home"></i>home{{/link-to}}
       </ul>
 
       {{#if Chat.isAuthenticated}}
         <h5>channels</h5>
         <ul>
           {{#each chan in Chat.chans}}
-            <li {{action "open" target="chan"}} nav-id="{{unbound chan.name}}"><img src="img/dummy.png" />
-              {{chan.name}} <i {{action part target="chan"}} style="float: right; padding-top: 8px" class="icon-remove"></i>
-            </li>
+            {{#link-to 'chan' chan.name tagName='li'}}<img src="img/dummy.png" />
+              {{chan.name}}
+              <i {{action part target="chan"}} style="float: right; padding-top: 8px" class="icon-remove"></i>
+            {{/link-to}}
           {{/each}}
         </ul>
 
@@ -29,13 +30,13 @@ Chat.ApplicationView = Em.View.extend
           <h5>{{Chat.ticket.username}}</h5>
           <ul>
             {{#unless Chat.isGuest}}"
-              <li nav-id="editProfile" {{action openEditProfile target="Chat.controller"}}> <i class="icon-edit"></i>edit profile</li>
+              {{#link-to 'profile' tagName='li'}}<i class="icon-edit"></i>edit profile{{/link-to}}
             {{/unless}}
             <li {{action logout target="Chat"}}><i class="icon-edit"></i>log out</li>
           </ul>
        {{else}}
          <ul>
-           <li {{action openLoginPopup "#guest-login-pane" target="view"}}> <i class="icon-edit"></i>log in</li>
+           {{#link-to 'login' tagName='li'}} <i class="icon-edit"></i>log in{{/link-to}}
            <li {{action openLoginPopup "#register-pane" target="view"}}> <i class="icon-edit"></i>register</li>
          </ul>
        {{/if}}

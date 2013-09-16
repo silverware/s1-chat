@@ -1,2 +1,8 @@
 Chat.IndexController = Ember.ArrayController.extend
-  hallo: "huhu"
+  actions:
+    join: (chanName) ->
+      #todo
+
+  createAnonChan: ->
+    $.post "/chan/create", ({chanName}) ->
+      Chat.join chanName

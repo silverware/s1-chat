@@ -43,3 +43,6 @@ Chat.ApplicationController = Ember.Controller.extend
     marginLeft = ((@navigationViews.length + 1) * 220)
     $(".content").css "left", "#{marginLeft}px"
 
+  logout: ->
+    Chat.logout()
+
