@@ -1,2 +1,2 @@
-Chat.ProfileController = Ember.ObjectController.extend
+Chat.ProfileController = Ember.ObjectController.extend()
 

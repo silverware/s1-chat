@@ -33,7 +33,7 @@ Chat.Chan = Em.Object.extend
       text: text
 
   part: ->
-    Chat.controller.openHome()
+    Chat.Router.router.transitionTo 'profile'
     Chat.sendMsg
       type: "part"
       "chan-name": @name

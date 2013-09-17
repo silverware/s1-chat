@@ -1,1 +1,1 @@
-Chat.ChanController = Ember.Controller.extend
+Chat.ChanController = Ember.ObjectController.extend()

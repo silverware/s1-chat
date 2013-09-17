@@ -4,6 +4,7 @@ Chat.UserItemView = Ember.View.extend
   template: Ember.Handlebars.compile """<img src="img/dummy.png" />&nbsp;&nbsp;{{user}}"""
   classNames: ['username']
 
+
   didInsertElement: ->
     @$().popover
       placement: "right"

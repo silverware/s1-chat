@@ -1,5 +1,7 @@
 Chat.ChanView = Chat.ContentView.extend
   template: Ember.Handlebars.compile """
+
+    {{view Chat.ChanUsersView chanBinding="this"}}
     <div class="chan-title">{{name}}</div>
     <div class="messages">
       <div class="content-messages">
@@ -41,7 +43,7 @@ Chat.ChanView = Chat.ContentView.extend
         args = commandArgs[1..commandArgs.length]
         Chat[command].apply Chat, args
       else
-        @chan.sendMessage message
+        @get("model").sendMessage message
 
       @$("#message").val ""
 

@@ -98,12 +98,10 @@ App = Em.Application.extend
     @websocket.send JSON.stringify(obj)
 
   onResponse: (event) ->
-    console.debug @get("router")
     console.debug "received data", event.data
     response = JSON.parse event.data
     switch response.type
       when "authsuccess"
-        console.debug @
         @set "ticket.session-id", response["session-id"]
         @authCallback()
         if @initialChan then @join @initialChan
@@ -115,16 +113,16 @@ App = Em.Application.extend
           usernames: response.usernames
           isAnonymous: response.anonymous
         @chans.pushObject chan
-        @get("controller.target.router").transitionTo 'profile'
+        @get("Router.router").transitionTo 'profile'
       when "query"
         @createQueryStream response.username, response.text, true
       when "video"
         @videoChatController.init response
       when "error"
-          if @sentObjects[response.id].type == "auth"
-            @authCallback(response.text)
+          if @sentObjects[response.id].type is "auth"
+            @authCallback response.text
           else
-            toastr.error(response.text)
+            toastr.error response.text
       else
         chan.received response for chan in @chans when chan.name is response["chan-name"]
 
