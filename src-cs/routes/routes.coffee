@@ -6,4 +6,3 @@ Chat.Router.map ->
 
 Chat.Router.reopen
   location: 'history'
-

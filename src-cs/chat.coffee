@@ -98,6 +98,7 @@ App = Em.Application.extend
     @websocket.send JSON.stringify(obj)
 
   onResponse: (event) ->
+    console.debug @get("router")
     console.debug "received data", event.data
     response = JSON.parse event.data
     switch response.type
@@ -114,7 +115,7 @@ App = Em.Application.extend
           usernames: response.usernames
           isAnonymous: response.anonymous
         @chans.pushObject chan
-        #@Router.transitionTo 'profile'
+        @get("controller.target.router").transitionTo 'profile'
       when "query"
         @createQueryStream response.username, response.text, true
       when "video"
