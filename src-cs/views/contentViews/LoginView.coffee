@@ -71,7 +71,7 @@ Chat.LoginView = Chat.ContentView.extend
 
       Chat.authCallback = (validationResult) =>
         if Chat.get("isAuthenticated")
-          #@transitionTo 'index'
+          @get("controller").send 'login'
         else
           @insertFieldErrorMessages(validationResult.fieldErrors)
 
