@@ -5,7 +5,7 @@ Chat.ProfileView = Chat.ContentView.extend Chat.ValidationMixin,
       {{view Chat.TextFieldView valueBinding="email" viewName="email" label="Email"}}
       {{view Chat.BirthDateView}}
       {{view Chat.TextAreaView valueBinding="about" viewName="about" label="About"}}
-      <button class="btn btn-primary" {{action "save" target="view"}} type="submit">Save</button>
+      <button class="btn btn-primary" {{action save target="view"}} type="submit">Save</button>
      </form>
     <fieldset>
       <legend>Change Password</legend>
@@ -17,10 +17,10 @@ Chat.ProfileView = Chat.ContentView.extend Chat.ValidationMixin,
        </form>
     </fieldset>
   """
-
-  save: ->
-    $.post "/ajax/user/", {user: @get('model') , "session-id": Chat.ticket["session-id"]}, (result) =>
-      @handleResponse result
+  actions:
+    save: ->
+      $.post "/ajax/user/", {user: @get('controller.model') , "session-id": Chat.ticket["session-id"]}, (result) =>
+        @handleResponse result
 
   changePassword: ->
     $.post "/ajax/user/" + Chat.ticket.username + "/password", {user: @user, "session-id": Chat.ticket["session-id"]}, (result) =>

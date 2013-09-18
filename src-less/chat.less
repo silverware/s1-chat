@@ -6,6 +6,16 @@
 	-webkit-box-sizing: border-box;
 }
 
+.nav-gradient {
+  background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0)));
+  background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+  background: -o-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+  background: -ms-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+  background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 );
+}
+
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Colors
@@ -93,6 +103,7 @@ Sidebar
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 nav {
+  .nav-gradient;
 	position: absolute;
 	padding: 20px 0 5px 5px;
 	transition: width 0.5s;
@@ -137,14 +148,6 @@ nav {
 
 }
 
-.nav-0 {
-    left: 0px;
-}
-
-.nav-1 {
-    left: 220px;
-}
-
 .bottom-nav {
 	bottom: 20px;
 	position: absolute;
@@ -183,14 +186,13 @@ Chan
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 .content {
-	background-color: rgba(0, 0, 0, 0.05);
+	background-color: rgba(0, 0, 0, 0.1);
 	position: absolute;
 	bottom: 0;
 	top: 0;
 	right: 0;
 	left: 200px;
 	transition: all 0.5s;
-	padding: 20px;
 	background-image: url("../img/grain.png");
   	background-position: center top;
   	background-repeat: repeat;
@@ -200,7 +202,7 @@ Chan
 
 	.messages {
 		bottom: 50px;
-    left: 0;
+    left: 220px;
     position: absolute;
     right: 0;
     top: 0;
@@ -238,7 +240,7 @@ Chan
 
 	#messageForm {
 		bottom: 0;
-    left: 10px;
+    left: 230px;
     margin: 0;
     position: absolute;
     right: 10px;

@@ -66,6 +66,7 @@ App = Em.Application.extend
         return chan
 
   join: (chanName) ->
+    @EnsureAuthentificationMixin.beforeModel 'chan', chanName
     chan = @getChanByName chanName
     if chan
       return @get("Router.router").transitionTo 'chan', chanName

@@ -9,7 +9,7 @@ Chat.MessageView = Ember.View.extend
     {{#if view.message.isUser}}
       <div class="alert alert-info">
         <div>{{view.message.user.username}}</div>
-        He is gay
+        Bayern BAYERN BAYERN
         <span>its super</span>
       </div>
     {{/if}}

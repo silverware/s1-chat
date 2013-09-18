@@ -21,7 +21,8 @@ Chat.UserItemView = Ember.View.extend
 
   click: ->
     Chat.User.find @user, (user) =>
-      @chan.addMessage Message.create
+      console.debug @chan
+      @chan.addMessage
         type: "user"
         user: user
 

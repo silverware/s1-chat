@@ -1,7 +1,7 @@
 Chat.ChanView = Chat.ContentView.extend
   template: Ember.Handlebars.compile """
 
-    {{view Chat.ChanUsersView chanBinding="this"}}
+    {{view Chat.ChanUsersView chanBinding="model"}}
     <div class="chan-title">{{name}}</div>
     <div class="messages">
       <div class="content-messages">
@@ -17,7 +17,7 @@ Chat.ChanView = Chat.ContentView.extend
      <input id="message" type="text" placeholder="Message" autocomplete="off" />
     </form>
   """
-  classNames: ['content chan']
+  classNames: ['chan']
   messageHistory: []
   historyIndex: 0
 
@@ -58,8 +58,9 @@ Chat.ChanView = Chat.ContentView.extend
 
 
   onMessageSizeChanged: (->
+    console.debug "lsdfkj"
     @$(".content-messages-wrapper").scrollTop(@$(".content-messages-wrapper")[0].scrollHeight)
-  ).observes("chan.messages.@each")
+  ).observes("messages.@each")
 
   adjustHeight: ->
     if not @$() then return

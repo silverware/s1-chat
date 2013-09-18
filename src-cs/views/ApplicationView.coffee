@@ -10,7 +10,7 @@ Chat.ApplicationView = Em.View.extend
         <h5>channels</h5>
         <ul>
           {{#each chan in Chat.chans}}
-            {{#link-to 'chan' chan.name tagName='li'}}<img src="img/dummy.png" />
+            {{#link-to 'chan' chan.name tagName='li'}}<img src="/img/dummy.png" />
               {{chan.name}}
               <i {{action part target="chan"}} style="float: right; padding-top: 8px" class="icon-remove"></i>
             {{/link-to}}
@@ -20,7 +20,7 @@ Chat.ApplicationView = Em.View.extend
         <h5>private channels</h5>
         <ul>
           {{#each channel in Chat.privateChannels}}
-            <li {{action "open" target="channel"}}><img src="img/dummy.png" /> {{channel.username}} </li>
+            <li {{action "open" target="channel"}}><img src="/img/dummy.png" /> {{channel.username}} </li>
           {{/each}}
         </ul>
       {{/if}}

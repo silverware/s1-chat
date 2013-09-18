@@ -5,7 +5,10 @@ Chat.LoginController = Ember.Controller.extend
       previousTransition = @get 'previousTransition'
       if previousTransition
         @set 'previousTransition', null
-        previousTransition.retry()
+        if typeof previousTransition is 'string'
+          @transitionTo previousTransition
+        else
+          previousTransition.retry()
       else
         #Default back to homepage
         @transitionToRoute 'index'
