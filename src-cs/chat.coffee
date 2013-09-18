@@ -57,6 +57,7 @@ App = Em.Application.extend
     @set "ticket.session-id", null
     @chans.clear()
     @queryStreams.clear()
+    @get("Router.router").transitionTo 'index'
 
 
   getChanByName: (chanName) ->
@@ -67,8 +68,7 @@ App = Em.Application.extend
   join: (chanName) ->
     chan = @getChanByName chanName
     if chan
-      #@controller.openChan chan
-      return
+      return @get("Router.router").transitionTo 'chan', chanName
 
     @sendMsg
       type: "join"
@@ -113,7 +113,7 @@ App = Em.Application.extend
           usernames: response.usernames
           isAnonymous: response.anonymous
         @chans.pushObject chan
-        @get("Router.router").transitionTo 'profile'
+        @get("Router.router").transitionTo 'chan', chan.name
       when "query"
         @createQueryStream response.username, response.text, true
       when "video"

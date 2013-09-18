@@ -43,7 +43,7 @@ Chat.ChanView = Chat.ContentView.extend
         args = commandArgs[1..commandArgs.length]
         Chat[command].apply Chat, args
       else
-        @get("model").sendMessage message
+        @get("controller.model").sendMessage message
 
       @$("#message").val ""
 

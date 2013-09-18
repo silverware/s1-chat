@@ -9,7 +9,7 @@ Chat.Chan = Em.Object.extend
     @_super()
     @messages = []
     if @isAnonymous
-      @addMessage Message.create
+      @addMessage
         type: "info"
         text: "You can invite your buddies digga. http://#{window.location.hostname}/chan/join/#{@name}"
 
@@ -18,13 +18,13 @@ Chat.Chan = Em.Object.extend
     switch message.type
       when "msg"
         console.debug "push", message
-        @addMessage Message.create name: message.username, text: message.text
+        @addMessage name: message.username, text: message.text
       when "part"
         @usernames.removeObject message.username
-        @addMessage Message.create type: "part", name: message.username
+        @addMessage type: "part", name: message.username
       when "join"
         @usernames.pushObject message.username
-        @addMessage Message.create type: "join", name: message.username
+        @addMessage type: "join", name: message.username
 
   sendMessage: (text) ->
     Chat.sendMsg
@@ -40,4 +40,4 @@ Chat.Chan = Em.Object.extend
     Chat.chans.removeObject @
 
   addMessage: (message) ->
-    @messages.pushObject message
+    @messages.pushObject Chat.Message.create message
