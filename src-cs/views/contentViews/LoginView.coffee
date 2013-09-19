@@ -1,4 +1,4 @@
-Chat.LoginView = Chat.ContentView.extend
+Chat.LoginView = Chat.ContentView.extend Chat.ValidationMixin,
   template: Ember.Handlebars.compile """
     <h1>Login</h1>
     <button {{action testLogin target="view"}} type="button">login as Test</button>
@@ -10,26 +10,26 @@ Chat.LoginView = Chat.ContentView.extend
     <div class="tab-content">
      <div class="tab-pane active" id="guest-login-pane">
      <form class="form-horizontal" id="guest-login-form">
-        {{view Chat.TextFieldView}}
+        {{view Chat.TextFieldView label="Username" placeholder="Guest" viewName="guest-username"}}
+        <button class="btn btn-primary" type="submit">Submit</button>
      </form>
-                                 (common/bootstrap-text-field :guest-username "Username" {:placeholder "Guest"})
-                                 (common/bootstrap-submit "Submit"))]
+     </div>
 
      <div class="tab-pane" id="login-pane">
      <form class="form-horizontal" id="login-form">
-      {{view Chat.TextFieldView viewName="login-username"}}
-      {{view Chat.TextFieldView viewName="login-password" type="password"}}
+      {{view Chat.TextFieldView label="Username" viewName="login-username"}}
+      {{view Chat.TextFieldView label="Password" viewName="login-password" type="password"}}
       <button class="btn btn-primary" type="submit">Submit</button>
      </form>
       </div>
 
      <div class="tab-pane" id="register-pane">
      <form class="form-horizontal" id="register-form">
-                                 (common/bootstrap-text-field :email "E-Mail" {:placeholder "name@example.com"})
-                                 (common/bootstrap-text-field :username "Username")
-                                 (common/bootstrap-password-field :password1 "Password")
-                                 (common/bootstrap-password-field :password2 "Password (repeat)")
-                                 (common/bootstrap-submit "Submit"))
+      {{view Chat.TextFieldView label="E-Mail" viewName="email"}}
+      {{view Chat.TextFieldView label="Username" viewName="username"}}
+      {{view Chat.TextFieldView label="Password" viewName="password1" type="password"}}
+      {{view Chat.TextFieldView label="Password (repeat)" viewName="password2" type="password"}}
+      <button class="btn btn-primary" type="submit">Submit</button>
      </form>
       </div>
 
@@ -57,7 +57,7 @@ Chat.LoginView = Chat.ContentView.extend
         @$(":button").html(buttonHTML)
 
         if Chat.get("isAuthenticated")
-          @destroy()
+          @get("controller").send 'login'
         else
           @insertFieldErrorMessages(errorText.fieldErrors)
 

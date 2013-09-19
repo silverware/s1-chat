@@ -29,7 +29,7 @@ Chat.ApplicationView = Em.View.extend
         {{#if Chat.isAuthenticated}}
           <h5>{{Chat.ticket.username}}</h5>
           <ul>
-            {{#unless Chat.isGuest}}"
+            {{#unless Chat.isGuest}}
               {{#link-to 'profile' tagName='li'}}<i class="icon-edit"></i>edit profile{{/link-to}}
             {{/unless}}
             <li {{action logout target="Chat"}}><i class="icon-edit"></i>log out</li>
