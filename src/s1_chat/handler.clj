@@ -52,7 +52,7 @@
 ;
 
 (def app-routes
-  (clojure.set/union
+  (concat
     login-controller/login-routes
     chan-controller/chan-routes
     ajax-controller/ajax-routes
@@ -75,6 +75,9 @@
      (GET "/authlink" [] (friend/authorize #{::user} ("Authorized page.")))
 
      (route/resources "/")
+
+     ; wildcard route, handled by ember
+     (ANY "*" [] (chat))
      ]))
 
 (defn my-credential-fn [{username :username password :password}]
