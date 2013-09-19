@@ -4,7 +4,7 @@ else if typeof mozRTCPeerConnection != "undefined"
     RTCPeerConnection = mozRTCPeerConnection
 
 
- Chat.VideoChatController =
+ Chat.VideoChatController = Em.ObjectController.extend
 
     # RTCPeerConnection
     peerConnection: null
@@ -18,10 +18,6 @@ else if typeof mozRTCPeerConnection != "undefined"
         @peerConnection.addIceCandidate(new RTCIceCandidate(data.payload.candidate))
 
     startVideo: (isCaller, receiver) ->
-
-      Chat.controller.removeNavItems()
-      Chat.controller.setContentView VideoChatView.create()
-
       pc_config = "iceServers": ["url": "stun:stun.l.google.com:19302"]
       @peerConnection = new RTCPeerConnection(pc_config)
       @peerConnection.onicecandidate = (evt) =>

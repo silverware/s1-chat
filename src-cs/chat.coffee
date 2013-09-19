@@ -28,7 +28,6 @@ App = Em.Application.extend
     @websocket.onmessage = @onResponse.bind @
     $(window).unload => @onUnload()
     @loadStorageData()
-    console.debug @initialChan
 
     return
     toastr.options =

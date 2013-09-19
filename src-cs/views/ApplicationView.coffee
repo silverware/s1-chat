@@ -11,8 +11,8 @@ Chat.ApplicationView = Em.View.extend
         <ul>
           {{#each chan in Chat.chans}}
             {{#link-to 'chan' chan.name tagName='li'}}<img src="/img/dummy.png" />
-              {{chan.name}}
-              <i {{action part target="chan"}} style="float: right; padding-top: 8px" class="icon-remove"></i>
+              {{chan.name}}{{#if chan.newMessages}}<span class="new-messages">{{chan.newMessages}}</span>{{/if}}
+              <i {{action part target="chan"}} style="float: right; padding-top: 8px" title="leave chan" class="icon-remove"></i>
             {{/link-to}}
           {{/each}}
         </ul>

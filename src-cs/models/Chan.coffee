@@ -4,6 +4,7 @@ Chat.Chan = Em.Object.extend
   messages: []
   usernames: []
   isAnonymous: false
+  newMessages: 0
 
   init: ->
     @_super()
@@ -17,8 +18,8 @@ Chat.Chan = Em.Object.extend
     console.debug "chan #{@name} got ", message
     switch message.type
       when "msg"
-        console.debug "push", message
         @addMessage name: message.username, text: message.text
+        @onMessageReceived()
       when "part"
         @usernames.removeObject message.username
         @addMessage type: "part", name: message.username
@@ -41,3 +42,7 @@ Chat.Chan = Em.Object.extend
 
   addMessage: (message) ->
     @messages.pushObject Chat.Message.create message
+
+  onMessageReceived: ->
+    if not false #Chat.Router.router
+      @set "newMessages", @newMessages + 1
