@@ -13,7 +13,7 @@ Chat.ChanView = Chat.ContentView.extend
       </div>
     </div>
 
-    <form id="messageForm">
+    <form id="messageForm" {{action "doAction" on="submit" target="view"}}>
      <input id="message" type="text" placeholder="Message" autocomplete="off" />
     </form>
   """
@@ -29,9 +29,17 @@ Chat.ChanView = Chat.ContentView.extend
     @_super()
     @adjustHeight()
     $(window).resize => @adjustHeight()
+    @$("#message").keydown ({keyCode}) =>
+      if keyCode is 38 and @historyIndex >= 0
+        @historyIndex--
+      if keyCode is 40 and @historyIndex <= @messageHistory.length
+        @historyIndex++
+      if keyCode is 38 or keyCode is 40
+        message = @messageHistory.objectAt @historyIndex
+        if message then @$("#message").val message
 
-    @$("#messageForm").submit (event) =>
-      event.preventDefault()
+  actions:
+    doAction: ->
       message = @$("#message").val()
       if not message then return
       @messageHistory.pushObject message
@@ -47,14 +55,7 @@ Chat.ChanView = Chat.ContentView.extend
 
       @$("#message").val ""
 
-    @$("#message").keydown ({keyCode}) =>
-      if keyCode is 38 and @historyIndex >= 0
-        @historyIndex--
-      if keyCode is 40 and @historyIndex <= @messageHistory.length
-        @historyIndex++
-      if keyCode is 38 or keyCode is 40
-        message = @messageHistory.objectAt @historyIndex
-        if message then @$("#message").val message
+
 
 
   onMessageSizeChanged: (->

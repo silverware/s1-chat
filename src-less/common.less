@@ -1,37 +1,23 @@
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Colors
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-
-@blue: #009CDC;
-@white: #fff;
-@text: #888;
+@import 'colors';
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Input Bootstrap overrides
+Common
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
-input, select, textarea, button {
-  border-radius: 0 !important;
-  padding: 7px !important;
-}
 
-input:focus, select:focus, textarea:focus {
-  outline: 2px solid @blue !important;
-  box-shadow: none !important;
-}
+body {
+  font-size: 16px !important;
+  /*margin: 0;
+  padding: 0;*/
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  background: none repeat scroll 0 0 #fff;
+  color: @text;
 
-input:hover {
-  border-color: #9e9e9e !important;
 }
 
 button {
-  background-color: #009AC4;
-  border: 0 none;
-  color: #FFFFFF;
+  i {
+    margin-right: 10px;
+  }
 }
-
-button:hover {
-  background-color: @blue;
-}
-
-

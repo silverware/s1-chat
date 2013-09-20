@@ -1,4 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
+@import 'colors';
+@import 'common';
+@import 'bootstrap-overrides';
 
 .boxSizing {
 	box-sizing: border-box;
@@ -17,35 +20,8 @@
 }
 
 
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Colors
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-
-@blue: #009CDC;
-@white: #fff;
-@text: #888;
-
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Common
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 
-body {
-	font-size: 16px !important;
-	/*margin: 0;
-	padding: 0;*/
-	height: 100%;
-	font-family: 'Roboto', sans-serif;
-	background: none repeat scroll 0 0 #fff;
-	color: @text;
-
-}
-
-button {
-	i {
-		margin-right: 10px;
-	}
-}
 
 
 
@@ -94,6 +70,21 @@ private Streams
 	background-color: white;
     font-size: 14px;
     padding: 5px;
+}
+
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
+Login
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+.login-box {
+  margin: 5% auto 0;
+  width: 450px;
+  button {
+    width: 100%;
+  }
+  .nav-tabs > li {
+    width: 33%;
+  }
 }
 
 

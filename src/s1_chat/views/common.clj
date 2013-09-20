@@ -64,7 +64,6 @@
                (include-css "/css/normalize.css")
                (include-css "/bootstrap/css/bootstrap.css")
                (include-css "/css/font-awesome.css")
-               (include-css "/css/common.css")
 ;               (include-css "/bootstrap/css/bootstrap-responsive.css")
               ]
               [:body content]
