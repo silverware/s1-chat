@@ -35,7 +35,7 @@ task 'build-less', 'start watching coffeescript files', ->
   for file in lessFiles then do (file) ->
     file = file.split("src-less/")[1]
     child = exec 'lessc src-less/' + file + ' > resources/public/css/' + file.split(".")[0] + '.css', (err, stdout, stderr) ->
-      throw err if err
+      console.log err if err
     child.stdout.pipe process.stdout
     child.stderr.pipe process.stderr
 

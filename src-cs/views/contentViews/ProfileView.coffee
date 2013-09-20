@@ -5,7 +5,7 @@ Chat.ProfileView = Chat.ContentView.extend Chat.ValidationMixin,
       {{view Chat.TextFieldView valueBinding="email" viewName="email" label="Email"}}
       {{view Chat.BirthDateView}}
       {{view Chat.TextAreaView valueBinding="about" viewName="about" label="About"}}
-      <button class="btn btn-primary" {{action save target="view"}} type="submit">Save</button>
+      <button {{action save target="view"}} type="submit">Save</button>
      </form>
     <fieldset>
       <legend>Change Password</legend>
@@ -13,7 +13,7 @@ Chat.ProfileView = Chat.ContentView.extend Chat.ValidationMixin,
         {{view Chat.TextFieldView viewName="password-old" type="password" label="Old Password"}}
         {{view Chat.TextFieldView viewName="password1" type="password" label="New Password"}}
         {{view Chat.TextFieldView viewName="password2" type="password" label="New Password (repeat)"}}
-        <button class="btn btn-primary" {{action "changePassword" target="view"}} type="submit">Change Password</button>
+        <button {{action "changePassword" target="view"}} type="submit">Change Password</button>
        </form>
     </fieldset>
   """

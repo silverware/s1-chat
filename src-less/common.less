@@ -1,10 +1,37 @@
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
+Colors
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
+@blue: #009CDC;
+@white: #fff;
+@text: #888;
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Input Bootstrap overrides
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 input, select, textarea, button {
   border-radius: 0 !important;
+  padding: 7px !important;
 }
 
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid @blue !important;
+  box-shadow: none !important;
+}
+
+input:hover {
+  border-color: #9e9e9e !important;
+}
+
+button {
+  background-color: #009AC4;
+  border: 0 none;
+  color: #FFFFFF;
+}
+
+button:hover {
+  background-color: @blue;
+}
 
 

@@ -7,6 +7,7 @@ Chat.IndexView = Chat.ContentView.extend
     {{#each}}
       {{#link-to 'chan' name tagName="div" class="join-chan"}}{{name}} ({{users}}){{/link-to}}
     {{/each}}
+    <input type="text" />
   </section>
 
   """

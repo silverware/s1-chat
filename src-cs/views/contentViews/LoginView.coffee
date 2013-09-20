@@ -11,7 +11,7 @@ Chat.LoginView = Chat.ContentView.extend Chat.ValidationMixin,
      <div class="tab-pane active" id="guest-login-pane">
      <form class="form-horizontal" id="guest-login-form">
         {{view Chat.TextFieldView label="Username" placeholder="Guest" viewName="guest-username"}}
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button type="submit">Submit</button>
      </form>
      </div>
 
@@ -19,7 +19,7 @@ Chat.LoginView = Chat.ContentView.extend Chat.ValidationMixin,
      <form class="form-horizontal" id="login-form">
       {{view Chat.TextFieldView label="Username" viewName="login-username"}}
       {{view Chat.TextFieldView label="Password" viewName="login-password" type="password"}}
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <button type="submit">Submit</button>
      </form>
       </div>
 
@@ -29,7 +29,7 @@ Chat.LoginView = Chat.ContentView.extend Chat.ValidationMixin,
       {{view Chat.TextFieldView label="Username" viewName="username"}}
       {{view Chat.TextFieldView label="Password" viewName="password1" type="password"}}
       {{view Chat.TextFieldView label="Password (repeat)" viewName="password2" type="password"}}
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <button type="submit">Submit</button>
      </form>
       </div>
 
