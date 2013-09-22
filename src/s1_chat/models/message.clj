@@ -13,6 +13,8 @@
 (defn send-join-success [ch id chan]
   (enqueue ch {:id id :type "joinsuccess" :usernames (map #(:name %) @(:users chan)) :chan-name (:name chan) :anonymous (:anonymous? @(:attr-map chan))}))
 
+(defn send-success [ch id payload]
+  (enqueue ch {:id id :type "success" :payload payload}))
 
 (defn remove-ticket [msg] (dissoc msg :ticket))
 
@@ -44,9 +46,12 @@
         "part" (let [chan (get-chan (:chan-name msg))]
                  (remove-user-from-chan user chan)
                  (send-part chan user))
-        "query" (dispatch-query msg)
+        "query" (do 
+                  (dispatch-query msg)
+                  (send-success ch id nil))
         "video"
           (let [receiver (get-user (:receiver msg))]
+            (send-success ch id nil)
             (enqueue (:channel receiver) (assoc (dissoc msg :ticket) :username username)))
         "logout" (logout-user user)
         (println "default action do nothing")
