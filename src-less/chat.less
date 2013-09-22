@@ -27,7 +27,7 @@ Variables
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 @contentPadding: 30px;
-
+@sidebarWidth: 220px;
 
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
@@ -157,7 +157,7 @@ nav {
 }
 
 .nav-2 {
-  left: 0;
+  left: -@sidebarWidth;
   border-right: 1px dotted #ccc;
   //.nav-gradient;
   background-color: rgba(0, 0, 0, 0.05);
@@ -210,14 +210,18 @@ Chan
   	background-repeat: repeat;
 }
 
+.content-2 {
+  left: @sidebarWidth * 2 !important;
+}
+
 .chan {
 
 	.messages {
 		bottom: 50px;
-    left: 220px;
     position: absolute;
     right: 0;
     top: 0;
+    left: 0;
     .alert {
     	margin: 0px;
     	padding: 5px;
@@ -252,7 +256,7 @@ Chan
 
 	#messageForm {
 		bottom: 0;
-    left: 230px;
+    left: 10px;
     margin: 0;
     position: absolute;
     right: 10px;
@@ -278,7 +282,7 @@ Chan
     position: absolute;
     right: 0px;
     top: 0px;
-    left: 0;
+    left: -@sidebarWidth;
     font-size: 25px;
     text-align: center;
     background-color: @blue;

@@ -3,20 +3,14 @@ Chat.ProfileNavView = Ember.View.extend
   classNames: ['nav-2']
 
   template: Ember.Handlebars.compile """
-    <div class="bottom-nav">
           <ul>
-            {{#unless Chat.isGuest}}
-              {{#link-to 'profile' tagName='li'}}<i class="icon-edit"></i>edit profile{{/link-to}}
-            {{/unless}}
-            <li {{action logout target="Chat"}}><i class="icon-edit"></i>upload photo</li>
-            <li {{action logout target="Chat"}}><i class="icon-edit"></i>change password</li>
+            {{#link-to 'profile.index' tagName='li'}}<i class="icon-edit"></i>general{{/link-to}}
+            {{#link-to 'profile.password' tagName='li'}}<i class="icon-unlock-alt"></i>change password{{/link-to}}
+            {{#link-to 'profile.photo' tagName='li'}}<i class="icon-picture"></i>upload photo{{/link-to}}
           </ul>
   """
 
   didInsertElement: ->
     # todo
-
-  part: ->
-    @chan.part()
 
 

@@ -4,5 +4,5 @@ Chat.IndexController = Ember.ArrayController.extend
       #todo
 
   createAnonChan: ->
-    $.post "/chan/create", ({chanName}) ->
+    $.post "/ajax/chan/create", ({chanName}) ->
       Chat.join chanName

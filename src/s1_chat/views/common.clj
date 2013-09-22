@@ -63,6 +63,7 @@
                [:title "s1-chat"]
                (include-css "/bootstrap/css/bootstrap.css")
                (include-css "/css/font-awesome.css")
+               (include-css "/css/chat.css")
 ;               (include-css "/bootstrap/css/bootstrap-responsive.css")
               ]
               [:body content]
