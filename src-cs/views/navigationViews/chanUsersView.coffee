@@ -5,7 +5,7 @@ Chat.ChanUsersView = Ember.View.extend
 
   template: Ember.Handlebars.compile """
     <ul>
-      <li {{action "part" target="view"}}> <i class="icon-reply"></i>Leave Channel</li>
+      <li {{action part target="view.chan"}}> <i class="icon-reply"></i>Leave Channel</li>
     </ul>
     <h5>participants</h5>
     <ul>
@@ -17,8 +17,5 @@ Chat.ChanUsersView = Ember.View.extend
 
   didInsertElement: ->
     # todo
-
-  part: ->
-    @chan.part()
 
 
