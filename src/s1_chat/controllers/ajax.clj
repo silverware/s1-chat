@@ -26,7 +26,7 @@
 
 (defn valid-userprofile? [{:keys [email birthday-day birthday-month birthday-year]}]
   (vali/rule (vali/is-email? email) [:email "Invalid E-Mail Address."])
-  (vali/rule (valid-date? birthday-year birthday-month birthday-day) [:birthdate "Invalid birthdate."])
+  ;(vali/rule (valid-date? birthday-year birthday-month birthday-day) [:birthdate "Invalid birthdate."])
   )
 
 (defn save-user-profile [{:keys [username] :as user} session-id]
@@ -40,7 +40,7 @@
         (response (assoc response-map :fieldErrors (json-errors :email)))
         ))))
 
-(defn public-chans [] (response (map second (for [[k v] (select-keys @chat/chans (for [[k v] @chat/chans :when (not (:anonymous? @(:attr-map v)))] k))] [k (dissoc (assoc v :users (count @(:users v))) :channel :attr-map)] )))) 
+(defn public-chans [] (response (map second (for [[k v] (select-keys @chat/chans (for [[k v] @chat/chans :when (not (:anonymous? @(:attr-map v)))] k))] [k (dissoc (assoc v :users (count @(:users v))) :channel :attr-map)] ))))
 
 (def ajax-routes [
                   (GET "/ajax/user/:username" [username] (user-profile username))

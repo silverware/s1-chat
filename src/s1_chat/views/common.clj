@@ -54,11 +54,13 @@
                (include-js "/bootstrap/js/bootstrap-tab.js")
                (include-js "/bootstrap/js/bootstrap-tooltip.js")
                (include-js "/bootstrap/js/bootstrap-popover.js")
+               (include-js "/bootstrap/js/bootstrap-select.js")
                (include-js "/js/chat.js")
 
                ; toastr
                (include-js "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/js/toastr.js")
                (include-css "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/css/toastr.css")
+               (include-css "/bootstrap/css/bootstrap-select.css")
 
                [:title "s1-chat"]
                (include-css "/bootstrap/css/bootstrap.css")

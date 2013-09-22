@@ -43,6 +43,13 @@ task 'startserver', 'start server in dev mode', ->
   child = exec 'lein ring server', (err, stdout, stderr) ->
     throw err if err
   child.stdout.pipe process.stdout
+  child.stderr.pipe process.stderr
+
+task 'test', 'run tests', ->
+  child = exec 'lein test', (err, stdout, stderr) ->
+    throw err if err
+  child.stdout.pipe process.stdout
+  child.stderr.pipe process.stderr
 
 task 'generate-testdata', 'generates the test data', ->
   child = exec 'lein setup-db', (err, stdout, stderr) ->
