@@ -16,6 +16,10 @@ Chat.ProfileView = Chat.ContentView.extend Chat.ValidationMixin,
         <button {{action "changePassword" target="view"}} type="submit">Change Password</button>
        </form>
     </fieldset>
+
+
+
+    TODO: PHOto upload: webcam
   """
   actions:
     save: ->

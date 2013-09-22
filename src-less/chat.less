@@ -1,5 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 @import 'colors';
+@import 'normalize';
 @import 'common';
 @import 'bootstrap-overrides';
 
@@ -10,18 +11,22 @@
 }
 
 .nav-gradient {
-  background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+  background: -moz-linear-gradient(left,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
   background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0)));
   background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
   background: -o-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
   background: -ms-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
-  background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+  background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 );
 }
 
 
 
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
+Variables
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
+@contentPadding: 30px;
 
 
 
@@ -94,15 +99,13 @@ Sidebar
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 nav {
-  .nav-gradient;
 	position: absolute;
 	padding: 20px 0 5px 5px;
 	transition: width 0.5s;
 	top: 0;
 	bottom: 0;
 	width: 214px;
-	border-right: 1px solid #ddd;
-	box-shadow: 2px 0 7px #ddd;
+	border-right: 1px solid @lightBlue;
 	h5 {
  		color: #444;
 	    font-size: 18px;
@@ -152,6 +155,12 @@ nav {
 	width: 214px;
 }
 
+.nav-2 {
+  left: 0;
+  border-right: 1px dotted #ccc;
+  //.nav-gradient;
+}
+
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
 Home
@@ -184,12 +193,13 @@ Chan
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 .content {
-	background-color: rgba(0, 0, 0, 0.1);
+	background-color: rgba(0, 0, 0, 0.05);
 	position: absolute;
 	bottom: 0;
 	top: 0;
 	right: 0;
 	left: 200px;
+  padding: @contentPadding;
 	transition: all 0.5s;
 	background-image: url("../img/grain.png");
   	background-position: center top;
@@ -287,25 +297,3 @@ Popup
 }
 
 
-/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
-Popover Bootstrap overrides
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
-
-.popover-content {
-	padding: 9px 0;
-}
-
-.popover {
-	background-color: #333;
-	border-radius: 2px 2px 2px 2px;
-}
-
-.popover-title {
-	background-color: #222;
-	border-bottom: 1px solid #555;
-
-}
-
-.popover.right .arrow:after {
-    border-right-color: #333;
-}

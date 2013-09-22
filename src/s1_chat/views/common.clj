@@ -61,7 +61,6 @@
                (include-css "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/css/toastr.css")
 
                [:title "s1-chat"]
-               (include-css "/css/normalize.css")
                (include-css "/bootstrap/css/bootstrap.css")
                (include-css "/css/font-awesome.css")
 ;               (include-css "/bootstrap/css/bootstrap-responsive.css")
