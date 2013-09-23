@@ -9,8 +9,6 @@ Chat.ProfilePasswordView = Chat.ContentView.extend Chat.ValidationMixin,
       {{view Chat.TextField viewName="password2" type="password" label="New Password (repeat)"}}
       {{view Chat.Button value="Change Password"}}
     </form>
-
-    TODO: PHOto upload: webcam
   """
   actions:
     changePassword: ->
@@ -19,6 +17,4 @@ Chat.ProfilePasswordView = Chat.ContentView.extend Chat.ValidationMixin,
 
   didInsertElement: ->
     @_super()
-
-    # todo
 

@@ -9,9 +9,6 @@ Chat.ProfileIndexView = Chat.ContentView.extend Chat.ValidationMixin,
       {{view Chat.TextAreaView valueBinding="about" viewName="about" label="About"}}
       {{view Chat.Button value="Save"}}
      </form>
-
-
-    TODO: PHOto upload: webcam
   """
   actions:
     save: ->
@@ -20,6 +17,3 @@ Chat.ProfileIndexView = Chat.ContentView.extend Chat.ValidationMixin,
 
   didInsertElement: ->
     @_super()
-
-    # todo
-

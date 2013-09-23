@@ -9,11 +9,17 @@ Chat.ValidationMixin = Ember.Mixin.create
     field.set "message", message
 
   clearErrorMessages: (formID) ->
-    return "TODO"
-    @$(" .control-group .help-inline").remove()
-    @$(" .error").removeClass("error")
+    inputs = @$(":input")
+    for input in inputs
+      name = $(input).attr "name"
+      if not name then continue
+      field = @get name
+      if field
+        field.set "status", null
+        field.set "message", null
 
   showSuccessMessage: ->
+    toastr.success "Data successfully saved"
 
   handleResponse: (result) ->
     if result.fieldErrors

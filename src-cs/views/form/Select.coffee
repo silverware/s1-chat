@@ -8,9 +8,11 @@ Chat.Select = Chat.FormFieldView.extend
         optionLabelPathBinding="view.optionLabelPath"
         valueBinding="view.value"
     viewName="formField" nameBinding="view.viewName"}}
+    <select class="selectpicker2"><option value="1">hallo</option><option value="2">Huhu</option>
+    </select>
   """
 
   didInsertElement: ->
     @_super()
-    @$('.selectpicker').selectpicker('show')
+    @$('.selectpicker').selectpicker()
 

@@ -19,5 +19,3 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
   didInsertElement: ->
     @_super()
 
-    # todo
-

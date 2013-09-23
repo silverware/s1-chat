@@ -40,10 +40,18 @@
         (response (assoc response-map :fieldErrors (json-errors :email)))
         ))))
 
+
+(defn change-password []
+  (let [response-map {:success false :fieldErrors nil :errors nil}]
+    (when (chat/valid-session-id? username session-id)
+
+      )))
+
 (defn public-chans [] (response (map second (for [[k v] (select-keys @chat/chans (for [[k v] @chat/chans :when (not (:anonymous? @(:attr-map v)))] k))] [k (dissoc (assoc v :users (count @(:users v))) :channel :attr-map)] ))))
 
 (def ajax-routes [
                   (GET "/ajax/user/:username" [username] (user-profile username))
                   (GET "/ajax/chans" [] (public-chans))
                   (POST "/ajax/user/" [user session-id] (save-user-profile user session-id))
+                  (POST "/ajax/user/password" [old-password new-password username session-id] (change-password user session-id))
                   ])

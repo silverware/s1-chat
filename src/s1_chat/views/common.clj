@@ -45,12 +45,13 @@
 (defn layout [& content]
             (html5
               [:head
-               (include-js "/lib/jquery-1.8.3.min.js")
+               (include-js "/lib/jquery-1.10.2.min.js")
                (include-js "/lib/handlebars-1.0.0.js")
                (include-js "/lib/ember-1.0.0.js")
                (include-js "/lib/jquery.gracefulWebSocket.js")
                (include-js "/lib/jquery.connect.js")
                (include-js "/lib/moment.min.js")
+               (include-js "/bootstrap/js/bootstrap.min.js")
                (include-js "/bootstrap/js/bootstrap-tab.js")
                (include-js "/bootstrap/js/bootstrap-tooltip.js")
                (include-js "/bootstrap/js/bootstrap-popover.js")
@@ -60,12 +61,12 @@
                ; toastr
                (include-js "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/js/toastr.js")
                (include-css "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/css/toastr.css")
-               (include-css "/bootstrap/css/bootstrap-select.css")
 
                [:title "s1-chat"]
                (include-css "/bootstrap/css/bootstrap.css")
                (include-css "/css/font-awesome.css")
                (include-css "/css/chat.css")
+               (include-css "/bootstrap/css/bootstrap-select.css")
 ;               (include-css "/bootstrap/css/bootstrap-responsive.css")
               ]
               [:body content]
