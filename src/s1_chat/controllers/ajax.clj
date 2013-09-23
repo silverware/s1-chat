@@ -41,7 +41,7 @@
         ))))
 
 
-(defn change-password []
+(defn change-password [username session-id]
   (let [response-map {:success false :fieldErrors nil :errors nil}]
     (when (chat/valid-session-id? username session-id)
 
@@ -53,5 +53,5 @@
                   (GET "/ajax/user/:username" [username] (user-profile username))
                   (GET "/ajax/chans" [] (public-chans))
                   (POST "/ajax/user/" [user session-id] (save-user-profile user session-id))
-                  (POST "/ajax/user/password" [old-password new-password username session-id] (change-password user session-id))
+                  (POST "/ajax/user/password" [old-password new-password username session-id] (change-password username session-id))
                   ])
