@@ -3,8 +3,7 @@
         compojure.core
         ring.util.response
         s1-chat.validation)
-  (:require [s1-chat.views.login :as vl]
-            [s1-chat.email :as email]
+  (:require [s1-chat.email :as email]
             [monger.collection :as mc]
             [noir.validation :as vali]
             [monger.core :as mg]
@@ -40,8 +39,6 @@
   (vali/rule (#(not (empty? username))) [:username "Benutzername darf nicht leer sein."])
   (not (vali/errors? :email :password1 :username)))
 
-(defn register [user] (vl/register user))
-
 (defn register-post [user]
   (let [response-map {:success false :errors nil :fieldErrors nil}]
     (if (valid-user? user)
@@ -54,7 +51,5 @@
       (response (assoc response-map :fieldErrors (json-errors :email :password1 :username))))))
 
 (def login-routes [
-             (GET "/register" {{:as user} :params} (register user))
              (POST "/register" {{:as user} :params} (register-post user))
-             (GET "/login" [] (vl/login))
              ])

@@ -2,7 +2,6 @@
   (:use compojure.core
         s1-chat.views.chat
         s1-chat.views.common
-        s1-chat.views.login
         s1-chat.views.templates.chat
         s1-chat.server
         ring.middleware.json
