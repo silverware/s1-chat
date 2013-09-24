@@ -84,6 +84,4 @@ if __name__ == "__main__":
         write_file()
     except:
         traceback.print_exc()
-        open("ordered.coffee", "w+").close()
-        
 
