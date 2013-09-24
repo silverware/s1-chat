@@ -65,6 +65,9 @@
                (include-js "/lib/select-box/jquery.selectBox.min.js")
                (include-css "/lib/select-box/jquery.selectBox.css")
 
+               ; photobooth
+               (include-js "/lib/photobooth_min.js")
+
                [:title "s1-chat"]
                (include-css "/bootstrap/css/bootstrap.css")
                (include-css "/css/font-awesome.css")
