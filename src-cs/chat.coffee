@@ -6,6 +6,8 @@ App = Em.Application.extend
   chans: []
   initialChan: ""
 
+  successCallbacks: {}
+
   # Private Chats
   queryStreams: []
 
@@ -72,14 +74,12 @@ App = Em.Application.extend
   query: (receivers, text...) ->
     receivers = receivers.split ","
     text = text.join " "
-    @sendMsg
+    id = @sendMsg
       type: "query"
       receivers: receivers
       text: text
 
-    if @ticket.username in receivers
-      return
-    @createQueryStream receiver, text for receiver in receivers
+    @successCallbacks[id] = () => @createQueryStream receiver, text for receiver in receivers
 
   video: (receiver) ->
     @videoChatController.startVideo true, receiver
@@ -91,6 +91,7 @@ App = Em.Application.extend
     @sentObjects[obj.id] = obj
     console.debug "sent message with object", obj
     @websocket.send JSON.stringify(obj)
+    return obj.id
 
   onResponse: (event) ->
     console.debug "received data", event.data
@@ -113,7 +114,11 @@ App = Em.Application.extend
         @createQueryStream response.username, response.text, true
       when "video"
         @videoChatController.init response
+      when "success"
+        @successCallbacks[response.id]()
       when "error"
+          if @successCallbacks[response.id]
+            delete @successCallbacks[response.id]
           if @sentObjects[response.id].type is "auth"
             @authCallback response.text
           else
