@@ -1,18 +1,19 @@
 Em.Select.reopen
-  attributeBindings: ["name"]
+  attributeBindings: ["name", "size"]
 
 Chat.Select = Chat.FormFieldView.extend
+  size: 1
   template: Ember.Handlebars.compile """
     {{view Em.Select classNames="selectpicker" contentBinding="view.content"
         optionValuePathBinding="view.optionValuePath"
         optionLabelPathBinding="view.optionLabelPath"
-        valueBinding="view.value"
+        valueBinding="view.value" sizeBinding="view.size"
     viewName="formField" nameBinding="view.viewName"}}
-    <select class="selectpicker2"><option value="1">hallo</option><option value="2">Huhu</option>
     </select>
   """
 
   didInsertElement: ->
     @_super()
-    @$('.selectpicker').selectpicker()
+    console.debug "Lkj"
+    @$('.selectpicker').selectBox()
 
