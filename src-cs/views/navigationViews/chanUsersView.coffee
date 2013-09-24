@@ -1,10 +1,11 @@
 Chat.ChanUsersView = Ember.View.extend
   chan: null
   tagName: 'nav'
+  classNames: ['nav-2', 'users']
 
   template: Ember.Handlebars.compile """
     <ul>
-      <li {{action "part" target="view"}}> <i class="icon-reply"></i>Leave Channel</li>
+      <li {{action part target="view.chan"}}> <i class="icon-reply"></i>Leave Channel</li>
     </ul>
     <h5>participants</h5>
     <ul>
@@ -13,12 +14,8 @@ Chat.ChanUsersView = Ember.View.extend
       {{/each}}
     </ul>
   """
-  classNames: ['users']
 
   didInsertElement: ->
     # todo
-
-  part: ->
-    @chan.part()
 
 

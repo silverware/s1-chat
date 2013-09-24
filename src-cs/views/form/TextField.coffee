@@ -1,7 +1,7 @@
 Em.TextField.reopen
   attributeBindings: ['placeholder', 'disabled', 'maxlength', "name", "type"]
 
-Chat.TextFieldView = Chat.FormFieldView.extend
+Chat.TextField = Chat.FormFieldView.extend
   type: "text"
 
   template: Ember.Handlebars.compile """

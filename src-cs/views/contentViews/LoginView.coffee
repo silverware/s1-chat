@@ -11,25 +11,25 @@ Chat.LoginView = Chat.ContentView.extend Chat.ValidationMixin,
     <div class="tab-content">
      <div class="tab-pane active" id="guest-login-pane">
      <form class="form-horizontal" id="guest-login-form">
-        {{view Chat.TextFieldView label="Username" placeholder="Guest" viewName="guest-username"}}
+        {{view Chat.TextField label="Username" placeholder="Guest" viewName="guest-username"}}
         <button type="submit">Submit</button>
      </form>
      </div>
 
      <div class="tab-pane" id="login-pane">
      <form class="form-horizontal" id="login-form">
-      {{view Chat.TextFieldView label="Username" viewName="login-username"}}
-      {{view Chat.TextFieldView label="Password" viewName="login-password" type="password"}}
+      {{view Chat.TextField label="Username" viewName="login-username"}}
+      {{view Chat.TextField label="Password" viewName="login-password" type="password"}}
       <button type="submit">Submit</button>
      </form>
       </div>
 
      <div class="tab-pane" id="register-pane">
      <form class="form-horizontal" id="register-form">
-      {{view Chat.TextFieldView label="E-Mail" viewName="email"}}
-      {{view Chat.TextFieldView label="Username" viewName="username"}}
-      {{view Chat.TextFieldView label="Password" viewName="password1" type="password"}}
-      {{view Chat.TextFieldView label="Password (repeat)" viewName="password2" type="password"}}
+      {{view Chat.TextField label="E-Mail" viewName="email"}}
+      {{view Chat.TextField label="Username" viewName="username"}}
+      {{view Chat.TextField label="Password" viewName="password1" type="password"}}
+      {{view Chat.TextField label="Password (repeat)" viewName="password2" type="password"}}
       <button type="submit">Submit</button>
      </form>
       </div>

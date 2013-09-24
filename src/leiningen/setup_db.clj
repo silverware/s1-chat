@@ -6,7 +6,7 @@
   (:import [org.bson.types ObjectId]))
 
 (defn generate-testdata []
-  (mc/insert "users" {:_id (ObjectId.) :username "test" :password (hash-password "test")}))
+  (mc/insert "users" {:_id (ObjectId.) :username "test" :email "test@example.com" :password (hash-password "test")}))
 
 
 (defn setup-db [args]

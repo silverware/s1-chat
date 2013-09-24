@@ -1,4 +1,4 @@
-Chat.BirthDateView = Chat.FormFieldView.extend
+Chat.BirthDate = Chat.FormFieldView.extend
   type: "text"
   date: new Date()
   days: [1..31].map (d) -> {day: d}
@@ -6,9 +6,9 @@ Chat.BirthDateView = Chat.FormFieldView.extend
   label: "Birthdate"
 
   template: Ember.Handlebars.compile """
-    {{view Em.Select notSurrounded="true" valueBinding="view.day"
+    {{view Chat.Select notSurrounded="true" valueBinding="view.day"
       optionValuePath="content.day" optionLabelPath="content.day" contentBinding="view.days"}}
-    {{view Em.Select notSurrounded="true" valueBinding="view.month"
+    {{view Chat.Select notSurrounded="true" valueBinding="view.month"
       optionValuePath="content.id" optionLabelPath="content.label" contentBinding="view.months"}}
     {{view Em.TextField valueBinding="view.year"}}
   """

@@ -8,3 +8,4 @@
          (is (= (ajax/valid-date? 1989 13 17) false))
          (is (= (ajax/valid-date? 1989 6 32) false))
          )
+

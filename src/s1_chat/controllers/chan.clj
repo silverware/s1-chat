@@ -1,5 +1,4 @@
 (ns s1-chat.controllers.chan
-  (:require [s1-chat.views.chat :as chat-view])
   (:use s1-chat.models.chat
         ring.util.response
         compojure.core))
@@ -14,7 +13,6 @@
         (response {:chanName (:name anon-chan)})))))
 
 (def chan-routes [
-                  (POST "/chan/create" [] (create-anon-chan))
-                  (GET "/chan/join/:chan-name" [chan-name] (chat-view/chat chan-name))
+                  (POST "/ajax/chan/create" [] (create-anon-chan))
                   ])
 

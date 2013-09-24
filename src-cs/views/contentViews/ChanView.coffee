@@ -17,7 +17,7 @@ Chat.ChanView = Chat.ContentView.extend
      <input id="message" type="text" placeholder="Message" autocomplete="off" />
     </form>
   """
-  classNames: ['chan']
+  classNames: ['chan', 'content-2']
   messageHistory: []
   historyIndex: 0
 
