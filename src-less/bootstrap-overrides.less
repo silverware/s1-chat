@@ -80,3 +80,30 @@ Popover Bootstrap overrides
 .popover.right .arrow:after {
     border-right-color: #333;
 }
+
+
+/* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
+Select-field overwrites
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
+
+.selectBox-dropdown {
+  background: none;
+  background-color: white;
+  color: @text;
+  cursor: pointer;
+  line-height: normal;
+  border-radius: 0;
+  .selectBox-arrow {
+      border-left: 0;
+  }
+}
+
+.selectBox-dropdown:focus {
+    border-color: none;
+    outline: 2px solid @blue !important;
+}
+
+.selectBox-options LI A {
+  color: @text;
+  text-decoration: none;
+}

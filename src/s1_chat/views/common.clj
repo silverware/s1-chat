@@ -55,18 +55,20 @@
                (include-js "/bootstrap/js/bootstrap-tab.js")
                (include-js "/bootstrap/js/bootstrap-tooltip.js")
                (include-js "/bootstrap/js/bootstrap-popover.js")
-               (include-js "/bootstrap/js/bootstrap-select.js")
                (include-js "/js/chat.js")
 
                ; toastr
                (include-js "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/js/toastr.js")
                (include-css "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/css/toastr.css")
 
+               ; select-box
+               (include-js "/lib/select-box/jquery.selectBox.min.js")
+               (include-css "/lib/select-box/jquery.selectBox.css")
+
                [:title "s1-chat"]
                (include-css "/bootstrap/css/bootstrap.css")
                (include-css "/css/font-awesome.css")
                (include-css "/css/chat.css")
-               (include-css "/bootstrap/css/bootstrap-select.css")
 ;               (include-css "/bootstrap/css/bootstrap-responsive.css")
               ]
               [:body content]
