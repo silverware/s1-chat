@@ -2,7 +2,13 @@
   (:use lamina.core aleph.formats))
 
 (defrecord Chan [name channel users attr-map])
-(declare craft-public-msg)
+(defn craft-public-msg [{{username :username} :ticket :as msg}] 
+  "When a user writes into a Chan the message is siphoned into it.
+  However, it needs to undergo modifications such as removal of the ticket.
+  This function applies the necessary modifications."
+  (if (nil? (:ticket msg))
+    (assoc (dissoc msg :ticket) :id 0)
+    (assoc (assoc (dissoc msg :ticket) :username username) :id 0)))
 (defn secure-channel [ch]
   (splice
     (map* craft-public-msg ch)
@@ -33,14 +39,6 @@
 (defn get-chan [^String chan-name]
   (@chans chan-name))
 
-(declare remove-ticket)
-(defn craft-public-msg [{{username :username} :ticket :as msg}] 
-  "When a user writes into a Chan the message is siphoned into it.
-  However, it needs to undergo modifications such as removal of the ticket.
-  This function applies the necessary modifications."
-  (if (nil? (:ticket msg))
-    (assoc (remove-ticket msg) :id 0)
-    (assoc (assoc (remove-ticket msg) :username username) :id 0)))
 
 (defn add-user-to-chan
   [user dest-chan]

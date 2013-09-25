@@ -6,8 +6,7 @@
         clojure.test))
 
 (defn db-fixture [f] 
-  (mg/connect!)
-  (mg/set-db! (mg/get-db "s1"))
+  (connect-db)
   (f))
 
 (use-fixtures :once db-fixture)
