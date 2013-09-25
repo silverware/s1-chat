@@ -59,7 +59,6 @@
 
 
 ;; message validators
-
 (vali/defvalidator already-joined? "join"
                    [msg]
                    (when (contains? @(:users (get-chan (:chan-name msg))) (get-user (:username (:ticket msg))))

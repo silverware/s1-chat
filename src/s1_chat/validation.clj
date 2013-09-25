@@ -32,5 +32,6 @@
   `(do 
      (declare ~n)
      (defn ~n ~@fdecl)
+     (require 's1-chat.validation)
      (add-validator ~_type ~n)
      ))

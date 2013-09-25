@@ -1,4 +1,5 @@
 (ns s1-chat.handler
+  (:gen-class)
   (:use compojure.core
         s1-chat.views.chat
         s1-chat.views.common
@@ -99,6 +100,6 @@
        :workflows [(workflows/interactive-form)]})
     (handler/site)))
 
-(defn -main []
+(defn -main [& args]
   (initialize-app)
   (run-jetty app {:port 5151}))
