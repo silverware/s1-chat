@@ -1,7 +1,10 @@
 (ns s1-chat.handler
   (:gen-class)
+  (:import [org.bson.types ObjectId])
   (:use compojure.core
         s1-chat.views.chat
+        s1-chat.controllers.login
+        s1-chat.server
         s1-chat.views.common
         s1-chat.views.templates.chat
         s1-chat.server
@@ -14,6 +17,7 @@
             [s1-chat.controllers.login :as login-controller]
             [s1-chat.controllers.chan :as chan-controller]
             [s1-chat.controllers.ajax :as ajax-controller]
+            [s1-chat.config :as cfg]
             [monger.collection :as mc]
             [cemerick.friend :as friend]
             [monger.core :as mg]
@@ -100,6 +104,26 @@
        :workflows [(workflows/interactive-form)]})
     (handler/site)))
 
+(defn generate-testdata []
+  (mc/insert "users" {:_id (ObjectId.) :username "test" :email "test@example.com" :password (hash-password "test")}))
+
+(defn setup-db []
+  ;; connect without authentication
+  ;; localhost, default port
+  (connect-db)
+  
+  (mc/drop "users")
+  (mc/ensure-index "users" { :email 1 } { :unique true })
+  (mc/ensure-index "users" { :username 1 } { :unique true })
+
+  (generate-testdata)
+
+  (mg/disconnect!)
+
+  (println "database 's1' created and collection 'users' generated")
+)
 (defn -main [& args]
-  (initialize-app)
-  (run-jetty app {:port 5151}))
+  (if (and args (some #{"--setup-db"} args))
+    (setup-db)
+    (do (initialize-app)
+      (run-jetty app {:port 5151}))))

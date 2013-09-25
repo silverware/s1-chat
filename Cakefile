@@ -52,7 +52,7 @@ task 'test', 'run tests', ->
   child.stderr.pipe process.stderr
 
 task 'generate-testdata', 'generates the test data', ->
-  child = exec 'lein setup-db', (err, stdout, stderr) ->
+  child = exec 'lein run --setup-db', (err, stdout, stderr) ->
     throw err if err
   child.stdout.pipe process.stdout
 
