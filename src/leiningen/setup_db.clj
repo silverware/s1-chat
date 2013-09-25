@@ -1,6 +1,7 @@
 (ns leiningen.setup-db
   "Create s1 databases and fill with test data."
-  (:use s1-chat.controllers.login)
+  (:use s1-chat.controllers.login
+        s1-chat.server)
   (:require [monger.core :as mg]
             [monger.collection :as mc])
   (:import [org.bson.types ObjectId]))
@@ -12,9 +13,8 @@
 (defn setup-db [args]
   ;; connect without authentication
   ;; localhost, default port
-  (mg/connect!)
-  (mg/set-db! (mg/get-db "s1"))
-
+  (connect-db)
+  
   (mc/drop "users")
   (mc/ensure-index "users" { :email 1 } { :unique true })
   (mc/ensure-index "users" { :username 1 } { :unique true })

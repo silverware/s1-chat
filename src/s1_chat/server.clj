@@ -4,6 +4,7 @@
     [aleph.formats :as formats])
   (:use [aleph.http] 
         [lamina.core]
+        [s1-chat.config]
         [s1-chat.models.chat]
         [s1-chat.validation]))
 
@@ -37,7 +38,7 @@
   (println "==========================")
   (println "  CONNECTING TO DATABASE  ")
   (println "==========================")
-  (mg/connect!)
+  (mg/connect! {:port (:mongodb-port properties)} )
   (mg/set-db! (mg/get-db "s1")))
 
 
