@@ -20,7 +20,10 @@ Chat.ApplicationView = Em.View.extend
         <h5>private channels</h5>
         <ul>
           {{#each channel in Chat.privateChannels}}
-            <li {{action "open" target="channel"}}><img src="/img/dummy.png" /> {{channel.username}} </li>
+            <li {{action "open" target="channel"}}><img src="/img/dummy.png" />
+              {{channel.username}}
+              {{#if channel.newMessages}}<span class="new-messages">{{channel.newMessages}}</span>{{/if}}
+            </li>
           {{/each}}
         </ul>
       {{/if}}

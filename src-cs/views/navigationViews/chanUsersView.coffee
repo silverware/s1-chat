@@ -10,7 +10,7 @@ Chat.ChanUsersView = Ember.View.extend
     <h5>participants</h5>
     <ul>
       {{#each user in view.chan.usernames}}
-       <li>{{view Chat.UserItemView userBinding="user" chanBinding="view.chan"}}</li>
+       <li {{action showUserInfo user target="view"}}><img src="img/dummy.png" />&nbsp;&nbsp;{{user}}</li>
       {{/each}}
     </ul>
   """
@@ -18,4 +18,10 @@ Chat.ChanUsersView = Ember.View.extend
   didInsertElement: ->
     # todo
 
+  actions:
+    showUserInfo: (username) ->
+      Chat.User.find username, (user) =>
+        @chan.addMessage
+          type: "user"
+          user: user
 

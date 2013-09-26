@@ -11,6 +11,9 @@ Chat.MessageView = Ember.View.extend
         <div>{{view.message.user.username}}</div>
         geolocation, abstand, foto, nick
         <span>its super</span>
+        <ul>
+          <li {{action queryUser view.message.user.username target="view.parentView"}}>Query</li>
+        </ul>
       </div>
     {{/if}}
     {{#if view.message.isPart}}

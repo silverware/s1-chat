@@ -44,5 +44,5 @@ Chat.Chan = Em.Object.extend
     @messages.pushObject Chat.Message.create message
 
   onMessageReceived: ->
-    if not false #Chat.Router.router
+    if Chat.Router.router.currentParams.chan_name isnt @name
       @set "newMessages", @newMessages + 1
