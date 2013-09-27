@@ -8,5 +8,8 @@
                   (.load props reader)
                   (into {} (for [[k v] props] [(keyword k) (read-string v)])))))
 
-(def properties (-load-props "config.properties"))
+(def properties)
+
+(defn initialize-properties 
+  [file-name] (def properties (-load-props file-name)))
 

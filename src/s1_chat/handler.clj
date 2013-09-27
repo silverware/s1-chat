@@ -13,6 +13,7 @@
         noir.util.middleware)
 
   (:require [compojure.handler :as handler]
+            [clojure.tools.cli]
             [compojure.route :as route]
             [s1-chat.controllers.login :as login-controller]
             [s1-chat.controllers.chan :as chan-controller]
@@ -123,7 +124,16 @@
   (println "database 's1' created and collection 'users' generated")
 )
 (defn -main [& args]
-  (if (and args (some #{"--setup-db"} args))
-    (setup-db)
-    (do (initialize-app)
-      (run-jetty app {:port 5151}))))
+  (let [[options args banner] (clojure.tools.cli/cli args
+                                  ["-db" "--setup-db" "Create collections with sample data and indices." :default false :flag true]
+                                  ["-h" "--help" "Show help" :default false :flag true]
+                                  ["-c" "--config" "Path to properties file." :default "config.properties"])]
+    (when (:help options)
+      (println banner)
+      (System/exit 0))
+    (cfg/initialize-properties (:config options))
+    (when (:setup-db options)
+      (setup-db)
+      (System/exit 0))
+    (initialize-app options)
+    (run-jetty app {:port 5151})))

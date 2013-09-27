@@ -16,6 +16,7 @@
                            [org.clojure/test.generative "0.1.3"]
                            [lib-noir "0.3.5"]
                            [com.draines/postal "1.11.0"]
+                           [org.clojure/tools.cli "0.2.4"]
                            ;[cheshire "2.2.0"]
                            ;[jayq "0.1.0-SNAPSHOT"]
                            ;[fetch "0.1.0-SNAPSHOT"]

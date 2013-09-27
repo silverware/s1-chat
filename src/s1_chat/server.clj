@@ -42,7 +42,7 @@
   (mg/set-db! (mg/get-db "s1")))
 
 
-(defn initialize-app []
+(defn initialize-app [options]
   (connect-db)
   (println "==========================")
   (println "STARTING WEBSOCKET-SERVEUR")
