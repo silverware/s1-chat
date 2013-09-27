@@ -44,12 +44,11 @@
 
 
 (defn initialize-app []
+  (when-not s1-chat.config/properties 
+    (s1-chat.config/initialize-properties "config.properties"))
   (connect-db)
   (println "==========================")
   (println "STARTING WEBSOCKET-SERVEUR")
   (println "==========================")
   (start-http-server chat-handler {:port 8008 :websocket true}))
 
-(defn ring-initializer [] 
-  (s1-chat.config/initialize-properties "config.properties")
-  (initialize-app))

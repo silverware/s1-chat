@@ -8,7 +8,7 @@
                   (.load props reader)
                   (into {} (for [[k v] props] [(keyword k) (read-string v)])))))
 
-(def properties)
+(def properties nil)
 
 (defn initialize-properties 
   [file-name] (def properties (-load-props file-name)))
