@@ -39,7 +39,7 @@
   (println "==========================")
   (println "  CONNECTING TO DATABASE  ")
   (println "==========================")
-  (mg/connect! {:port (:mongodb-port properties)} )
+  (mg/connect! {:port (:mongodb-port s1-chat.config/properties)} )
   (mg/set-db! (mg/get-db "s1")))
 
 
