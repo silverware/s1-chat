@@ -109,8 +109,6 @@
   (mc/insert "users" {:_id (ObjectId.) :username "test" :email "test@example.com" :password (hash-password "test")}))
 
 (defn setup-db []
-  ;; connect without authentication
-  ;; localhost, default port
   (connect-db)
   
   (mc/drop "users")
