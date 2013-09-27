@@ -17,8 +17,9 @@
     (assoc (mconv/from-db-object monger-object true) :_id doc-id)))
 
 (defn user-profile [username]
-  (when-let [mongo-object (mc/find-one "users" {:username username})]
-    (response (dissoc (convert-id mongo-object) :password))))
+  (if-let [mongo-object (mc/find-one "users" {:username username})]
+    (response (dissoc (convert-id mongo-object) :password))
+    (not-found "user not found")))
 
 (defn valid-date? [year month day]
   (try (clj-time/date-time year month day) true
@@ -44,8 +45,8 @@
 (defn change-password [username session-id]
   (let [response-map {:success false :fieldErrors nil :errors nil}]
     (when (chat/valid-session-id? username session-id)
-
       )))
+
 
 (defn public-chans [] (response (map second (for [[k v] (select-keys @chat/chans (for [[k v] @chat/chans :when (not (:anonymous? @(:attr-map v)))] k))] [k (dissoc (assoc v :users (count @(:users v))) :channel :attr-map)] ))))
 
