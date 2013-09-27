@@ -1,10 +1,11 @@
 (ns s1-chat.server
   (:require 
     [monger.core :as mg]
-    [aleph.formats :as formats])
+    [aleph.formats :as formats]
+    [s1-chat.config])
+
   (:use [aleph.http] 
         [lamina.core]
-        [s1-chat.config]
         [s1-chat.models.chat]
         [s1-chat.validation]))
 
@@ -42,10 +43,13 @@
   (mg/set-db! (mg/get-db "s1")))
 
 
-(defn initialize-app [options]
+(defn initialize-app []
   (connect-db)
   (println "==========================")
   (println "STARTING WEBSOCKET-SERVEUR")
   (println "==========================")
   (start-http-server chat-handler {:port 8008 :websocket true}))
 
+(defn ring-initializer [] 
+  (s1-chat.config/initialize-properties "config.properties")
+  (initialize-app))
