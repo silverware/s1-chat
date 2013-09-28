@@ -23,7 +23,7 @@
   (and (= password1 password2) (not (empty? password1))))
 
 (defmacro if-user-exists [user then-clause else-clause]
-  `(if (duplicate-email? (:email user))
+  `(if (duplicate-email? (:email ~user))
      ~then-clause
      ~else-clause))
 
