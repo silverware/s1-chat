@@ -36,12 +36,8 @@
 
 (defn auth
   [ch username password]
-  (if (or (= 1 (mc/count "users" {:username username :password (hash-password password)})) (empty? password))
     (let [session-id (generate-session-id)
           user (assoc (->User username ch (ref {}) (ref {:guest? (empty? password)})) :session-id session-id)]
       (on-closed ch #(logout-user user))
       (dosync (alter connected-users assoc username user))
-      session-id)
-    (if (mc/any? "users" {:username username})
-     :wrong-password
-     :unknown-username)))
+      session-id))

@@ -1,6 +1,7 @@
 (ns s1-chat.models.chat
   (:require [s1-chat.validation :as vali]
             [clojure.string :as string]
+            [monger.collection :as mc]
             [s1-chat.controllers.login :as login-ctrl]
             )
   (:use aleph.formats lamina.core))
@@ -30,10 +31,7 @@
 
 (defn dispatch-auth-msg [ch {:keys [id username password]} ]
   (let [session-id (auth ch username password)]
-    (case session-id
-      :unknown-username (send-error ch id {:fieldErrors [[:login-username "Username unknown."]]})
-      :wrong-password (send-error ch id {:fieldErrors [[:login-password "Wrong password."]]})
-      (send-auth-success ch session-id))))
+      (send-auth-success ch session-id)))
 
 (defn dispatch-message
   [ch {id :id {:keys [username session-id]} :ticket :as msg}]
@@ -70,6 +68,8 @@
   (when (nil? (get-chan (:chan-name msg)))
     (str "Der Channel " (:chan-name msg) " existiert nicht")))
 
+
+;; validators for auth
 (vali/defvalidator username-empty? "auth"
                    [msg]
                    (let [username (:username msg)]
@@ -82,6 +82,21 @@
                      (when (and (string/blank? password) (not (:guest? msg)))
                        {:fieldErrors [[:login-password "The password cannot be empty."]]})))
 
+(vali/defvalidator password-incorrect? "auth"
+                   [{:keys [password username guest?]}]
+                     (when (and 
+                             (zero? (mc/count "users" {:username username :password (login-ctrl/hash-password password)})) 
+                             (not guest?))
+                       (if (mc/any? "users" {:username username})
+                         {:fieldErrors [[:login-password "Wrong password."]]}
+                         {:fieldErrors [[:login-username "Username unknown jjk."]]})))
+
+(vali/defvalidator already-authed? "auth"
+                   [msg]
+                   (let [user (get-user (:username msg))]
+                     (when (and (vali/not-nil? user) (not (:guest? @(:attr-map user))))
+                       "Du Flasche bist schon authentifiziert")))
+;; guest-validation
 (vali/defvalidator guest-username-empty? "auth"
                    [msg]
                    (let [username (:username msg)]
@@ -94,17 +109,16 @@
                      (when (or
                              (vali/not-nil? user)
                              (and
-                               (require 's1-chat.controllers.login)
-                               (login-ctrl/duplicate-username? username)
+                               (s1-chat.controllers.login/duplicate-username? username)
                                guest?))
                        {:fieldErrors [[:guest-username "The username is already in use."]]})))
 
-(vali/defvalidator already-authed? "auth"
-                   [msg]
-                   (let [user (get-user (:username msg))]
-                     (when (and (vali/not-nil? user) (not (:guest? @(:attr-map user))))
-                       "Du Flasche bist schon authentifiziert")))
 
+
+
+
+
+;; validator for video
 (vali/defvalidator self-video-call? "video"
                    [msg]
                    (when (= (:receiver msg) (:username (:ticket msg)))
