@@ -94,8 +94,7 @@
                      (when (or
                              (vali/not-nil? user)
                              (and
-                               (require 's1-chat.controllers.login)
-                               (login-ctrl/duplicate-username? username)
+                               (s1-chat.controllers.login/duplicate-username? username)
                                guest?))
                        {:fieldErrors [[:guest-username "The username is already in use."]]})))
 
