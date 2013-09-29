@@ -6,7 +6,6 @@
         s1-chat.controllers.login
         s1-chat.server
         s1-chat.views.common
-        s1-chat.views.templates.chat
         s1-chat.server
         ring.middleware.json
         [ring.adapter.jetty :only [run-jetty]]
@@ -62,17 +61,6 @@
     chan-controller/chan-routes
     ajax-controller/ajax-routes
     [
-     (GET "/" [] (chat))
-     (GET "/chat" [] (chat))
-
-     ; template routing
-     (GET "/chat_template.hbs" [] (hbs-chat-template))
-     (GET "/query_stream_template.hbs" [] (hbs-query-stream-template))
-     (GET "/chan_template.hbs" [] (hbs-chan-template))
-     (GET "/chan_users_template.hbs" [] (hbs-chan-users-template))
-     (GET "/login_template.hbs" [] (hbs-login-template))
-     (GET "/profile_edit_template.hbs" [] (hbs-profile-edit-template))
-
      ;; (GET "/facebookcallback" [] (do
      ;;                                   (println "huhu")
      ;;                                   (str "huhu")))

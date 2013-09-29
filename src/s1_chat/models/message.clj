@@ -20,8 +20,9 @@
 
 ;; user to user query dispatch
 (defn dispatch-query [{{username :username} :ticket :as original-msg}]
-  (let [msg (assoc (remove-ticket original-msg) :username username) receivers (map get-user (:receivers msg))]
-    (dorun (map #(enqueue (:channel %) msg) receivers))))
+  (let [msg (assoc (remove-ticket original-msg) :username username)
+        receivers (map get-user (:receivers msg))]
+    (doseq [receiver receivers] (enqueue (:channel receiver) msg))))
 
 ;; auth message dispatch
 (defn send-auth-success [ch session-id]
@@ -46,7 +47,7 @@
         "part" (let [chan (get-chan (:chan-name msg))]
                  (remove-user-from-chan user chan)
                  (send-part chan user))
-        "query" (do 
+        "query" (do
                   (dispatch-query msg)
                   (send-success ch id nil))
         "video"
@@ -88,14 +89,13 @@
                        {:fieldErrors [[:guest-username "The username cannot be empty."]]})))
 
 (vali/defvalidator guest-username-taken? "auth"
-                   [msg]
-                   (let [user (get-user (:username msg))]
+                   [{:keys [username guest?]}]
+                   (let [user (get-user username)]
                      (when (or
                              (vali/not-nil? user)
                              (and
-                               (require 's1-chat.controllers.login)
-                               (login-ctrl/duplicate-username? (:username msg))
-                               (:guest? msg)))
+                               (s1-chat.controllers.login/duplicate-username? username)
+                               guest?))
                        {:fieldErrors [[:guest-username "The username is already in use."]]})))
 
 (vali/defvalidator already-authed? "auth"
