@@ -121,5 +121,5 @@
     (when (:setup-db options)
       (setup-db)
       (System/exit 0))
-    (initialize-app options)
+    (initialize-app)
     (run-jetty app {:port 5151})))

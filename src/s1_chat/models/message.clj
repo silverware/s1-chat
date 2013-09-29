@@ -89,7 +89,7 @@
                              (not guest?))
                        (if (mc/any? "users" {:username username})
                          {:fieldErrors [[:login-password "Wrong password."]]}
-                         {:fieldErrors [[:login-username "Username unknown jjk."]]})))
+                         {:fieldErrors [[:login-username "Username unknown."]]})))
 
 (vali/defvalidator already-authed? "auth"
                    [msg]

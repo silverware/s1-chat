@@ -30,13 +30,11 @@
             :aot :all
             ;:eval-in-leiningen true
             :plugins [
-                      [lein-cljsbuild "0.2.7"]
                       [lein-tarsier "0.9.1"]
                       [lein-ring "0.8.2"]
                       [lein-localrepo "0.4.1"]
                       ]
             :ring {:handler s1-chat.handler/app
                    :init s1-chat.server/initialize-app}
-            ;            :prep-tasks [["coffeescript" "resources/public/js" "src-cs"] "javac" "compile"]
             )
 
