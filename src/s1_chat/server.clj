@@ -2,7 +2,8 @@
   (:require 
     [monger.core :as mg]
     [aleph.formats :as formats]
-    [s1-chat.config])
+    [s1-chat.config]
+    [clojure.string])
 
   (:use [aleph.http] 
         [lamina.core]
@@ -39,8 +40,16 @@
   (println "==========================")
   (println "  CONNECTING TO DATABASE  ")
   (println "==========================")
-  (mg/connect! {:port (:mongodb-port s1-chat.config/properties)} )
-  (mg/set-db! (mg/get-db "s1")))
+  (let [url-credentials (#(if (not (and (clojure.string/blank? %1) (clojure.string/blank? %2)))
+                           (str %1 ":" %2 "@")
+                           "")
+                          (:mongodb-user s1-chat.config/properties) 
+                          (:mongodb-password s1-chat.config/properties))]
+    (mg/connect-via-uri! (str "mongodb://" 
+                              url-credentials 
+                              (:mongodb-host s1-chat.config/properties)
+                              ":" 
+                              (:mongodb-port s1-chat.config/properties) "/s1"))))
 
 
 (defn initialize-app []

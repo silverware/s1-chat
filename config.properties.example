@@ -3,4 +3,7 @@ smtp-host = ""
 smtp-user = ""
 smtp-password = "" 
 smtp-use-ssl = "yes"
+mongodb-host = "localhost"
 mongodb-port = 27017
+mongodb-user = ""
+mongodb-password = ""
