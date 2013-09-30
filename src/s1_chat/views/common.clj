@@ -51,6 +51,7 @@
                (include-js "/lib/jquery.gracefulWebSocket.js")
                (include-js "/lib/jquery.connect.js")
                (include-js "/lib/moment.min.js")
+               (include-js "/lib/modernizr.js")
                (include-js "/bootstrap/js/bootstrap.min.js")
                (include-js "/bootstrap/js/bootstrap-tab.js")
                (include-js "/bootstrap/js/bootstrap-tooltip.js")

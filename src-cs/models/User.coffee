@@ -2,5 +2,5 @@ Chat.User = Em.Object.extend
   username: ""
 
 Chat.User.reopenClass
-  find: (id, callback) ->
-    $.get('/ajax/user/' + id).then (user) -> callback user
+  find: (username, callback) ->
+    $.get('/ajax/user/' + username).done((user) -> callback user).error(-> callback {username: username, isGuest: true})

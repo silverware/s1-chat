@@ -54,7 +54,9 @@ Chat.ChanView = Chat.ContentView.extend
         @get("controller.model").sendMessage message
 
       @$("#message").val ""
-
+    queryUser: (username) ->
+      @$("form input").val "/query #{username} "
+      @$("form input").focus()
 
 
 
@@ -69,6 +71,4 @@ Chat.ChanView = Chat.ContentView.extend
     @$('.content-messages').width @$(".messages").width()
     @$('.content-messages-wrapper').css 'max-height', @$(".messages").height() + "px"
 
-  queryUser: (username) ->
-    @$("form input").val "/query #{username} "
-    @$("form input").focus()
+

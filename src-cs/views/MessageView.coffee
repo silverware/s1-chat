@@ -7,14 +7,16 @@ Chat.MessageView = Ember.View.extend
       <div class='message-body'>{{msg.text}}</div>
     {{/if}}
     {{#if view.message.isUser}}
+      {{#with view.message.user}}
       <div class="alert alert-info">
-        <div>{{view.message.user.username}}</div>
+        <div>{{username}} {{#if isGuest}} [guest]{{/if}}</div>
         geolocation, abstand, foto, nick
         <span>its super</span>
         <ul>
           <li {{action queryUser view.message.user.username target="view.parentView"}}>Query</li>
         </ul>
       </div>
+      {{/with}}
     {{/if}}
     {{#if view.message.isPart}}
       <div class="alert alert-info">
