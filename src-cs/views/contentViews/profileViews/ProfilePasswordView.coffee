@@ -12,8 +12,7 @@ Chat.ProfilePasswordView = Chat.ContentView.extend Chat.ValidationMixin,
   """
   actions:
     changePassword: ->
-      $.post "/ajax/user/" + Chat.ticket.username + "/password", {user: @user, "session-id": Chat.ticket["session-id"]}, (result) =>
-        @handleResponse result
+      $.post "/ajax/user/password", form: @$("form").serializeForm(), ticket: Chat.ticket, @handleResponse
 
   didInsertElement: ->
     @_super()

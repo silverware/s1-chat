@@ -50,6 +50,7 @@
                (include-js "/lib/ember-1.0.0.js")
                (include-js "/lib/jquery.gracefulWebSocket.js")
                (include-js "/lib/jquery.connect.js")
+               (include-js "/lib/jquery.serialize-form.js")
                (include-js "/lib/moment.min.js")
                (include-js "/lib/modernizr.js")
                (include-js "/bootstrap/js/bootstrap.min.js")
