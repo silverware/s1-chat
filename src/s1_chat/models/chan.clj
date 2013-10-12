@@ -9,16 +9,18 @@
   (if (nil? (:ticket msg))
     (assoc (dissoc msg :ticket) :id 0)
     (assoc (assoc (dissoc msg :ticket) :username username) :id 0)))
+
 (defn secure-channel [ch]
   (splice
     (map* craft-public-msg ch)
     ch))
+
 (defn make-chan 
   ([name] (make-chan name {}))
   ([name attr-map] 
-   (let [chan (Chan. name (secure-channel (channel)) (ref #{}) (ref attr-map))]
-     (siphon (:channel chan) (channel)) ; workaround to prevent chan's channel from draining
-     chan)))
+    (let [chan (Chan. name (secure-channel (channel)) (ref #{}) (ref attr-map))]
+      (siphon (:channel chan) (channel)) ; workaround to prevent chan's channel from draining
+      chan)))
 
 (def default-chans ["Gefahr" "Hans" "Test"])
 (def chans (ref (zipmap default-chans (map make-chan default-chans))))
@@ -27,14 +29,14 @@
 (defn open-chan
   ([name] (open-chan name {}))
   ([name attr-map]
-   (dosync 
-     (let [chan (make-chan name attr-map)]
-       (if (not (@chans name))
-         (do
-           (alter chans assoc name chan)
-           chan)
-         nil)
-       ))))
+    (dosync 
+      (let [chan (make-chan name attr-map)]
+        (if (not (@chans name))
+          (do
+            (alter chans assoc name chan)
+            chan)
+          nil)
+        ))))
 
 (defn get-chan [^String chan-name]
   (@chans chan-name))

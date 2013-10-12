@@ -13,6 +13,5 @@
         (response {:chanName (:name anon-chan)})))))
 
 (def chan-routes [
-                  (POST "/ajax/chan/create" [] (create-anon-chan))
-                  ])
+                  (POST "/ajax/chan/create" [] (create-anon-chan))])
 
