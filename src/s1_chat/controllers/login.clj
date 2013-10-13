@@ -22,6 +22,9 @@
 (defn valid-passwords? [password1 password2]
   (and (= password1 password2) (not (empty? password1))))
 
+(defn valid-old-password? [username password]
+  (mc/any? "users" {:username username :password (hash-password password)}))
+
 (defmacro if-user-exists [user then-clause else-clause]
   `(if (duplicate-email? (:email ~user))
      ~then-clause

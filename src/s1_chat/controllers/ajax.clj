@@ -46,13 +46,14 @@
         ))))
 
 
-(defn valid-password-form? [{:keys [password1 password2]}]
+(defn valid-password-form? [{:keys [password-old password1 password2]} username]
+  (vali/rule (lc/valid-old-password? username password-old) [:password-old "Old password does not match"])
   (vali/rule (lc/valid-passwords? password1 password2) [:password1 "Die Passwörter stimmen nicht überein."])
   (not (vali/errors? :password1)))
 
 (defn change-password [{:keys [password-old password1 password2] :as form} username]
   (let [response-map {:success false :fieldErrors nil :errors nil}]
-      (if (valid-password-form? form)
+      (if (valid-password-form? form username)
         (if (mr/has-error? (mc/update "users" {:username username} {"$set" {:password (lc/hash-password password1)}} :upsert false))
           (response (assoc response-map :errors ["Error while updating the database."]))
           (response (assoc response-map :success true))
@@ -68,4 +69,5 @@
                   (GET "/ajax/chans" [] (public-chans))
                   (POST "/ajax/user/" [user session-id] (save-user-profile user session-id))
                   (POST "/ajax/user/password" [ticket form] (when (valid-ticket? ticket) (change-password form (:username ticket))))
+                  (POST "/ajax/user/geolocation" [ticket geo-position] (when (valid-ticket? ticket) (chat/append-attr (:username ticket) :geo geo-position)))
                   ])

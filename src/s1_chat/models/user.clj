@@ -41,3 +41,6 @@
       (on-closed ch #(logout-user user))
       (dosync (alter connected-users assoc username user))
       session-id))
+
+(defn append-attr [username attr value]
+  (dosync (alter (:attr-map (get @connected-users username)) assoc attr value)))

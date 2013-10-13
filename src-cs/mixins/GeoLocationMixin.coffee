@@ -1,5 +1,5 @@
 Chat.GeoLocationMixin = Ember.Mixin.create
-  getLoaction: (callback) ->
+  getLocation: (callback) ->
     showMap = (position) ->
       latitude = position.coords.latitude
       longitude = position.coords.longitude
