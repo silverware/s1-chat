@@ -44,6 +44,7 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
 
       $.ajax
         type: "POST"
+        url: "/ajax/user/image"
         data: formData
         contentType: false
         processData: false

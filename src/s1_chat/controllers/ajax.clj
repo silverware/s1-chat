@@ -5,11 +5,13 @@
             [monger.result :as mr]
             [noir.validation :as vali]
             [clj-time.core :as clj-time]
+            [monger.gridfs :as gfs]
             [s1-chat.controllers.login :as lc]
             [s1-chat.models.chat :as chat])
   (:use compojure.core
         ring.util.response
         s1-chat.validation
+        [monger.gridfs :only [store-file make-input-file filename]]
         )
   (:import (org.joda.time IllegalFieldValueException)))
 
@@ -24,6 +26,10 @@
   (if-let [mongo-object (mc/find-one "users" {:username username})]
     (response (dissoc (convert-id mongo-object) :password))
     (not-found "user not found")))
+
+(defn user-image [username]
+  (response (-> (gfs/find-one {:filename (str "/image/" username)})
+              (.getInputStream))))
 
 (defn valid-date? [year month day]
   (try (clj-time/date-time year month day) true
@@ -62,8 +68,10 @@
         )))
 
 (defn save-image [username image]
-  true
-  )
+  (do 
+    (println (get image :tempfile))
+  (store-file (make-input-file (get image :tempfile))
+  (filename (str "/image/" username)))))
 
 
 (defn public-chans [] (response (map second (for [[k v] (select-keys @chat/chans (for [[k v] @chat/chans :when (not (:anonymous? @(:attr-map v)))] k))] [k (dissoc (assoc v :users (count @(:users v))) :channel :attr-map)] ))))
@@ -74,5 +82,6 @@
                   (POST "/ajax/user/" [user session-id] (save-user-profile user session-id))
                   (POST "/ajax/user/password" [ticket form] (when (valid-ticket? ticket) (change-password form (:username ticket))))
                   (POST "/ajax/user/geolocation" [ticket position] (when (valid-ticket? ticket) (chat/append-attr (:username ticket) :geo position)))
-                  (POST "/ajax/user/image" [username session-id image] (when (chat/valid-session-id? username session-id) (save-image (:username ticket) image)))
+                  (POST "/ajax/user/image" [username session-id image] (when (chat/valid-session-id? username session-id) (save-image username image)))
+                  (GET "/ajax/user/:username/image" [username] (user-image username))
                   ])
