@@ -9,6 +9,7 @@
                            [compojure "1.1.5"]
                            ;[crate "0.1.0-SNAPSHOT"]
                            [hiccup "1.0.2"]
+                           [image-resizer "0.1.6"]
                            [ring/ring-json "0.2.0"]
                            [ring/ring-jetty-adapter "1.1.0"]
                            [ring/ring-devel "1.1.0"]
