@@ -9,3 +9,4 @@ Chat.TextField = Chat.FormFieldView.extend
     viewName="formField" nameBinding="view.viewName"
     disabledBinding="view.disabled" typeBinding="view.type"}}
   """
+

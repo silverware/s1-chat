@@ -61,6 +61,10 @@
         (response (assoc response-map :fieldErrors (json-errors :password1)))
         )))
 
+(defn save-image [username image]
+  true
+  )
+
 
 (defn public-chans [] (response (map second (for [[k v] (select-keys @chat/chans (for [[k v] @chat/chans :when (not (:anonymous? @(:attr-map v)))] k))] [k (dissoc (assoc v :users (count @(:users v))) :channel :attr-map)] ))))
 
@@ -69,5 +73,6 @@
                   (GET "/ajax/chans" [] (public-chans))
                   (POST "/ajax/user/" [user session-id] (save-user-profile user session-id))
                   (POST "/ajax/user/password" [ticket form] (when (valid-ticket? ticket) (change-password form (:username ticket))))
-                  (POST "/ajax/user/geolocation" [ticket geo-position] (when (valid-ticket? ticket) (chat/append-attr (:username ticket) :geo geo-position)))
+                  (POST "/ajax/user/geolocation" [ticket position] (when (valid-ticket? ticket) (chat/append-attr (:username ticket) :geo position)))
+                  (POST "/ajax/user/image" [username session-id image] (when (chat/valid-session-id? username session-id) (save-image (:username ticket) image)))
                   ])

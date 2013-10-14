@@ -27,5 +27,10 @@ Chat.ValidationMixin = Ember.Mixin.create
     else
       @clearErrorMessages()
       @showSuccessMessage()
+      @$(".icon-spinner").remove()
+
+  save: (url, obj) ->
+    @$(":button").html("&nbsp;<i class=\"icon-spinner icon-spin\"></i>")
+    @$(":button").prop "disabled", true
 
 
