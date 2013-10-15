@@ -1,5 +1,5 @@
 Chat.Button = Chat.FormFieldView.extend
-
+  disabled: false
   template: Ember.Handlebars.compile """
-    <button type="submit">{{view.value}}</button>
+    <button {{bind-attr disabled=disabled}} type="submit">{{view.value}}</button>
   """

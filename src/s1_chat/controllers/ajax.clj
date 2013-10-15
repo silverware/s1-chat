@@ -11,7 +11,7 @@
   (:use compojure.core
         ring.util.response
         s1-chat.validation
-        [monger.gridfs :only [store-file make-input-file filename]]
+        [image-resizer.core :only [crop-from]]
         )
   (:import (org.joda.time IllegalFieldValueException)))
 
@@ -67,11 +67,13 @@
         (response (assoc response-map :fieldErrors (json-errors :password1)))
         )))
 
-(defn save-image [username image]
-  (do 
+(defn save-image [username image {:keys [x y wh]}]
+  (let [file-name (str "/image/" username)] 
     (println (get image :tempfile))
-  (store-file (make-input-file (get image :tempfile))
-  (filename (str "/image/" username)))))
+    (println x y wh)
+    (gfs/remove {:filename file-name})
+    (gfs/store-file (gfs/make-input-file (crop-from (get image :tempfile) x y wh wh))
+                (gfs/filename file-name))))
 
 
 (defn public-chans [] (response (map second (for [[k v] (select-keys @chat/chans (for [[k v] @chat/chans :when (not (:anonymous? @(:attr-map v)))] k))] [k (dissoc (assoc v :users (count @(:users v))) :channel :attr-map)] ))))
@@ -82,6 +84,6 @@
                   (POST "/ajax/user/" [user session-id] (save-user-profile user session-id))
                   (POST "/ajax/user/password" [ticket form] (when (valid-ticket? ticket) (change-password form (:username ticket))))
                   (POST "/ajax/user/geolocation" [ticket position] (when (valid-ticket? ticket) (chat/append-attr (:username ticket) :geo position)))
-                  (POST "/ajax/user/image" [username session-id image] (when (chat/valid-session-id? username session-id) (save-image username image)))
+                  (POST "/ajax/user/image" [username session-id image x y wh] (when (chat/valid-session-id? username session-id) (save-image username image {:x x :y y :wh wh})))
                   (GET "/ajax/user/:username/image" [username] (user-image username))
                   ])
