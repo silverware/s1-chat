@@ -100,7 +100,7 @@ Sidebar
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 nav {
-  background-color: #414141;
+  background-color: @grey;
   color: white;
 	position: absolute;
 	padding: 20px 0 5px 5px;
@@ -297,13 +297,18 @@ Chan
   .user-profile-view {
     background-color: white;
     min-height: 80px;
+    border: 1px solid #ccc;
     img {
       float: left;
       margin-right: 10px;
       height: 80px;
     }
     h4 {
+      background-color: @grey;
+      color: #FFFFFF;
       font-weight: bold;
+      margin: 0;
+      padding: 7px;
     }
     ul {
       float: right;
