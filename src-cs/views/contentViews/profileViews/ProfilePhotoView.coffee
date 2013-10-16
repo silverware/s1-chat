@@ -9,7 +9,7 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
      <form class="form-horizontal" {{action "uploadImage" target="view" on="submit"}}>
       <div class="control-group">
        <label class="control-label">current image</label>
-        <div class="controls"><img src="/ajax/user/{{Chat.ticket.username}}/image" height="100" /></div>
+        <div class="controls"><img id="current-image" style="heigh: 100px" /></div>
        </div>
       {{view Chat.FileSelect label="Select an image" viewName="image"}}
       <div class="control-group image-preview" {{bind-attr class="showPreview:show:hide"}} >
@@ -58,9 +58,11 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
         success: (result) =>
           @get("saveButton").set "disabled", false
           @handleResponse result
+          @setCurrentImage()
 
   didInsertElement: ->
     @_super()
+    @setCurrentImage()
     $('#photobooth').photobooth().on "image", (event, dataUrl) ->
       $("#preview").append "<img src='#{dataUrl}' />"
 
@@ -76,6 +78,9 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
       onSelect: (e) =>
         @set "selection", e
   ).observes("image.value")
+
+  setCurrentImage: ->
+    @$("#current-image").prop "src", "/ajax/user/#{Chat.ticket.username}/image?no-cache=#{Math.random()}"
 
 
 

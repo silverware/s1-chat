@@ -28,8 +28,10 @@
     (not-found "user not found")))
 
 (defn user-image [username]
-  (response (-> (gfs/find-one {:filename (str "/image/" username)})
-              (.getInputStream))))
+  (if-let [image (gfs/find-one {:filename (str "/image/" username)})]
+    (response (.getInputStream image))
+    (redirect "/img/dummy.png")
+    ))
 
 (defn valid-date? [year month day]
   (try (clj-time/date-time year month day) true
@@ -67,12 +69,13 @@
         (response (assoc response-map :fieldErrors (json-errors :password1)))
         )))
 
-(defn save-image [username image {:keys [x y wh]}]
+(defn save-image [username image [x y wh]]
   (let [file-name (str "/image/" username)] 
     (println (get image :tempfile))
     (println x y wh)
+    
     (gfs/remove {:filename file-name})
-    (gfs/store-file (gfs/make-input-file (crop-from (get image :tempfile) x y wh wh))
+    (gfs/store-file (gfs/make-input-file (get image :tempfile)) ;(crop-from x y wh wh))(get image :tempfile)
                 (gfs/filename file-name))))
 
 
@@ -84,6 +87,6 @@
                   (POST "/ajax/user/" [user session-id] (save-user-profile user session-id))
                   (POST "/ajax/user/password" [ticket form] (when (valid-ticket? ticket) (change-password form (:username ticket))))
                   (POST "/ajax/user/geolocation" [ticket position] (when (valid-ticket? ticket) (chat/append-attr (:username ticket) :geo position)))
-                  (POST "/ajax/user/image" [username session-id image x y wh] (when (chat/valid-session-id? username session-id) (save-image username image {:x x :y y :wh wh})))
+                  (POST "/ajax/user/image" [username session-id image x y wh] (when (chat/valid-session-id? username session-id) (save-image username image [x y wh])))
                   (GET "/ajax/user/:username/image" [username] (user-image username))
                   ])

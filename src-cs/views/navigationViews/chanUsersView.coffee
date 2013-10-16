@@ -10,7 +10,7 @@ Chat.ChanUsersView = Ember.View.extend
     <h5>participants</h5>
     <ul>
       {{#each user in view.chan.usernames}}
-       <li {{action showUserInfo user target="view"}}><img src="img/dummy.png" />&nbsp;&nbsp;{{user}}</li>
+       <li {{action showUserInfo user target="view"}}><img src="/ajax/user/{{unbound user}}/image" style="height: 35px" />&nbsp;&nbsp;{{user}}</li>
       {{/each}}
     </ul>
   """

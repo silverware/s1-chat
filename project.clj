@@ -24,6 +24,7 @@
                            [digest "1.3.0"]
                            ;[dieter/dieter "0.3.0"]
                            [com.cemerick/friend "0.1.3"]
+                           [clavatar "0.2.1"]
                            ;[friend-oauth2 "0.0.2"]
                            ]
             ;:min-lein-version "2.0.0"
