@@ -14,9 +14,9 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
       {{view Chat.FileSelect label="Select an image" viewName="image"}}
       <div class="control-group image-preview" {{bind-attr class="showPreview:show:hide"}} >
         <label class="control-label">preview</label>
-        <div class="controls"><img id="image-preview" height="100px" style="height: 100px" /></div>
+        <div class="controls"><img id="image-preview" style="height: 100px" /></div>
        </div>
-      {{view Chat.Button disabled="true" viewName="saveButton" value="Upload Photo"}}
+      {{view Chat.Button disabled="true" value="Upload Photo"}}
      </form>
 
      <div class=""></div>
@@ -31,7 +31,7 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
 
   actions:
     uploadImage: ->
-      @get("saveButton").set "disabled", true
+      @disableButtons @$("form"), true
       formData = new FormData()
       formData.append "image", @selectedImage
       formData.append "username", Chat.ticket.username
@@ -49,7 +49,7 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
         contentType: false
         processData: false
         success: (result) =>
-          @get("saveButton").set "disabled", false
+          @disableButtons @$("form"), false
           @handleResponse result
           @setCurrentImage()
 
@@ -61,6 +61,7 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
     if not @get "image.value" then return
     @get("saveButton").set "disabled", false
     @selectedImage = @$("input[name='image']")[0].files[0]
+    console.debug @selectedImage
     @$("#image-preview").prop "src", URL.createObjectURL @selectedImage
     @set "showPreview", true
     @$("#image-preview").Jcrop

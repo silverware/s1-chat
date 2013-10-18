@@ -46,37 +46,31 @@ Chat.LoginView = Chat.ContentView.extend Chat.ValidationMixin,
 
     @$("#guest-login-form").submit (event) =>
       event.preventDefault()
+      @disableButtons @$("#guest-login-form"), true
       username = $("input[name=\"guest-username\"]").val()
-      controlGroup = $("#guest-username").parent().parent()
-
-      @clearErrorMessages("#guest-login-form")
-
-      buttonHTML = @$(":button").html()
-      @$(":button").html("&nbsp;<i class=\"icon-spinner icon-spin\"></i>")
 
       Chat.authCallback = (errorText) =>
-
-        # remove spinner
-        @$(":button").html(buttonHTML)
-
+        @disableButtons @$("#guest-login-form"), false
         if Chat.get("isAuthenticated")
           @get("controller").send 'login'
         else
-          @insertFieldErrorMessages(errorText.fieldErrors)
+          @handleResponse errorText
 
       Chat.authenticateAsGuest username
 
     @$("#login-form").submit (event) =>
       event.preventDefault()
+      @disableButtons @$("#login-form"), true
 
       username = @$("[name=login-username]").val()
       password = @$("[name=login-password]").val()
 
       Chat.authCallback = (validationResult) =>
+        @disableButtons @$("#login-form"), false
         if Chat.get("isAuthenticated")
           @get("controller").send 'login'
         else
-          @insertFieldErrorMessages(validationResult.fieldErrors)
+          @handleResponse validationResult
 
       Chat.authenticate username, password
 

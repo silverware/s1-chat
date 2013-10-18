@@ -22,15 +22,37 @@ Chat.ValidationMixin = Ember.Mixin.create
     toastr.success "Data successfully saved"
 
   handleResponse: (result) ->
+    @clearErrorMessages()
     if result.fieldErrors
       @insertFieldErrorMessages result.fieldErrors
     else
-      @clearErrorMessages()
       @showSuccessMessage()
-      @$(".icon-spinner").remove()
 
-  save: (url, obj) ->
-    @$(":button").html("&nbsp;<i class=\"icon-spinner icon-spin\"></i>")
-    @$(":button").prop "disabled", true
+  save: (url, obj, onResponse) ->
+    $.post url, obj, (response) =>
+      @handleResponse response
+      if onResponse then onResponse response
+
+  disableButtons: (form, disable) ->
+    if disable
+      @tempButtonLabel = form.find(":button").html()
+      form.find(":button").html("<i class=\"icon-spinner icon-spin\"></i>")
+    else
+      form.find(":button").html @tempButtonLabel
+    form.find(":button").prop "disabled", disable
+
+  handleFormSubmit: (form) ->
+    if not form.prop "action" then return
+    form.submit (event) =>
+      event.preventDefault()
+      @disableButtons form, true
+      @save form.prop("action"), form: form.serializeForm(), ticket: Chat.ticket, (response) =>
+        @disableButtons form, false
+
+  didInsertElement: ->
+    @_super()
+    @$("form").each (i, form) =>
+      @handleFormSubmit $ form
+
 
 
