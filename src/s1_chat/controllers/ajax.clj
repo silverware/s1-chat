@@ -11,7 +11,7 @@
   (:use compojure.core
         ring.util.response
         s1-chat.validation
-        [image-resizer.core :only [crop-from]]
+        [image-resizer.core :only [crop-from resize]]
         )
   (:import (org.joda.time IllegalFieldValueException)))
 
@@ -73,7 +73,7 @@
   (let [file-name (str "/image/" username)] 
     (println (get image :tempfile))
     (println x y wh)
-    
+    (println (resize (get image :tempfile) 12 12))
     (gfs/remove {:filename file-name})
     (gfs/store-file (gfs/make-input-file (get image :tempfile)) ;(crop-from x y wh wh))(get image :tempfile)
                 (gfs/filename file-name))))
