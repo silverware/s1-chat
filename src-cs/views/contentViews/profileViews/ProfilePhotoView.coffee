@@ -11,12 +11,16 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
        <label class="control-label">current image</label>
         <div class="controls"><img id="current-image" style="height: 100px" /></div>
        </div>
+       <div class="control-group">
+       <label class="control-label">new image</label>
+        <div class="controls"><button {{action openWebcamPopup target="view"}} type="button">take webcam picture</button></div>
+       </div>
       {{view Chat.FileSelect label="Select an image" viewName="image"}}
       <div class="control-group image-preview" {{bind-attr class="showPreview:show:hide"}} >
         <label class="control-label">preview</label>
         <div class="controls"><img id="image-preview" style="height: 100px" /></div>
        </div>
-      {{view Chat.Button disabled="true" value="Upload Photo"}}
+      {{view Chat.Button disabled="true" viewName="saveButton" value="Upload Photo"}}
      </form>
 
      <div class=""></div>
@@ -40,8 +44,6 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
       formData.append "y", @selection.y
       formData.append "wh", @selection.w
 
-
-
       $.ajax
         type: "POST"
         url: "/ajax/user/image"
@@ -52,6 +54,13 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
           @disableButtons @$("form"), false
           @handleResponse result
           @setCurrentImage()
+
+    openWebcamPopup: ->
+      console.debug "huhu"
+      Chat.WebCamPopup.create
+        onPictureTaken: (file) =>
+          console.debug file
+
 
   didInsertElement: ->
     @_super()

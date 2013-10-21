@@ -4,6 +4,14 @@ Chat.PopupView = Ember.View.extend
     <div class="popup-content">{{yield}}</div>
   """
 
+  init: ->
+    @_super()
+    @appendTo "body"
+
+  actions:
+    hide: ->
+      @hide()
+
   didInsertElement: ->
     $(document).keyup (e) =>
       if e.keyCode is 27
@@ -11,18 +19,13 @@ Chat.PopupView = Ember.View.extend
 
     popupContent = @$(".popup-content")
 
-    popupContent.css("position","absolute")
+    popupContent.css "position", "absolute"
     #popupContent.css("top", Math.max(0, (($(window).height() - popupContent.outerHeight()) / 2) + $(window).scrollTop()) + "px")
     #popupContent.css("left", Math.max(0, (($(window).width() - popupContent.outerWidth()) / 2) + $(window).scrollLeft()) + "px")
 
     $(".popup-content").fadeIn()
 
-  show: ->
-    @appendTo "body"
-    #console.debug @$()
-    #@$(".popup-container").fadeIn "slow"
-
   hide: ->
-    $(".popup-container").fadeOut("fast", () =>
-      @destroy())
+    $(".popup-container").fadeOut "fast", =>
+      @destroy()
 
