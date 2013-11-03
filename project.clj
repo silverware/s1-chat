@@ -37,7 +37,7 @@
                       [lein-localrepo "0.4.1"]
                       ]
             :ring {:handler s1-chat.handler/app
-                   :init s1-chat.server/initialize-app
-                   :auto-reload? true}
+                   :init s1-chat.server/initialize-app}
+                   
             )
 

@@ -30,6 +30,10 @@
 
 (defn get-user [username] (@connected-users username))
 
+(defn get-sanitized-user [username] 
+  (let [user (get-user username)]
+    (assoc (select-keys user [:name :attr-map]) :attr-map @(:attr-map user))))
+
 (defn valid-session-id? [username provided-id]
   (dosync 
     (= (:session-id (@connected-users username)) (str provided-id))))

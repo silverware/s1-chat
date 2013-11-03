@@ -2,6 +2,7 @@
   (:use lamina.core aleph.formats))
 
 (defrecord Chan [name channel users attr-map])
+
 (defn craft-public-msg [{{username :username} :ticket :as msg}] 
   "When a user writes into a Chan the message is siphoned into it.
   However, it needs to undergo modifications such as removal of the ticket.
@@ -40,7 +41,6 @@
 
 (defn get-chan [^String chan-name]
   (@chans chan-name))
-
 
 (defn add-user-to-chan
   [user dest-chan]
