@@ -14,7 +14,7 @@
 (defn send-join-success [ch id chan]
   (enqueue 
     ch 
-    {:id id :type "joinsuccess" :users (map #(get-sanitized-user (:name %)) @(:users chan)) :chan-name (:name chan) :anonymous (:anonymous? @(:attr-map chan))}))
+    {:id id :type "joinsuccess" :usernames (map #(:name %) @(:users chan)) :users (map #(get-sanitized-user (:name %)) @(:users chan)) :chan-name (:name chan) :anonymous (:anonymous? @(:attr-map chan))}))
 
 (defn send-success [ch id payload]
   (enqueue ch {:id id :type "success" :payload payload}))
@@ -42,7 +42,7 @@
       (case (:type msg)
         "join" (let [dest-chan (get-chan (:chan-name msg))]
                  (add-user-to-chan user dest-chan)
-                 (enqueue (:channel dest-chan) (assoc (dissoc msg :username) :user (get-sanitized-user username)))
+                 (enqueue (:channel dest-chan) (assoc msg :user (get-sanitized-user username)))
                  (send-join-success ch id dest-chan))
         "part" (let [chan (get-chan (:chan-name msg))]
                  (remove-user-from-chan user chan)
