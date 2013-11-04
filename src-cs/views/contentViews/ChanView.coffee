@@ -20,16 +20,37 @@ Chat.ChanView = Chat.ContentView.extend
   classNames: ['chan', 'content-2']
   messageHistory: []
   historyIndex: 0
+  previousMessageLength: 0
 
   init: ->
     @_super()
     @set "messageHistory", []
+    @typingTimer = null
 
   didInsertElement: ->
+    FORWARD_SLASH = 191
+
     @_super()
     @adjustHeight()
     $(window).resize => @adjustHeight()
+    f = () =>
+      @typingTimer = null
+      @get("controller.model").sendTypingStatus("stoppedtyping")
+
+    @$("#message").keyup ({keyCode}) =>
+      message = @$("#message").val()
+      if (not (message.charAt(0) == '/' or message.length == 0 or @previousMessageLength == message.length))
+        @previousMessageLength = message.length
+        if null == @typingTimer
+          @get("controller.model").sendTypingStatus("typing")
+          @typingTimer = null
+          @typingTimer = window.setTimeout(f, 3000)
+        else
+          clearTimeout @typingTimer
+          @typingTimer = window.setTimeout(f, 3000)
+
     @$("#message").keydown ({keyCode}) =>
+
       if keyCode is 38 and @historyIndex >= 0
         @historyIndex--
       if keyCode is 40 and @historyIndex <= @messageHistory.length

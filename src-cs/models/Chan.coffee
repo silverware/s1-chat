@@ -27,6 +27,11 @@ Chat.Chan = Em.Object.extend
         @usernames.pushObject message.username
         @addMessage type: "join", name: message.username
 
+  sendTypingStatus: (status) ->
+    Chat.sendMsg
+      type: status
+      "chan-name": @name
+
   sendMessage: (text) ->
     Chat.sendMsg
       type: "msg"
