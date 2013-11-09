@@ -1,5 +1,5 @@
 Em.TextField.reopen
-  attributeBindings: ['placeholder', 'disabled', 'maxlength', "name", "type"]
+  attributeBindings: ["style", 'placeholder', 'disabled', 'maxlength', "name", "type"]
 
 Chat.TextField = Chat.FormFieldView.extend
   type: "text"

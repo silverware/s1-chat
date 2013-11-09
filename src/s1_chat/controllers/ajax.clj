@@ -34,12 +34,14 @@
     ))
 
 (defn valid-date? [year month day]
-  (try (clj-time/date-time year month day) true
-    (catch IllegalFieldValueException e false)))
+  (if (every? clojure.string/blank? [year month day])
+    true
+    (try (clj-time/date-time (read-string year) (read-string month) (read-string day)) true
+      (catch Exception e false))))
 
-(defn valid-userprofile? [{:keys [email birthday-day birthday-month birthday-year]}]
+(defn valid-userprofile? [{:keys [email birthdate-day birthdate-month birthdate-year]}]
   (vali/rule (vali/is-email? email) [:email "Invalid E-Mail Address."])
-  ;(vali/rule (valid-date? birthday-year birthday-month birthday-day) [:birthdate "Invalid birthdate."])
+  (vali/rule (valid-date? birthdate-year birthdate-month birthdate-day) [:birthdate "Invalid birthdate."])
   )
 
 (defn save-user-profile [user username]
@@ -49,7 +51,7 @@
         (response (assoc response-map :errors ["Error while updating the database."]))
         (response (assoc response-map :success true))
         )
-      (response (assoc response-map :fieldErrors (json-errors :email)))
+      (response (assoc response-map :fieldErrors (json-errors :email :birthdate)))
       )))
 
 

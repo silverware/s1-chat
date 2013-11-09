@@ -1,5 +1,5 @@
 Em.Select.reopen
-  attributeBindings: ["name", "size"]
+  attributeBindings: ["name", "size", "style"]
 
 Chat.Select = Chat.FormFieldView.extend
   size: 1
@@ -9,11 +9,10 @@ Chat.Select = Chat.FormFieldView.extend
         optionLabelPathBinding="view.optionLabelPath"
         valueBinding="view.value" sizeBinding="view.size"
     viewName="formField" nameBinding="view.viewName"}}
-    </select>
   """
 
   didInsertElement: ->
     @_super()
     console.debug "Lkj"
-    @$('.selectpicker').selectBox()
+    #@$('.selectpicker').selectBox()
 
