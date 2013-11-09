@@ -33,21 +33,32 @@
     (redirect "/img/dummy.png")
     ))
 
+(defn create-birthdate [year month day]
+  (.toDate (clj-time/date-time (read-string year) (read-string month) (read-string day))))
+
 (defn valid-date? [year month day]
   (if (every? clojure.string/blank? [year month day])
     true
-    (try (clj-time/date-time (read-string year) (read-string month) (read-string day)) true
-      (catch Exception e false))))
+    (try (create-birthdate year month day) true
+      (catch Exception e 
+        (.printStackTrace e) 
+        false))))
 
 (defn valid-userprofile? [{:keys [email birthdate-day birthdate-month birthdate-year]}]
   (vali/rule (vali/is-email? email) [:email "Invalid E-Mail Address."])
-  (vali/rule (valid-date? birthdate-year birthdate-month birthdate-day) [:birthdate "Invalid birthdate."])
-  )
+  (vali/rule (valid-date? birthdate-year birthdate-month birthdate-day) [:birthdate "Invalid birthdate."]))
+
+(defn add-birthdate [{:keys [birthdate-day birthdate-month birthdate-year] :as user}]
+  (assoc (dissoc user :birthdate-day :birthdate-month :birthdate-year) :birthdate 
+           (if (every? clojure.string/blank? [birthdate-year birthdate-month birthdate-day])
+             nil
+             (create-birthdate birthdate-year birthdate-month birthdate-day))))
 
 (defn save-user-profile [user username]
   (let [response-map {:success false :fieldErrors nil :errors nil}]
     (if (valid-userprofile? user)
-      (if (mr/has-error? (mc/update "users" {:username username} {"$set" user} :upsert false))
+      
+      (if (mr/has-error? (mc/update "users" {:username username} {"$set" (add-birthdate user)} :upsert false))
         (response (assoc response-map :errors ["Error while updating the database."]))
         (response (assoc response-map :success true))
         )

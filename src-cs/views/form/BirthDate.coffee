@@ -2,7 +2,7 @@ Chat.BirthDate = Chat.FormFieldView.extend
   type: "text"
   date: new Date()
   days: [{day: ""}].concat [1..31].map (d) -> {day: d}
-  months: ["", "January", "February", "March", "April", "June", "July", "August", "September", "November", "December"].map (m, i) -> {id: i , label: m}
+  months: [{id: "", label: ""}].concat ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map (m, i) -> {id: i+1 , label: m}
   label: "Birthdate"
 
   template: Ember.Handlebars.compile """
