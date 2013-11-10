@@ -79,12 +79,8 @@ Chat.ChanView = Chat.ContentView.extend
       @$("form input").val "/query #{username} "
       @$("form input").focus()
 
-
-
-  onMessageSizeChanged: (->
-    console.debug "lsdfkj"
+  onMessageRendered: ->
     @$(".content-messages-wrapper").scrollTop(@$(".content-messages-wrapper")[0].scrollHeight)
-  ).observes("messages.@each")
 
   adjustHeight: ->
     if not @$() then return

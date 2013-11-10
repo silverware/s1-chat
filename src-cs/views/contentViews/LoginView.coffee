@@ -79,11 +79,10 @@ Chat.LoginView = Chat.ContentView.extend Chat.ValidationMixin,
       @clearErrorMessages("#register-form")
       formData = @$("#register-form").serialize()
 
-      buttonHTML = @$(":button").html()
-      @$(":button").html("&nbsp;<i class=\"icon-spinner icon-spin\"></i>")
+      @disableButtons @$("#register-form"), true
 
       $.post('/register', formData, (data) =>
-        @$(":button").html(buttonHTML)
+        @disableButtons @$("#register-form"), false
         if data.fieldErrors
           @insertFieldErrorMessages(data.fieldErrors)
         else if data.errors
@@ -94,8 +93,8 @@ Chat.LoginView = Chat.ContentView.extend Chat.ValidationMixin,
           @$(html).insertBefore("#register-form")
         else
           @$("a[href=#login-pane]").tab('show')
-          @$("#login-username").val(@$("#username").val())
-          @$('<div class="alert alert-success fade in"><button type="button" class="close" data-dismiss="alert">×</button>Super gemacht, Arschloch!</div>').insertBefore("#login-tabs")
+          @get("login-username").set "value", @get("username.value")
+          @$('<div class="alert alert-success fade in"><div class="close" data-dismiss="alert">×</div>Registration completed!</div>').insertBefore("#login-tabs")
       , "json")
 
   show: ->

@@ -40,3 +40,4 @@ Chat.MessageView = Ember.View.extend
 
   didInsertElement: ->
     @_super()
+    @get("parentView").onMessageRendered()

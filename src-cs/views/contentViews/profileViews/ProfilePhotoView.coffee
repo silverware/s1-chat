@@ -6,16 +6,20 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
     <h1>Upload Photo</h1>
 
 
-     <form class="form-horizontal" {{action "uploadImage" target="view" on="submit"}}>
+    <form class="form-horizontal" {{action "uploadImage" target="view" on="submit"}}>
       <div class="control-group">
-       <label class="control-label">current image</label>
+        <label class="control-label">current image</label>
         <div class="controls"><img id="current-image" style="height: 100px" /></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">new image</label>
+        <div class="controls">
+          <button {{action openWebcamPopup target="view"}} type="button">webcam picture</button>
+          <button {{action openDiscUpload target="view"}} type="button">from platte</button>
+        </div>
+
        </div>
-       <div class="control-group">
-       <label class="control-label">new image</label>
-        <div class="controls"><button {{action openWebcamPopup target="view"}} type="button">take webcam picture</button></div>
-       </div>
-      {{view Chat.FileSelect label="Select an image" viewName="image"}}
+      <div style="display: none">{{view Chat.FileSelect label="Select an image" viewName="image"}}</div>
       <div class="control-group image-preview" {{bind-attr class="showPreview:show:hide"}} >
         <label class="control-label">preview</label>
         <div class="controls"><img id="image-preview" style="height: 100px" /></div>
@@ -56,10 +60,11 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
           @setCurrentImage()
 
     openWebcamPopup: ->
-      console.debug "huhu"
       Chat.WebCamPopup.create
         onPictureTaken: (file) =>
           @openPreview file
+    openDiscUpload: ->
+      @$("input[name='image']").click()
 
 
   didInsertElement: ->
@@ -68,10 +73,12 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
 
   onImageValueChange: (->
     if not @get "image.value" then return
-    @openPreview URL.createObjectURL @$("input[name='image']")[0].files[0]
+    @selectedImage = @$("input[name='image']")[0].files[0]
+    @openPreview URL.createObjectURL @selectedImage
   ).observes("image.value")
 
   openPreview: (src) ->
+    console.debug "kljlkjlk"
     @get("saveButton").set "disabled", false
     @$("#image-preview").prop "src", src
     @set "showPreview", true
