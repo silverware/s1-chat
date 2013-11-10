@@ -6,7 +6,7 @@ Chat.TextField = Chat.FormFieldView.extend
 
   template: Ember.Handlebars.compile """
     {{view Em.TextField valueBinding="view.value" placeholderBinding="view.placeholder"
-    viewName="formField" nameBinding="view.viewName"
+    nameBinding="view.viewName"
     disabledBinding="view.disabled" typeBinding="view.type"}}
   """
 

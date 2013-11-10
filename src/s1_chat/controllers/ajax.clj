@@ -46,7 +46,8 @@
 
 (defn valid-userprofile? [{:keys [email birthdate-day birthdate-month birthdate-year]}]
   (vali/rule (vali/is-email? email) [:email "Invalid E-Mail Address."])
-  (vali/rule (valid-date? birthdate-year birthdate-month birthdate-day) [:birthdate "Invalid birthdate."]))
+  (vali/rule (valid-date? birthdate-year birthdate-month birthdate-day) [:birthdate "Invalid birthdate."])
+  (not (vali/errors? :birthdate :email)))
 
 (defn add-birthdate [{:keys [birthdate-day birthdate-month birthdate-year] :as user}]
   (assoc (dissoc user :birthdate-day :birthdate-month :birthdate-year) :birthdate 
