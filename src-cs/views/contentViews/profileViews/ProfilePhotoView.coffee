@@ -59,7 +59,7 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
       console.debug "huhu"
       Chat.WebCamPopup.create
         onPictureTaken: (file) =>
-          console.debug file
+          @openPreview file
 
 
   didInsertElement: ->
@@ -68,17 +68,18 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
 
   onImageValueChange: (->
     if not @get "image.value" then return
+    @openPreview URL.createObjectURL @$("input[name='image']")[0].files[0]
+  ).observes("image.value")
+
+  openPreview: (src) ->
     @get("saveButton").set "disabled", false
-    @selectedImage = @$("input[name='image']")[0].files[0]
-    console.debug @selectedImage
-    @$("#image-preview").prop "src", URL.createObjectURL @selectedImage
+    @$("#image-preview").prop "src", src
     @set "showPreview", true
     @$("#image-preview").Jcrop
       aspectRatio: 1/1
       setSelect: [ 33, 33, 66, 66 ]
       onSelect: (e) =>
         @set "selection", e
-  ).observes("image.value")
 
   setCurrentImage: ->
     @$("#current-image").prop "src", "/ajax/user/#{Chat.ticket.username}/image?no-cache=#{Math.random()}"

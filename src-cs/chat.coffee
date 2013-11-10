@@ -11,6 +11,9 @@ App = Em.Application.extend
   # Private Chats
   queryStreams: []
 
+  # Video Chats
+  videoChats: []
+
   # authentication
   authCallback: null
   isGuest: null
@@ -24,8 +27,6 @@ App = Em.Application.extend
 
   init: ->
     @_super()
-    @set "queryStreams", []
-    @set "chans", []
     @websocket = $.gracefulWebSocket "ws://#{window.location.hostname}:8008/"
     @websocket.onmessage = @onResponse.bind @
     $(window).unload => @onUnload()
