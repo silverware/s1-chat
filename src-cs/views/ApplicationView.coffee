@@ -26,6 +26,15 @@ Chat.ApplicationView = Em.View.extend
             </li>
           {{/each}}
         </ul>
+
+        <h5>video chats</h5>
+        <ul>
+          {{#each video in Chat.videoChats}}
+            <li {{action "open" target="video"}}><img src="/img/dummy.png" />
+              {{video.username}}
+            </li>
+          {{/each}}
+        </ul>
       {{/if}}
 
       <div class="bottom-nav">
@@ -46,6 +55,9 @@ Chat.ApplicationView = Em.View.extend
        </div>
 
       </nav>
+
+      {{outlet sidebar}}
+
       <div id="queryStreams">
         {{#each stream in Chat.queryStreams}}
           {{#if stream.isVisible}}{{view Chat.QueryStreamView streamBinding="stream"}}{{/if}}

@@ -63,10 +63,6 @@
                (include-js "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/js/toastr.js")
                (include-css "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/css/toastr.css")
 
-               ; select-box
-               (include-js "/lib/select-box/jquery.selectBox.min.js")
-               (include-css "/lib/select-box/jquery.selectBox.css")
-
                ;jcrop
                (include-css "/lib/jcrop/jquery.Jcrop.min.css")
                (include-js "/lib/jcrop/jquery.Jcrop.min.js")

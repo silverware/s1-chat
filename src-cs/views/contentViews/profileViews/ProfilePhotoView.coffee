@@ -1,33 +1,31 @@
 Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
   classNames: ['content-2']
-  showPreview: false
   template: Ember.Handlebars.compile """
-    {{view Chat.ProfileNavView}}
     <h1>Upload Photo</h1>
 
-
-     <form class="form-horizontal" {{action "uploadImage" target="view" on="submit"}}>
+    <form class="form-horizontal" {{action "uploadImage" target="view" on="submit"}}>
       <div class="control-group">
-       <label class="control-label">current image</label>
+        <label class="control-label">current image</label>
         <div class="controls"><img id="current-image" style="height: 100px" /></div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">new image</label>
+        <div class="controls">
+          <button {{action openWebcamPopup target="view"}} type="button">webcam picture</button>
+          <button {{action openDiscUpload target="view"}} type="button">from platte</button>
+        </div>
+
        </div>
-       <div class="control-group">
-       <label class="control-label">new image</label>
-        <div class="controls"><button {{action openWebcamPopup target="view"}} type="button">take webcam picture</button></div>
-       </div>
-      {{view Chat.FileSelect label="Select an image" viewName="image"}}
+      <div style="display: none">{{view Chat.FileSelect label="Select an image" viewName="image"}}</div>
       <div class="control-group image-preview" {{bind-attr class="showPreview:show:hide"}} >
         <label class="control-label">preview</label>
         <div class="controls"><img id="image-preview" style="height: 100px" /></div>
        </div>
       {{view Chat.Button disabled="true" viewName="saveButton" value="Upload Photo"}}
      </form>
-
-     <div class=""></div>
-
-
   """
 
+  showPreview: false
   selection:
     x: 30
     y: 30
@@ -68,10 +66,13 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
         img.src = fr.result
 
     openWebcamPopup: ->
-      console.debug "huhu"
+      @removePreview()
       Chat.WebCamPopup.create
         onPictureTaken: (file) =>
-          console.debug file
+          @openPreview file
+
+    openDiscUpload: ->
+      @$("input[name='image']").click()
 
 
   didInsertElement: ->
@@ -80,17 +81,29 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
 
   onImageValueChange: (->
     if not @get "image.value" then return
-    @get("saveButton").set "disabled", false
     @selectedImage = @$("input[name='image']")[0].files[0]
-    console.debug @selectedImage
-    @$("#image-preview").prop "src", URL.createObjectURL @selectedImage
+    @openPreview URL.createObjectURL @selectedImage
+  ).observes("image.value")
+
+  openPreview: (src) ->
+    @removePreview()
+    @get("saveButton").set "disabled", false
+    @$("#image-preview").prop "src", src
     @set "showPreview", true
+
+    self = @
     @$("#image-preview").Jcrop
       aspectRatio: 1/1
       setSelect: [ 33, 33, 66, 66 ]
       onSelect: (e) =>
         @set "selection", e
-  ).observes("image.value")
+      , -> self.jcropper = @
+
+  removePreview: ->
+    @$("#image-preview").prop "src", ""
+    if @jcropper then @jcropper.destroy()
+    @get("saveButton").set "disabled", true
+
 
   setCurrentImage: ->
     @$("#current-image").prop "src", "/ajax/user/#{Chat.ticket.username}/image?no-cache=#{Math.random()}"

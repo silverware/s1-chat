@@ -3,7 +3,6 @@ Chat.WebCamPopup = Chat.PopupView.extend
   <h4>Take webcam picture</h4>
        <div class="tab-pane active" id="webcam-pane">
         <div id="photobooth" style="width: 400px; height: 300px"></div>
-        <div id="preview"></div>
         <button >TAKE PICTURE</button>
         <button {{action hide target="view"}} >CANCEL</button>
      </div>
@@ -12,8 +11,8 @@ Chat.WebCamPopup = Chat.PopupView.extend
 
   didInsertElement: ->
     @_super()
-    $('#photobooth').photobooth().on "image", (event, dataUrl) ->
-      $("#preview").append "<img src='#{dataUrl}' />"
-
+    $('#photobooth').photobooth().on "image", (event, dataUrl) =>
+      @onPictureTaken dataUrl
+      @hide()
 
   onPictureTaken: ->
