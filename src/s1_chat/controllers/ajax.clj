@@ -12,6 +12,7 @@
         ring.util.response
         s1-chat.validation
         [image-resizer.core :only [crop-from resize]]
+        [image-resizer.format :only [as-stream as-file]]
         )
   (:import (org.joda.time IllegalFieldValueException)))
 
@@ -28,7 +29,7 @@
     (not-found "user not found")))
 
 (defn user-image [username]
-  (if-let [image (gfs/find-one {:filename (str "/image/" username)})]
+  (if-let [image (gfs/find-one {:filename (str "image/" username)})]
     (response (.getInputStream image))
     (redirect "/img/dummy.png")
     ))
@@ -83,14 +84,15 @@
         )))
 
 (defn save-image [username image [x y wh]]
-  (let [file-name (str "/image/" username)] 
+  (let [file-name (str "image/" username)]
     (println (get image :tempfile))
     (println image)
     (println x y wh)
-    (println (resize (get image :tempfile) 12 12))
+    (println file-name)
     (gfs/remove {:filename file-name})
-    (gfs/store-file (gfs/make-input-file (get image :tempfile)) ;(crop-from x y wh wh))(get image :tempfile)
-                (gfs/filename file-name))))
+    (gfs/store-file 
+      (gfs/make-input-file (as-stream (apply crop-from (get image :tempfile) (map read-string [x y wh wh])) "jpg")) 
+      (gfs/filename file-name))))
 
 
 (defn public-chans [] (response (map second (for [[k v] (select-keys @chat/chans (for [[k v] @chat/chans :when (not (:anonymous? @(:attr-map v)))] k))] [k (dissoc (assoc v :users (count @(:users v))) :channel :attr-map)] ))))

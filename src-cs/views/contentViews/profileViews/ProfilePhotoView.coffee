@@ -35,25 +35,37 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
 
   actions:
     uploadImage: ->
-      @disableButtons @$("form"), true
-      formData = new FormData()
-      formData.append "image", @selectedImage
-      formData.append "username", Chat.ticket.username
-      formData.append "session-id", Chat.ticket["session-id"]
-      formData.append "x", @selection.x
-      formData.append "y", @selection.y
-      formData.append "wh", @selection.w
+      previewImage = @$('#image-preview')
+      previewWidth = previewImage.width()
+      previewHeight = previewImage.height()
 
-      $.ajax
-        type: "POST"
-        url: "/ajax/user/image"
-        data: formData
-        contentType: false
-        processData: false
-        success: (result) =>
-          @disableButtons @$("form"), false
-          @handleResponse result
-          @setCurrentImage()
+      img = new Image()
+      img.onload = () =>
+        @disableButtons @$("form"), true
+        formData = new FormData()
+        formData.append "image", @selectedImage
+        formData.append "username", Chat.ticket.username
+        formData.append "session-id", Chat.ticket["session-id"]
+        formData.append "x", @selection.x * img.width / previewWidth
+        formData.append "y", @selection.y * img.height / previewHeight
+        formData.append "wh", @selection.w * img.width / previewWidth
+
+        $.ajax
+          type: "POST"
+          url: "/ajax/user/image"
+          data: formData
+          contentType: false
+          processData: false
+          success: (result) =>
+            @disableButtons @$("form"), false
+            @handleResponse result
+            @setCurrentImage()
+      
+      fr = new FileReader
+      fr.readAsDataURL(@selectedImage)
+
+      fr.onload = () ->
+        img.src = fr.result
 
     openWebcamPopup: ->
       console.debug "huhu"
