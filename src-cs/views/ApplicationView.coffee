@@ -55,6 +55,9 @@ Chat.ApplicationView = Em.View.extend
        </div>
 
       </nav>
+
+      {{outlet sidebar}}
+
       <div id="queryStreams">
         {{#each stream in Chat.queryStreams}}
           {{#if stream.isVisible}}{{view Chat.QueryStreamView streamBinding="stream"}}{{/if}}

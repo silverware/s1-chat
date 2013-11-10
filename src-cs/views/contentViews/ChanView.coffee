@@ -1,8 +1,5 @@
 Chat.ChanView = Chat.ContentView.extend
   template: Ember.Handlebars.compile """
-
-    {{view Chat.ChanUsersView chanBinding="model"}}
-    <div class="chan-title">{{name}}</div>
     <div class="messages">
       <div class="content-messages">
       <div style="overflow: auto" class="content-messages-wrapper">
@@ -17,6 +14,7 @@ Chat.ChanView = Chat.ContentView.extend
      <input id="message" type="text" placeholder="Message" autocomplete="off" />
     </form>
   """
+
   classNames: ['chan', 'content-2']
   messageHistory: []
   historyIndex: 0

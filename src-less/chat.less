@@ -160,12 +160,13 @@ nav {
 
 .nav-2 {
   box-shadow: none;
-  left: -@sidebarWidth;
+  position: absolute;
+  left: @sidebarWidth;
   border-right: 1px dotted #ccc;
   //.nav-gradient;
   background-color: rgba(0, 0, 0, 0.05);
-    color: @text;
-    top: 40px;
+  color: @text;
+  top: 40px;
 }
 
 
@@ -205,12 +206,25 @@ Chan
 	bottom: 0;
 	top: 0;
 	right: 0;
-	left: 200px;
+	left: @sidebarWidth;
   padding: @contentPadding;
 	transition: all 0.5s;
 	background-image: url("../img/grain.png");
   	background-position: center top;
   	background-repeat: repeat;
+
+  .content-title {
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    left: @sidebarWidth;
+    font-size: 25px;
+    text-align: center;
+    background-color: @blue;
+    color: @white;
+    padding: 10px;
+    z-index: 10;
+  }
 }
 
 .content-2 {
@@ -281,18 +295,7 @@ Chan
 		padding: 10px;
 		z-index: 10;
 	}*/
-  .chan-title {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    left: -@sidebarWidth;
-    font-size: 25px;
-    text-align: center;
-    background-color: @blue;
-    color: @white;
-    padding: 10px;
-    z-index: 10;
-  }
+
 
   .user-profile-view {
     background-color: white;

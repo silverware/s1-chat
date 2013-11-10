@@ -1,10 +1,7 @@
 Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
   classNames: ['content-2']
-  showPreview: false
   template: Ember.Handlebars.compile """
-    {{view Chat.ProfileNavView}}
     <h1>Upload Photo</h1>
-
 
     <form class="form-horizontal" {{action "uploadImage" target="view" on="submit"}}>
       <div class="control-group">
@@ -26,12 +23,9 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
        </div>
       {{view Chat.Button disabled="true" viewName="saveButton" value="Upload Photo"}}
      </form>
-
-     <div class=""></div>
-
-
   """
 
+  showPreview: false
   selection:
     x: 30
     y: 30
@@ -60,9 +54,11 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
           @setCurrentImage()
 
     openWebcamPopup: ->
+      @removePreview()
       Chat.WebCamPopup.create
         onPictureTaken: (file) =>
           @openPreview file
+
     openDiscUpload: ->
       @$("input[name='image']").click()
 
@@ -78,15 +74,24 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
   ).observes("image.value")
 
   openPreview: (src) ->
-    console.debug "kljlkjlk"
+    @removePreview()
     @get("saveButton").set "disabled", false
     @$("#image-preview").prop "src", src
     @set "showPreview", true
+
+    self = @
     @$("#image-preview").Jcrop
       aspectRatio: 1/1
       setSelect: [ 33, 33, 66, 66 ]
       onSelect: (e) =>
         @set "selection", e
+      , -> self.jcropper = @
+
+  removePreview: ->
+    @$("#image-preview").prop "src", ""
+    if @jcropper then @jcropper.destroy()
+    @get("saveButton").set "disabled", true
+
 
   setCurrentImage: ->
     @$("#current-image").prop "src", "/ajax/user/#{Chat.ticket.username}/image?no-cache=#{Math.random()}"
