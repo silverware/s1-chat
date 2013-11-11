@@ -3,7 +3,7 @@ Chat.ApplicationView = Em.View.extend
   defaultTemplate: Ember.Handlebars.compile """
     <nav class="nav-0">
       <ul>
-        {{#link-to 'index' tagName='li'}}<i class="icon-home"></i>home{{/link-to}}
+        {{#link-to 'index' tagName='li'}}<i class="icon-home"></i>Home{{/link-to}}
       </ul>
 
       {{#if Chat.isAuthenticated}}
@@ -17,6 +17,7 @@ Chat.ApplicationView = Em.View.extend
           {{/each}}
         </ul>
 
+        {{#if Chat.privateChannels}}
         <h5>private channels</h5>
         <ul>
           {{#each channel in Chat.privateChannels}}
@@ -26,7 +27,9 @@ Chat.ApplicationView = Em.View.extend
             </li>
           {{/each}}
         </ul>
+        {{/if}}
 
+        {{#if Chat.videoChats}}
         <h5>video chats</h5>
         <ul>
           {{#each video in Chat.videoChats}}
@@ -36,6 +39,7 @@ Chat.ApplicationView = Em.View.extend
             {{/link-to}}
           {{/each}}
         </ul>
+        {{/if}}
       {{/if}}
 
       <div class="bottom-nav">
@@ -43,9 +47,9 @@ Chat.ApplicationView = Em.View.extend
           <h5>{{Chat.ticket.username}}</h5>
           <ul>
             {{#unless Chat.isGuest}}
-              {{#link-to 'profile' tagName='li'}}<i class="icon-edit"></i>edit profile{{/link-to}}
+              {{#link-to 'profile' tagName='li'}}<i class="icon-edit"></i>Edit Profile{{/link-to}}
             {{/unless}}
-            <li {{action logout target="Chat"}}><i class="icon-edit"></i>log out</li>
+            <li {{action logout target="Chat"}}><i class="icon-edit"></i>Logout</li>
           </ul>
        {{else}}
          <ul>
