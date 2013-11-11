@@ -1,22 +1,25 @@
 Chat.VideoChat = Em.Object.extend
+
+  username: ""
   # RTCPeerConnection
   peerConnection: null
 
-  init: (data) ->
+  init: ->
+    @_super()
     if not @peerConnection
-      @startVideo false, data.username
-    if data.payload.sdp
+      @startVideo false
+    if data?.payload?.sdp
       @peerConnection.setRemoteDescription(new RTCSessionDescription(data.payload.sdp))
-    else if data.payload.candidate
+    else if data?.payload?.candidate
       @peerConnection.addIceCandidate(new RTCIceCandidate(data.payload.candidate))
 
-  startVideo: (isCaller, receiver) ->
+  startVideo: (isCaller) ->
     pc_config = "iceServers": ["url": "stun:stun.l.google.com:19302"]
     @peerConnection = new RTCPeerConnection(pc_config)
     @peerConnection.onicecandidate = (evt) =>
       Chat.sendMsg
         type: "video"
-        receiver: receiver
+        receiver: @username
         payload:
           candidate: evt.candidate
 
@@ -36,7 +39,7 @@ Chat.VideoChat = Em.Object.extend
             @peerConnection.setLocalDescription desc
             Chat.sendMsg
                 type: "video"
-                receiver: receiver
+                receiver: @username
                 payload:
                   sdp: desc
       else
@@ -45,6 +48,6 @@ Chat.VideoChat = Em.Object.extend
           @peerConnection.setLocalDescription desc
           Chat.sendMsg
               type: "video"
-              receiver: receiver
+              receiver: @username
               payload:
                 sdp: desc

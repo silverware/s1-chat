@@ -7,13 +7,13 @@ Chat.ChanRoute = Ember.Route.extend Chat.EnsureAuthentificationMixin,
     Chat.join chan_name
 
   renderTemplate: ->
-    @render 'chan'
+    @_super()
     @render 'chanUsers',
       outlet: 'sidebar'
 
   setupController: (controller, chan) ->
+    @_super controller, chan
     controller.set "title", chan.name
-    controller.set "model", chan
 
 
 

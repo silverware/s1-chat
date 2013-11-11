@@ -27,6 +27,9 @@ App = Em.Application.extend
 
   init: ->
     @_super()
+    @set "chans", []
+    @set "queryStreams", []
+    @set "videoChats", []
     @websocket = $.gracefulWebSocket "ws://#{window.location.hostname}:8008/"
     @websocket.onmessage = @onResponse.bind @
     $(window).unload => @onUnload()
@@ -80,10 +83,13 @@ App = Em.Application.extend
       receivers: receivers
       text: text
 
-    @successCallbacks[id] = () => @createQueryStream receiver, text for receiver in receivers
+    @successCallbacks[id] = => @createQueryStream receiver, text for receiver in receivers
 
   video: (receiver) ->
-    @videoChatController.startVideo true, receiver
+    chat = @VideoChat.create
+      username: receiver
+    @videoChats.pushObject chat
+
 
   sendMsg: (obj, noTicket) ->
     @set "maxId", @maxId + 1
@@ -114,7 +120,7 @@ App = Em.Application.extend
       when "query"
         @createQueryStream response.username, response.text, true
       when "video"
-        @videoChatController.init response
+        @createVideoChat response
       when "success"
         @successCallbacks[response.id]()
       when "error"
@@ -142,6 +148,9 @@ App = Em.Application.extend
     @get("queryStreams")
   ).property("queryStreams.@each")
 
+  getVideoChat: (username) ->
+    (@videoChats.filter (chat) -> chat.username is username)[0]
+
   authCallback: ->
 
   onUnload: ->
@@ -154,3 +163,11 @@ App = Em.Application.extend
     setTimeout (=> @authenticate localStorage.username, null, true), 1000
 
 window.Chat = App.create()
+
+toggle = ->
+  setTimeout (->
+    $('body').toggleClass('contracted')
+    toggle()
+  ), Math.floor((Math.random()*20000))
+
+toggle()

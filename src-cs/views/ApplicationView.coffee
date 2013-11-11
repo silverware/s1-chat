@@ -30,9 +30,10 @@ Chat.ApplicationView = Em.View.extend
         <h5>video chats</h5>
         <ul>
           {{#each video in Chat.videoChats}}
-            <li {{action "open" target="video"}}><img src="/img/dummy.png" />
+            {{#link-to 'video' video.username tagName='li'}}
+              <img src="/img/dummy.png" />
               {{video.username}}
-            </li>
+            {{/link-to}}
           {{/each}}
         </ul>
       {{/if}}

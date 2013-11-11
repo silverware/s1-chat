@@ -28,6 +28,7 @@ Variables
 
 @contentPadding: 30px;
 @sidebarWidth: 220px;
+@contractedSidebarWidth: 50px;
 
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
@@ -100,6 +101,7 @@ Sidebar
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
 
 nav {
+  .boxSizing;
   background-color: @grey;
   color: white;
 	position: absolute;
@@ -108,7 +110,7 @@ nav {
   box-shadow: -20px 0 20px -20px #000 inset;
 	top: 0;
 	bottom: 0;
-	width: 214px;
+  width: @sidebarWidth;
 	border-right: 5px solid @blue;
 	h5 {
 	    font-size: 18px;
@@ -155,7 +157,7 @@ nav {
 .bottom-nav {
 	bottom: 20px;
 	position: absolute;
-	width: 214px;
+  width: 100%;
 }
 
 .nav-2 {
@@ -167,6 +169,25 @@ nav {
   background-color: rgba(0, 0, 0, 0.05);
   color: @text;
   top: 40px;
+}
+
+.contracted {
+  nav {
+    width: @contractedSidebarWidth;
+  }
+  .nav-2 {
+    width: @sidebarWidth;
+    left: @contractedSidebarWidth;
+  }
+  .content {
+    left: @contractedSidebarWidth;
+  }
+  .content-2 {
+    left: @sidebarWidth + @contractedSidebarWidth !important;
+  }
+  .content-title {
+    left: @contractedSidebarWidth !important;
+  }
 }
 
 
@@ -202,6 +223,7 @@ Chan
 
 .content {
 	background-color: rgba(0, 0, 0, 0.05);
+  overflow: auto;
 	position: absolute;
 	bottom: 0;
 	top: 0;
