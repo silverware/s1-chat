@@ -168,6 +168,6 @@ toggle = ->
   setTimeout (->
     $('body').toggleClass('contracted')
     toggle()
-  ), Math.floor((Math.random()*20000))
+  ), (Math.floor((Math.random()*30000)) + 10000)
 
 toggle()
