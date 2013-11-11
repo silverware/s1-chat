@@ -53,8 +53,8 @@ Chat.ApplicationView = Em.View.extend
           </ul>
        {{else}}
          <ul>
-           {{#link-to 'login' tagName='li'}} <i class="icon-edit"></i>log in{{/link-to}}
-           <li {{action openLoginPopup "#register-pane" target="view"}}> <i class="icon-edit"></i>register</li>
+           {{#link-to 'login' tagName='li'}} <i class="icon-edit"></i>Login{{/link-to}}
+           {{#link-to 'signup' tagName='li'}} <i class="icon-edit"></i>Signup{{/link-to}}
          </ul>
        {{/if}}
        </div>

@@ -1,4 +1,5 @@
 Chat.LoginController = Ember.Controller.extend
+  initialTab: ""
   actions:
     login: ->
       #Log the user in, then reattempt previous transition if it exists.

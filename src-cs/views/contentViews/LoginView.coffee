@@ -6,7 +6,7 @@ Chat.LoginView = Chat.ContentView.extend Chat.ValidationMixin,
     <ul id="login-tabs" class="nav nav-tabs">
      <li class="active"> <a href="#guest-login-pane" data-toggle="tab">Guest</a></li>
      <li> <a href="#login-pane" data-toggle="tab">Login</a></li>
-     <li> <a href="#register-pane" data-toggle="tab">Register</a></li>
+     <li> <a href="#register-pane" data-toggle="tab">Signup</a></li>
     </ul>
     <div class="tab-content">
      <div class="tab-pane active" id="guest-login-pane">
@@ -33,14 +33,18 @@ Chat.LoginView = Chat.ContentView.extend Chat.ValidationMixin,
       <button type="submit">Submit</button>
      </form>
       </div>
-
     </div>
 
   """
+
+  onInitialTabChanged: (->
+    @rerender()
+  ).observes("controller.initialTab")
+
   didInsertElement: ->
     @_super()
-
-    @$("a[href=" + @initialTab + "]").tab('show')
+    console.debug @get("controller.initialTab")
+    @$("a[href='#" + @get('controller.initialTab') + "-pane']").tab('show')
 
     @$("#guest-username").focus()
 

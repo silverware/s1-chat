@@ -1,5 +1,5 @@
 Chat.ProfileController = Ember.ObjectController.extend
-  title: "My Profile"
+  title: "Edit Profile"
 
 
 Chat.ProfileIndexController = Chat.ProfileController.extend()
