@@ -39,7 +39,7 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
 
       img = new Image()
       img.onload = () =>
-        @disableButtons @$("form"), true
+        @disableButton @get('saveButton'), true
         formData = new FormData()
         formData.append "image", @selectedImage
         formData.append "username", Chat.ticket.username
@@ -55,10 +55,10 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
           contentType: false
           processData: false
           success: (result) =>
-            @disableButtons @$("form"), false
+            @disableButton @get('saveButton'), false
             @handleResponse result
             @setCurrentImage()
-      
+
       fr = new FileReader
       fr.readAsDataURL(@selectedImage)
 

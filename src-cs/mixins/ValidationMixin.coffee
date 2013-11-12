@@ -38,6 +38,14 @@ Chat.ValidationMixin = Ember.Mixin.create
       form.find(":button").html @tempButtonLabel
     form.find(":button").prop "disabled", disable
 
+  disableButton: (button, disable) ->
+    if disable
+      @tempSingleButtonLabel = button.get("value")
+      button.$("button").html "<i class=\"icon-spinner icon-spin\"></i>"
+    else
+      button.$("button").html @tempSingleButtonLabel
+    button.set "disabled", disable
+
   handleFormSubmit: (form) ->
     if not form.prop "action" then return
     form.submit (event) =>

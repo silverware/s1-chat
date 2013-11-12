@@ -9,14 +9,20 @@ Chat.MessageView = Ember.View.extend
     {{#if view.message.isUser}}
       {{#with view.message.user}}
       <div class="user-profile-view">
-          <img src="/ajax/user/{{unbound username}}/image" />
-          <h4>{{username}} {{#if isGuest}} [guest]{{/if}}
+
+          <div class="actions">
+           <h5>Options</h5>
             <ul>
-              <li {{action queryUser view.message.user.username target="view.parentView"}}>Query</li>
+              <li {{action queryUser view.message.user.username target="view.parentView"}}><i class="icon-comments"></i>Query</li>
+              <li {{action video view.message.user.username target="Chat"}}><i class="icon-comments"></i>video</li>
             </ul>
-          </h4>
-        geolocation, abstand
-        <span>{{about}}</span>
+          </div>
+          <h5>{{username}} {{#if isGuest}} [guest]{{/if}} </h5>
+          <section>
+            <img src="/ajax/user/{{unbound username}}/image" />
+            geolocation, abstand
+            <span>{{about}}</span>
+          </section>
 
 
       </div>

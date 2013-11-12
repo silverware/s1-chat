@@ -142,7 +142,7 @@ nav {
       padding: 2px 5px;
       float: right;
     }
-		.icon-remove {
+		.actions {
 			display: none;
 			transition: all 0.5s;
 		}
@@ -151,7 +151,7 @@ nav {
 		background-color: @blue;
 		color: @white;
 	}
-	li:hover .icon-remove , li.active .icon-remove {
+	li:hover .actions , li.active .actions {
 		display: inline-block;
 	}
 
@@ -263,10 +263,10 @@ Chan
 .chan {
 
 	.messages {
-		bottom: 50px;
+		bottom: 60px;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 35px;
     left: 0;
     .alert {
     	margin: 0px;
@@ -328,25 +328,50 @@ Chan
 
   .user-profile-view {
     background-color: white;
-    min-height: 80px;
+    min-height: 140px;
     border: 1px solid #ccc;
+    section {
+      margin-left: 10px;
+      margin-right: 220px;
+    }
     img {
       float: left;
       margin-right: 10px;
+      margin-bottom: 10px;
       height: 80px;
     }
-    h4 {
-      background-color: @grey;
-      color: #FFFFFF;
+    h5 {
+      color: @grey;
+      font-size: 16px;
       font-weight: bold;
-      margin: 0;
-      padding: 7px;
+      border-bottom: 2px solid @darkBlue;
+      font-family: 'RobotoThin',sans-serif;
+      margin: 10px 220px 10px 10px;
     }
-    ul {
+    .actions {
       float: right;
+      width: 200px;
+      h5 {
+        font-size: 14px;
+        font-weight: 100;
+        margin: 10px 10px 10px 10px;
+      }
+      ul {
+        list-style-type: none;
+        margin: 0 0 10px 10px;
+      }
       li {
         cursor: pointer;
+        line-height: 30px;
+        transition: all 0.5s;
+        margin-bottom: 5px;
+        i {
+          margin-right: 5px;
+        }
       }
+     .actions:after {
+      clear: both;
+     }
     }
   }
 }
