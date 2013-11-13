@@ -51,3 +51,6 @@ Chat.Chan = Em.Object.extend
   onMessageReceived: ->
     if Chat.Router.router.currentParams.chan_name isnt @name
       @set "newMessages", @newMessages + 1
+
+  clear: ->
+    @messages.clear()

@@ -68,7 +68,13 @@ Chat.ChanView = Chat.ContentView.extend
         commandArgs = message[1..message.length].split " "
         command = commandArgs[0]
         args = commandArgs[1..commandArgs.length]
-        Chat[command].apply Chat, args
+
+        chan = @get("controller.model")
+
+        if typeof chan[command] is 'function'
+          chan[command].apply chan, args
+        else
+          Chat[command].apply Chat, args
       else
         @get("controller.model").sendMessage message
 
