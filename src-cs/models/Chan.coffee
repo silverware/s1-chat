@@ -2,7 +2,7 @@ Chat.Chan = Em.Object.extend
 
   name: ""
   messages: []
-  usernames: []
+  users: []
   isAnonymous: false
   newMessages: 0
 
@@ -21,11 +21,15 @@ Chat.Chan = Em.Object.extend
         @addMessage name: message.username, text: message.text
         @onMessageReceived()
       when "part"
-        @usernames.removeObject message.username
+        @users.removeObject @getUser message.username
         @addMessage type: "part", name: message.username
       when "join"
-        @usernames.pushObject message.username
+        @users.pushObject Chat.User.create message.user
         @addMessage type: "join", name: message.username
+      when "typing"
+        @getUser(message.username).set "isTyping", true
+      when "stoppedtyping"
+        @getUser(message.username).set "isTyping", false
 
   sendTypingStatus: (status) ->
     Chat.sendMsg
@@ -51,6 +55,9 @@ Chat.Chan = Em.Object.extend
   onMessageReceived: ->
     if Chat.Router.router.currentParams.chan_name isnt @name
       @set "newMessages", @newMessages + 1
+
+  getUser: (username) ->
+    (@users.filter (u) -> u.name is username)[0]
 
   clear: ->
     @messages.clear()

@@ -9,8 +9,15 @@ Chat.ChanUsersView = Ember.View.extend
     </ul>
     <h5>participants</h5>
     <ul>
-      {{#each user in usernames}}
-       <li {{action showUserInfo user}}><img src="/ajax/user/{{unbound user}}/image" style="height: 35px" />&nbsp;&nbsp;{{user}}</li>
+      {{#each user in users}}
+       <li {{action showUserInfo user.name}}>
+        <img src="/ajax/user/{{unbound user.name}}/image" style="height: 35px" />
+        &nbsp;&nbsp;{{user.name}}
+        {{#if user.isTyping}}
+        <i style="float: right; padding-top: 12px" title="is typing"
+          class="icon-reply"></i>
+        {{/if}}
+      </li>
       {{/each}}
     </ul>
   """

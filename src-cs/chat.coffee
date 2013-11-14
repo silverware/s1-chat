@@ -113,7 +113,7 @@ App = Em.Application.extend
         chan = @Chan.create
           id: @maxId
           name: obj["chan-name"]
-          usernames: response.usernames
+          users: @User.createUsers response.users
           isAnonymous: response.anonymous
         @chans.pushObject chan
         @get("Router.router").transitionTo 'chan', chan.name
