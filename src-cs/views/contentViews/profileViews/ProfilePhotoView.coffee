@@ -12,7 +12,7 @@ Chat.ProfilePhotoView = Chat.ContentView.extend Chat.ValidationMixin,
         <label class="control-label">new image</label>
         <div class="controls">
           <button {{action openWebcamPopup target="view"}} type="button">webcam picture</button>
-          <button {{action openDiscUpload target="view"}} type="button">from platte</button>
+          <button {{action openDiscUpload target="view"}} type="button">upload from disk</button>
         </div>
 
        </div>
