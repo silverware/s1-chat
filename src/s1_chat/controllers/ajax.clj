@@ -41,8 +41,8 @@
   (if (every? clojure.string/blank? [year month day])
     true
     (try (create-birthdate year month day) true
-      (catch Exception e 
-        (.printStackTrace e) 
+      (catch Exception e
+        (.printStackTrace e)
         false))))
 
 (defn valid-userprofile? [{:keys [email birthdate-day birthdate-month birthdate-year]}]
@@ -51,7 +51,7 @@
   (not (vali/errors? :birthdate :email)))
 
 (defn add-birthdate [{:keys [birthdate-day birthdate-month birthdate-year] :as user}]
-  (assoc (dissoc user :birthdate-day :birthdate-month :birthdate-year) :birthdate 
+  (assoc (dissoc user :birthdate-day :birthdate-month :birthdate-year) :birthdate
            (if (every? clojure.string/blank? [birthdate-year birthdate-month birthdate-day])
              nil
              (create-birthdate birthdate-year birthdate-month birthdate-day))))
@@ -59,7 +59,7 @@
 (defn save-user-profile [user username]
   (let [response-map {:success false :fieldErrors nil :errors nil}]
     (if (valid-userprofile? user)
-      
+
       (if (mr/has-error? (mc/update "users" {:username username} {"$set" (add-birthdate user)} :upsert false))
         (response (assoc response-map :errors ["Error while updating the database."]))
         (response (assoc response-map :success true))
@@ -90,10 +90,14 @@
     (println x y wh)
     (println file-name)
     (gfs/remove {:filename file-name})
-    (gfs/store-file 
-      (gfs/make-input-file (as-stream (apply crop-from (get image :tempfile) (map read-string [x y wh wh])) "jpg")) 
+    (gfs/store-file
+      (gfs/make-input-file (as-stream (apply crop-from (get image :tempfile) (map read-string [x y wh wh])) "jpg"))
       (gfs/filename file-name))))
 
+; http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=true_or_false
+;
+(defn add-geolocation [username position]
+  (chat/append-attr username :geo position))
 
 (defn public-chans [] (response (map second (for [[k v] (select-keys @chat/chans (for [[k v] @chat/chans :when (not (:anonymous? @(:attr-map v)))] k))] [k (dissoc (assoc v :users (count @(:users v))) :channel :attr-map)] ))))
 
@@ -102,7 +106,7 @@
                   (GET "/ajax/chans" [] (public-chans))
                   (POST "/ajax/user/" [form ticket] (when (valid-ticket? ticket) (save-user-profile form (:username ticket))))
                   (POST "/ajax/user/password" [ticket form] (when (valid-ticket? ticket) (change-password form (:username ticket))))
-                  (POST "/ajax/user/geolocation" [ticket position] (when (valid-ticket? ticket) (chat/append-attr (:username ticket) :geo position)))
+                  (POST "/ajax/user/geolocation" [ticket position] (when (valid-ticket? ticket) (add-geolocation (:username ticket) position)))
                   (POST "/ajax/user/image" [username session-id image x y wh] (when (chat/valid-session-id? username session-id) (save-image username image [x y wh])))
                   (GET "/ajax/user/:username/image" [username] (user-image username))
                   ])
