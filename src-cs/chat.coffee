@@ -164,10 +164,4 @@ App = Em.Application.extend
 
 window.Chat = App.create()
 
-toggle = ->
-  setTimeout (->
-    $('body').toggleClass('contracted')
-    toggle()
-  ), (Math.floor((Math.random()*30000)) + 10000)
 
-toggle()
