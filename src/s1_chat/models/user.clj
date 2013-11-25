@@ -12,9 +12,12 @@
 (defn send-part [chan user]
   (enqueue (:channel chan) {:id 0 :type "part" :username (:name user) :chan-name (:name chan)}))
 
+(declare remove-user-from-chan)
 (defn logout-user [user] 
   (println "User " (:name user) " disconnected.")
-  (doseq [chan (keys @(:chans user))] (send-part chan user))
+  (doseq [chan (keys @(:chans user))] (do 
+                                        (send-part chan user)
+                                        (remove-user-from-chan user chan)))
   (dosync
     (alter connected-users dissoc (:name user))
     (dorun
