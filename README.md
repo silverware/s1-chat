@@ -1,12 +1,20 @@
 # s1-chat
 
-A website written in noir. 
+A chat written in Clojure (alpha).  
+Demo: http://leserveur2.no-ip.org:5151/  
+User: test  
+Password: test
+
+## Requirements
+* Clojure
+* CoffeeScript
+* Python 2.7
+
+
 
 ## Usage
-
-```bash
-lein deps
-lein ring server
+```
+cake dev
 ```
 
 

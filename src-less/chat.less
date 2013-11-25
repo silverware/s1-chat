@@ -28,7 +28,7 @@ Variables
 
 @contentPadding: 30px;
 @sidebarWidth: 220px;
-@contractedSidebarWidth: 50px;
+@contractedSidebarWidth: 60px;
 
 
 /* -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_
@@ -104,7 +104,7 @@ nav {
   .boxSizing;
   background-color: @grey;
   color: white;
-	position: absolute;
+	position: fixed;
 	padding: 20px 0 5px 5px;
 	transition: width 0.5s;
   box-shadow: -20px 0 20px -20px #000 inset;
@@ -230,7 +230,7 @@ Chan
 .content {
 	background-color: rgba(0, 0, 0, 0.05);
   overflow: auto;
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	top: 0;
 	right: 0;

@@ -3,22 +3,27 @@ Chat.ApplicationView = Em.View.extend
   defaultTemplate: Ember.Handlebars.compile """
     <nav class="nav-0">
       <ul>
-        {{#link-to 'index' tagName='li'}}<i class="icon-home"></i>Home{{/link-to}}
+        {{#link-to 'index' tagName='li'}}
+          <i class="icon-home"></i>
+          {{#if view.isExpanded}}Home{{/if}}
+        {{/link-to}}
       </ul>
 
       {{#if Chat.isAuthenticated}}
-        <h5>channels</h5>
+        <h5 {{bind-attr class="view.isExpanded::hide"}}>channels</h5>
         <ul>
           {{#each chan in Chat.chans}}
-            {{#link-to 'chan' chan.name tagName='li'}}<img src="/img/dummy.png" />
+            {{#link-to 'chan' chan.name tagName='li' data-original-title='ashdfl'}}<img src="/img/dummy.png" />
+              {{#if view.isExpanded}}
               {{chan.name}}{{#if chan.newMessages}}<span class="new-messages">{{chan.newMessages}}</span>{{/if}}
               <i {{action part target="chan"}} style="float: right; padding-top: 12px" title="leave chan" class="actions icon-reply"></i>
+              {{/if}}
             {{/link-to}}
           {{/each}}
         </ul>
 
         {{#if Chat.privateChannels}}
-        <h5>private channels</h5>
+        <h5 {{bind-attr class="view.isExpanded::hide"}}>private channels</h5>
         <ul>
           {{#each channel in Chat.privateChannels}}
             <li {{action "open" target="channel"}}><img src="/img/dummy.png" />
@@ -30,7 +35,7 @@ Chat.ApplicationView = Em.View.extend
         {{/if}}
 
         {{#if Chat.videoChats}}
-        <h5>video chats</h5>
+        <h5 {{bind-attr class="view.isExpanded::hide"}}>video chats</h5>
         <ul>
           {{#each video in Chat.videoChats}}
             {{#link-to 'video' video.username tagName='li'}}
@@ -44,17 +49,30 @@ Chat.ApplicationView = Em.View.extend
 
       <div class="bottom-nav">
         {{#if Chat.isAuthenticated}}
-          <h5>{{Chat.ticket.username}}</h5>
+          <h5 {{bind-attr class="view.isExpanded::hide"}}>{{Chat.ticket.username}}</h5>
           <ul>
             {{#unless Chat.isGuest}}
-              {{#link-to 'profile' tagName='li'}}<i class="icon-edit"></i>Edit Profile{{/link-to}}
+              {{#link-to 'profile' tagName='li'}}
+                <i class="icon-edit"></i>
+                {{#if view.isExpanded}}Edit Profile{{/if}}
+              {{/link-to}}
             {{/unless}}
-            <li {{action logout target="Chat"}}><i class="icon-edit"></i>Logout</li>
+            <li {{action logout target="Chat"}}>
+              <i class="icon-edit"></i>
+              {{#if view.isExpanded}}Logout{{/if}}
+            </li>
           </ul>
        {{else}}
          <ul>
-           {{#link-to 'login' tagName='li'}} <i class="icon-edit"></i>Login{{/link-to}}
-           {{#link-to 'signup' tagName='li'}} <i class="icon-edit"></i>Signup{{/link-to}}
+            {{#link-to 'login' tagName='li'}}
+              <i class="icon-edit"></i>
+                {{#if view.isExpanded}}Login{{/if}}
+            {{/link-to}}
+            {{#link-to 'signup' tagName='li'}}
+              <i class="icon-edit"></i>
+              {{#if view.isExpanded}}Signup{{/if}}
+            {{/link-to}}
+            <li {{action toggleExpansion target="view"}}>expand</li>
          </ul>
        {{/if}}
        </div>
@@ -72,3 +90,24 @@ Chat.ApplicationView = Em.View.extend
 
       {{outlet}}
     """
+
+  isExpanded: true
+
+  actions:
+    toggleExpansion: ->
+      @expand not @get("isExpanded")
+
+  expand: (expand) ->
+    links = @$('.nav-0 li')
+    if expand
+      $('body').removeClass('contracted')
+      links.tooltip('destroy')
+    else
+      $('body').addClass('contracted')
+      links.each (i, link) ->
+        $(link).tooltip
+          placement: 'right'
+          title: $(link).text()
+          animation: false
+    @set "isExpanded", expand
+
