@@ -52,7 +52,7 @@
                   (send-success ch id nil))
         "video"
           (let [receiver (get-user (:receiver msg))]
-            (send-success ch id nil)
+            ;(send-success ch id nil)
             (enqueue (:channel receiver) (assoc (dissoc msg :ticket) :username username)))
         "logout" (logout-user user)
         (println "default action do nothing")

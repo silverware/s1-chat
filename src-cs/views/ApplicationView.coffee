@@ -34,15 +34,13 @@ Chat.ApplicationView = Em.View.extend
         </ul>
         {{/if}}
 
-        {{#if Chat.videoChats}}
-        <h5 {{bind-attr class="view.isExpanded::hide"}}>video chats</h5>
+        {{#if Chat.videoChat}}
+        <h5 {{bind-attr class="view.isExpanded::hide"}}>video chat</h5>
         <ul>
-          {{#each video in Chat.videoChats}}
-            {{#link-to 'video' video.username tagName='li'}}
-              <img src="/img/dummy.png" />
-              {{video.username}}
-            {{/link-to}}
-          {{/each}}
+          {{#link-to 'video' Chat.videoChat.username tagName='li'}}
+            <img src="/img/dummy.png" />
+            {{Chat.videoChat.username}}
+          {{/link-to}}
         </ul>
         {{/if}}
       {{/if}}

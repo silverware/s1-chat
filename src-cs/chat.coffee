@@ -12,7 +12,7 @@ App = Em.Application.extend
   queryStreams: []
 
   # Video Chats
-  videoChats: []
+  videoChat: null
 
   # authentication
   authCallback: null
@@ -29,7 +29,6 @@ App = Em.Application.extend
     @_super()
     @set "chans", []
     @set "queryStreams", []
-    @set "videoChats", []
     @websocket = $.gracefulWebSocket "ws://#{window.location.hostname}:8008/"
     @websocket.onmessage = @onResponse.bind @
     $(window).unload => @onUnload()
@@ -88,7 +87,8 @@ App = Em.Application.extend
   video: (receiver) ->
     chat = @VideoChat.create
       username: receiver
-    @videoChats.pushObject chat
+      isCaller: true
+    @set "videoChat", chat
 
 
   sendMsg: (obj, noTicket) ->
@@ -120,7 +120,7 @@ App = Em.Application.extend
       when "query"
         @createQueryStream response.username, response.text, true
       when "video"
-        @createVideoChat response
+        @handleVideoChatRequest response
       when "success"
         @successCallbacks[response.id]()
       when "error"
@@ -140,6 +140,15 @@ App = Em.Application.extend
       @queryStreams.pushObject @QueryStream.create username: user
     stream.messages.pushObject @Message.create(name: author, text: text) for stream in @queryStreams when stream.username is user
 
+  handleVideoChatRequest: (response) ->
+    if not @videoChat
+      @set "videoChat", @VideoChat.create(username: response.username, isCaller: false)
+    if response.username is @videoChat.username
+      @videoChat.huhu response
+    else
+      console.debug "fuck u im busz"
+
+
   isAuthenticated: (->
     @get("ticket.session-id") isnt null
   ).property("ticket.session-id", "ticket.username")
@@ -149,7 +158,7 @@ App = Em.Application.extend
   ).property("queryStreams.@each")
 
   getVideoChat: (username) ->
-    (@videoChats.filter (chat) -> chat.username is username)[0]
+    @videoChat
 
   authCallback: ->
 
