@@ -7,4 +7,4 @@ Chat.User.reopenClass
     $.get('/ajax/user/' + username).done((user) -> callback user).error(-> callback {username: username, isGuest: true})
 
   createUsers: (users) ->
-    users.map (u) -> Chat.User.create u
+    users.map (user) -> Chat.User.create user

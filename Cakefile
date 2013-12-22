@@ -16,19 +16,12 @@ readDir = (src) ->
   allFiles
 
 watch = (folder, onChange) ->
-    console.log "Watching for changes in #{folder}"
-    allFiles = readDir folder
-    for file in allFiles then do (file) ->
-        fs.watchFile file, {persistent: true}, (curr, prev) ->
-          console.log "change in file"
-          onChange()
-
-###
-task 'build-cs', 'start watching coffeescript files', ->
-  child = exec 'coffee --watch -o resources/public/js src-cs', (err, stdout, stderr) ->
-    throw err if err
-  child.stdout.pipe process.stdout
-###
+  console.log "Watching for changes in #{folder}"
+  allFiles = readDir folder
+  for file in allFiles then do (file) ->
+    fs.watchFile file, {persistent: true}, (curr, prev) ->
+      console.log "change in file"
+      onChange()
 
 task 'build-less', 'start watching coffeescript files', ->
   lessFiles = readDir("src-less")
