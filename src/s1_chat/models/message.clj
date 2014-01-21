@@ -96,8 +96,8 @@
 (vali/defvalidator already-authed? "auth"
                    [msg]
                    (let [user (get-user (:username msg))]
-                     (when (and (vali/not-nil? user) (not (:guest? @(:attr-map user))))
-                       "Du Flasche bist schon authentifiziert")))
+                     (when (and (vali/not-nil? user) (not (:guest? msg)))
+                       {:fieldErrors [[:login-username "You are already logged in."]]})))
 ;; guest-validation
 (vali/defvalidator guest-username-empty? "auth"
                    [msg]
@@ -108,17 +108,11 @@
 (vali/defvalidator guest-username-taken? "auth"
                    [{:keys [username guest?]}]
                    (let [user (get-user username)]
-                     (when (or
-                             (vali/not-nil? user)
-                             (and
+                     (when (and
+                               (vali/not-nil? user)
                                (s1-chat.controllers.login/duplicate-username? username)
-                               guest?))
+                               guest?)
                        {:fieldErrors [[:guest-username "The username is already in use."]]})))
-
-
-
-
-
 
 ;; validator for video
 (vali/defvalidator self-video-call? "video"
