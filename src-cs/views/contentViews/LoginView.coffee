@@ -4,9 +4,9 @@ Chat.LoginView = Chat.ContentView.extend Chat.ValidationMixin,
     <div class="login-box">
     <h1>Login</h1>
     <ul id="login-tabs" class="nav nav-tabs">
-     <li class="active"> <a href="#guest-login-pane" data-toggle="tab">Guest</a></li>
-     <li> <a href="#login-pane" data-toggle="tab">Login</a></li>
-     <li> <a href="#register-pane" data-toggle="tab">Signup</a></li>
+      <li class="active"> <a href="#guest-login-pane" data-toggle="tab">Guest</a></li>
+      <li> <a href="#login-pane" data-toggle="tab">Login</a></li>
+      <li> <a href="#register-pane" data-toggle="tab">Signup</a></li>
     </ul>
     <div class="tab-content">
      <div class="tab-pane active" id="guest-login-pane">

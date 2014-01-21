@@ -52,9 +52,9 @@
 
 (defn add-birthdate [{:keys [birthdate-day birthdate-month birthdate-year] :as user}]
   (assoc (dissoc user :birthdate-day :birthdate-month :birthdate-year) :birthdate
-           (if (every? clojure.string/blank? [birthdate-year birthdate-month birthdate-day])
-             nil
-             (create-birthdate birthdate-year birthdate-month birthdate-day))))
+         (if (every? clojure.string/blank? [birthdate-year birthdate-month birthdate-day])
+           nil
+           (create-birthdate birthdate-year birthdate-month birthdate-day))))
 
 (defn save-user-profile [user username]
   (let [response-map {:success false :fieldErrors nil :errors nil}]
@@ -75,20 +75,16 @@
 
 (defn change-password [{:keys [password-old password1 password2] :as form} username]
   (let [response-map {:success false :fieldErrors nil :errors nil}]
-      (if (valid-password-form? form username)
-        (if (mr/has-error? (mc/update "users" {:username username} {"$set" {:password (lc/hash-password password1)}} :upsert false))
-          (response (assoc response-map :errors ["Error while updating the database."]))
-          (response (assoc response-map :success true))
-          )
-        (response (assoc response-map :fieldErrors (json-errors :password1 :password-old)))
-        )))
+    (if (valid-password-form? form username)
+      (if (mr/has-error? (mc/update "users" {:username username} {"$set" {:password (lc/hash-password password1)}} :upsert false))
+        (response (assoc response-map :errors ["Error while updating the database."]))
+        (response (assoc response-map :success true))
+        )
+      (response (assoc response-map :fieldErrors (json-errors :password1 :password-old)))
+      )))
 
 (defn save-image [username image [x y wh]]
   (let [file-name (str "image/" username)]
-    (println (get image :tempfile))
-    (println image)
-    (println x y wh)
-    (println file-name)
     (gfs/remove {:filename file-name})
     (gfs/store-file
       (gfs/make-input-file (as-stream (apply crop-from (get image :tempfile) (map read-string [x y wh wh])) "jpg"))
