@@ -26,34 +26,6 @@
                              [credentials :as creds])))
 
 
-;;;;;;;;;;;;;;;;;;;;;
-;; FACEBOOK OAUTH  ;;
-;;;;;;;;;;;;;;;;;;;;;
-
-; (defn access-token-parsefn
-;   [response]
-;   ((clojure.walk/keywordize-keys
-;      (ring.util.codec/form-decode
-;        (response :body))) :access_token))
-;
-; (def config-auth {:roles #{::user}})
-;
-; (def client-config
-;   {:client-id "559686530710205"
-;    :client-secret "2e2035bd9e17f07c7398e85807dbb7ce"
-;    :callback {:domain "http://localhost:3000" :path "/facebookcallback"}})
-;
-; (def uri-config
-;   {:authentication-uri {:url "https://www.facebook.com/dialog/oauth"
-;                         :query {:client_id (:client-id client-config)
-;                                 :redirect_uri (oauth2/format-config-uri client-config)}}
-;
-;    :access-token-uri {:url "https://graph.facebook.com/oauth/access_token"
-;                       :query {:client_id (:client-id client-config)
-;                               :client_secret (:client-secret client-config)
-;                               :redirect_uri (oauth2/format-config-uri client-config)
-;                               :code ""}}})
-;
 
 (def app-routes
   (concat
@@ -61,9 +33,7 @@
     chan-controller/chan-routes
     ajax-controller/ajax-routes
     [
-     ;; (GET "/facebookcallback" [] (do
-     ;;                                   (println "huhu")
-     ;;                                   (str "huhu")))
+     
 
      (GET "/authlink" [] (friend/authorize #{::user} ("Authorized page.")))
 
